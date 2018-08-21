@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import 'index.css';
+import registerServiceWorker from 'registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BrowserRouter } from 'react-router-dom'
+import App from 'boot';
+
+ReactDOM.render(
+	<BrowserRouter basename="modelo-react">
+		<App/>
+	</BrowserRouter>
+	, document.getElementById('root')
+);
 registerServiceWorker();
