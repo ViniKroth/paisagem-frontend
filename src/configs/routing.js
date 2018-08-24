@@ -11,6 +11,7 @@ import BlankPage from 'views/BlankPage'
 import UserEditPage from 'views/UserPages/CreateUpdate'
 import UserDetailsPage from 'views/UserPages/Details'
 import UserListPage from 'views/UserPages/List'
+import RegisterPage from '../views/RegisterPage/index'
 
 export default () => {
 	return (
@@ -19,6 +20,7 @@ export default () => {
 				<Route exact path='/' component={HomePage}/>
 				<Route path='/login' component={LoginPage}/>
 				<Route path='/protected' component={Page}/>
+				<Route path='/Register' component={RegisterPage}/>
 
 				{/* User Container */}
 				<Route path='/users/list' component={UserListPage}/>
