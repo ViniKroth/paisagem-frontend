@@ -1,24 +1,33 @@
-import React from 'react'
-import Page from 'views/Page';
-import UserForm from 'components/UserForm'
+import React from "react";
+import Page from "views/Page";
+import UserForm from "components/UserForm";
 
 class EditUserPage extends Page {
-	
-	authenticated = () => {
-        return (
-            <div>
-				<UserForm/>
-			</div>
-        )
-    }
+  componentDidMount = () => {
+    this.setState(() => {
+      return {
+        render: this.isAuthenticated()
+          ? this.authenticated()
+          : this.unauthenticated()
+      };
+    });
+  };
 
-    unauthenticated = () => {
-        return (
-            <div className="container">
-                <p>Você precisa estar logado para cadastrar usuários!</p>
-            </div>
-        )
-    }
+  authenticated = () => {
+    return (
+      <div>
+        <UserForm />
+      </div>
+    );
+  };
+
+  unauthenticated = () => {
+    return (
+      <div className="container">
+        <p>Você precisa estar logado para cadastrar usuários!</p>
+      </div>
+    );
+  };
 }
 
-export default EditUserPage 
+export default EditUserPage;
