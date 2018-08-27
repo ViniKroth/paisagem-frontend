@@ -6,6 +6,7 @@ import LoginPage from 'views/LoginPage'
 import HomePage from 'views/HomePage'
 import Page from 'views/Page'
 import BlankPage from 'views/BlankPage'
+import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js'
 
 // Users
 import UserEditPage from 'views/UserPages/CreateUpdate'
