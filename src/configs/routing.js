@@ -6,6 +6,7 @@ import LoginPage from 'views/LoginPage'
 import HomePage from 'views/HomePage'
 import Page from 'views/Page'
 import BlankPage from 'views/BlankPage'
+import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js'
 
 // Users
 import UserEditPage from 'views/UserPages/CreateUpdate'
@@ -27,6 +28,7 @@ export default () => {
 				<Route path='/users/details/:id' component={UserDetailsPage}/>
 				<Route path='/users/edit' component={UserEditPage}/>
 				<Route path='/users/edit/:id' component={UserEditPage}/>
+				<Route path='/cadastroEspecie' component={CadastroEspecie}/>
 				{/* End of User Container */}
 
 				{/* 404 - Page not Found */}
