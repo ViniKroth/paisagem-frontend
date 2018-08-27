@@ -1,6 +1,7 @@
 import React from "react";
 import "./ImageComponentStyle.css";
 import { withRouter } from "react-router-dom";
+import Button from '@material-ui/core/Button'
 
 
 // Biblioteca de Componentes
@@ -18,9 +19,18 @@ class ImageComponent extends React.Component {
     _handleSubmit(e) {
         e.preventDefault();
         //Aqui vai ser feito o upload para a api e depois inserido no banco
-        this.state.imageUpload.push(this.state.file);
-        console.log(this.state.imageUpload)
-        console.log('UPLOAD', this.state.file);
+
+        //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
+        // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
+
+        var imageUploadAtual = this.state.imageUpload //Pega o status atual
+        imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
+
+        this.setState({ imageUpload: imageUploadAtual }, () => {
+            //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
+            console.log(this.state.imageUpload)
+            console.log('UPLOAD', this.state.file);
+        });
     }
 
     _handleImageChange(e) {
@@ -55,9 +65,9 @@ class ImageComponent extends React.Component {
                     <input className="fileInput"
                         type="file"
                         onChange={(e) => this._handleImageChange(e)} />
-                    <button className="submitButton"
-                        type="submit"
-                        onClick={(e) => this._handleSubmit(e)}>Upload Image</button>
+                    <Button id="submitBtn" 
+                        variant="contained" color="primary" className="btn"
+                        onClick={(e) => this._handleSubmit(e)}>ENVIAR</Button>
                     <div className="imgPreview" align="center">
                         {imagePreview}
 
