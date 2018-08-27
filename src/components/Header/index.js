@@ -58,6 +58,7 @@ class Header extends React.Component {
   renderLogin = () => {
     return (
       <Button
+        color="inherit"
         id="loginBtn" // Colocar ids diferentes para os automatores de software poderem encontrar esse elemento da pagina. Agradecimentos Pasquinha
         onClick={() => {
           this.redirect("/login");
