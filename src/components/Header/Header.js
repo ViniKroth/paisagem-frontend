@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 // import {show_stringify} from 'helpers/json'
 
 // Serviços
-import { validToken, logout } from "services/auth";
+import { validToken, logout } from "services/auth/auth";
 
 // Biblioteca de Componentes
 import AppBar from "@material-ui/core/AppBar";
@@ -85,18 +85,17 @@ class Header extends React.Component {
   };
 
   renderHeaderButtons = async () => {
-    this.setState({ render: this.renderLogout() });
-    // try {
-    //   const isAuthenticated = await validToken();
+    try {
+      const isAuthenticated = await validToken();
 
-    //   if (!isAuthenticated) {
-    //     await this.setState({ render: this.renderLogin() });
-    //   } else {
-    //     await this.setState({ render: this.renderLogout() });
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      if (!isAuthenticated) {
+        await this.setState({ render: this.renderLogin() });
+      } else {
+        await this.setState({ render: this.renderLogout() });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
@@ -115,9 +114,8 @@ class Header extends React.Component {
                 <MenuIcon />
               </IconButton>
               <img
-                className={classes.menuButton}
+                className={classes.menuButton + " App-logo"}
                 src={logo}
-                className="App-logo"
                 alt="logo"
                 onClick={() => {
                   this.redirect("/");

@@ -1,7 +1,7 @@
 import React from "react";
-import Page from "views/Page";
+import Page from "views/Page/Page";
 
-class UserListPage extends Page {
+class UserDetailsPage extends Page {
   componentDidMount = () => {
     this.setState(() => {
       return {
@@ -13,16 +13,16 @@ class UserListPage extends Page {
   };
 
   authenticated = () => {
-    return <div>Dados dos usuários em tabela...</div>;
+    return <div>Dados do usuário...</div>;
   };
 
   unauthenticated = () => {
     return (
       <div className="container">
-        <p>Você precisa estar logado para visualizar a lista de usuários!</p>
+        <p>Você precisa estar logado para visualizar um usuário!</p>
       </div>
     );
   };
 }
 
-export default UserListPage;
+export default UserDetailsPage;

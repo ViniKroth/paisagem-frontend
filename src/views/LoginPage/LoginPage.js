@@ -1,8 +1,8 @@
 import React from "react";
-import Page from "views/Page";
-import UserForm from "components/UserForm";
+import Page from "views/Page/Page";
+import LoginForm from "components/LoginForm/LoginForm";
 
-class EditUserPage extends Page {
+class LoginPage extends Page {
   componentDidMount = () => {
     this.setState(() => {
       return {
@@ -14,20 +14,22 @@ class EditUserPage extends Page {
   };
 
   authenticated = () => {
+    this.showHeader();
     return (
-      <div>
-        <UserForm />
+      <div className="container">
+        <p>Você já está logado!</p>
       </div>
     );
   };
 
   unauthenticated = () => {
+    this.hideHeader();
     return (
-      <div className="container">
-        <p>Você precisa estar logado para cadastrar usuários!</p>
+      <div>
+        <LoginForm />
       </div>
     );
   };
 }
 
-export default EditUserPage;
+export default LoginPage;
