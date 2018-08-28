@@ -1,10 +1,10 @@
 import React from "react";
 import "./styles.css";
 
-import { validToken } from "services/auth/";
+import { validToken } from "services/auth/auth";
 
 // Internal Components
-import Header from "components/Header";
+import Header from "components/Header/Header";
 
 class Page extends React.Component {
   constructor(props) {
