@@ -5,12 +5,12 @@ import { withRouter } from "react-router-dom";
 // Biblioteca de Componentes
 
 // Views
-import Page from "views/Page";
+import Page from "views/Page/Page";
 import { Button, Menu, MenuItem, IconButton } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // Serviços
-import { listAll } from "services/user";
+import { listAll } from "services/user/user";
 
 class HomePage extends Page {
   // Uma das varias maneiras de proteger uma rota é criar uma Rota protegida e usa-la com herança. Ver ProtectedPage para entender a lógica

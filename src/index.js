@@ -9,7 +9,7 @@ import "index.css";
 
 // Route Imports
 import { BrowserRouter } from "react-router-dom";
-import App from "boot";
+import App from "boot/App";
 
 // Theme Imports
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
