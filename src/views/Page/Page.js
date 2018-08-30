@@ -13,7 +13,7 @@ class Page extends React.Component {
       render: undefined,
       headerVisible: true // por padrão mostra o header nas páginas
     };
-    this.renderAuthentication();
+    //this.renderAuthentication();
   }
 
   /*
