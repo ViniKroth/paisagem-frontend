@@ -5,42 +5,25 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button'
+
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
-    }, 
-    paper: {
-      ...theme.mixins.gutters(),
-      paddingTop: theme.spacing.unit*3,
-      paddingBottom: theme.spacing.unit*3,
-      marginLeft: theme.spacing.unit*3,
-      marginRight: theme.spacing.unit*3,
-    },
-    titulo: {
-      textAlign: 'center',
-    },
-    root: {
-      flexGrow: 1,
-    },
-    
-    
-  });
-  
+  button: {
+    marginTop: theme.spacing.unit * 5,
+    marginLeft: theme.spacing.unit * 30,
+    marginRight: 0,
+  },
+});
   const origem = [
     
     {
-      value: 'nativa',
+      value: 'n',
       label: 'Nativa',
     },
     {
-      value: 'exotica',
+      value: 'e',
       label: 'Exótica',
     },
   ];
@@ -72,6 +55,7 @@ class DadosBasicosForm extends React.Component{
   }
 
   render() {
+    const { classes} = this.props;
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -108,13 +92,11 @@ class DadosBasicosForm extends React.Component{
             label="Origem"
             fullWidth
             onChange={this.props.onChangeOrigem}
-            SelectProps={{
-                    native: true,
-                    }}
-                    helperText="Selecione a Origem da espécie"
-                    margin="normal"
-                    >
-                    {origem.map(option => (
+            SelectProps={{native: true,}}
+            helperText="Selecione a Origem da espécie"
+            margin="normal"
+            >
+            {origem.map(option => (
                       <option key={option.value} value={option.value}>
                       {option.label}
                       </option>
@@ -158,7 +140,9 @@ class DadosBasicosForm extends React.Component{
             <TextField   id="diametroCopa" name="diametroCopa" label="Diâmetro Copa" fullWidth />
           </Grid>
         </Grid>
-        <button>Next</button>
+        <Grid item xs={6} >
+        <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className={classes.button}>PROXIMO</Button>
+        </Grid>
         </form>
       </React.Fragment>
     );
@@ -168,5 +152,5 @@ class DadosBasicosForm extends React.Component{
 
 
 
-export default DadosBasicosForm;
+export default withStyles(styles)(DadosBasicosForm);
 

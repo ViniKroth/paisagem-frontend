@@ -1,5 +1,5 @@
 import React from "react";
-import "./ImageComponentStyle.css";
+//import "./ImageComponentStyle.css";
 import { withRouter } from "react-router-dom";
 import Button from '@material-ui/core/Button'
 

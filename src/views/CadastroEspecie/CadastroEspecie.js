@@ -12,11 +12,10 @@ import Page from "views/Page/Page.js";
 
 import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js"
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js"
+import ImageForm from "components/CadastroEspecie/ImageForm.js"
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
+  
   layout: {
     width: 'auto',
     marginLeft: theme.spacing.unit * 2,
@@ -30,7 +29,7 @@ const styles = theme => ({
   paper: {
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit *2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 3,
       marginBottom: theme.spacing.unit * 3,
@@ -51,16 +50,14 @@ const styles = theme => ({
   },
 });
 
-const steps = ['Dados básicos', 'Potencial', 'Imagens'];
-
+const steps = ['Dados', 'Potencial', 'Imagens'];
 
 class CadastroEspecie extends Page {
+  
   constructor() {
     super();
     this.state = {
       step: 0,
-      //nomeCientifico: "",
-      //familia: "",
     };
     this.goToNext = this.goToNext.bind(this);
   }
@@ -83,9 +80,18 @@ class CadastroEspecie extends Page {
         return <PotenciaisForm
           key="Potenciais"
           onSubmit={this.goToNext}
+          onChangenomeCientifico={this.handleChange('nomeCientifico')}
+          onChangePotencialArq={this.handleChange('potencialarq')}
+          onChangePotencialPaisag={this.handleChange('potencialpaisag')}
         />
       case 2:
-        return ;
+        return <ImageForm
+        key="ImgUpLoad"
+        onSubmit={this.goToNext}
+      />;
+      case 3:
+        {console.log(this.state)}
+  
     }
   }
 
@@ -109,15 +115,15 @@ class CadastroEspecie extends Page {
     return (evt) => this.setState({ [campo]: evt.target.value });
   }
   render() {
-    
+    const { classes } = this.props;
 
           return(
-       
-          <Paper className="paper">
+          <main className={classes.layout}> 
+          <Paper className={classes.paper}>
             <Typography variant="display1" align="center">
               Cadastro de Espécie
             </Typography>
-            <Stepper activeStep={this.state.step} className="stepper">
+            <Stepper activeStep={this.state.step} className={classes.stepper}>
               {steps.map(label => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
@@ -126,6 +132,7 @@ class CadastroEspecie extends Page {
             </Stepper>
               {this.getStep(this.state.step)}  
           </Paper>
+          </main>
        
       );
 
@@ -133,12 +140,6 @@ class CadastroEspecie extends Page {
 
     }
   }
-
-
-
-
-
-
 
 CadastroEspecie.propTypes = {
   classes: PropTypes.object.isRequired,
