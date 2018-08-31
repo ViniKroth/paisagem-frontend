@@ -56,6 +56,10 @@ class ImageForm extends React.Component{
         this.props.onSubmit();
       }
     
+      handleBack(evt) {
+        evt.preventDefault();
+        this.props.onBack();
+      }
       render() {
         
         return (
@@ -64,13 +68,21 @@ class ImageForm extends React.Component{
               Imagens
             </Typography>
             <form onSubmit={this.handleSubmit}>
-            <Grid container spacing={24}>
-            <ImageComponent/>
-            </Grid>
-            <Grid item xs={6} sm={6} >
-            <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className="button">SAlVAR</Button>
+              <Grid container spacing={24}>
+                <Grid item xs={6} >
+                <React.Fragment>
+                    <ImageComponent/>
+                </React.Fragment>
+                </Grid>
+              </Grid>
+              <Grid item xs={6} >
+                <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className="button">SAlVAR</Button>
 
-            </Grid>
+              </Grid>
+              <Grid item xs={6} >
+                <Button id="back" onClick={(e) => this.handleBack(e)} variant="contained" color="" className="button">VOLTAR</Button>
+              </Grid>
+
             </form>
           </React.Fragment>
         );

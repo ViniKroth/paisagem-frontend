@@ -17,7 +17,10 @@ const styles = theme => ({
   },
 });
   const origem = [
-    
+    {
+      value: '',
+      label: 'Selecione a Origem da espécie',
+    },
     {
       value: 'n',
       label: 'Nativa',
@@ -29,7 +32,10 @@ const styles = theme => ({
   ];
 
   const folhagem = [
-    
+    {
+      value: '',
+      label: 'Selecione o tipo de folhagem',
+    },
     {
       value: 'c',
       label: 'Caduca',
@@ -39,7 +45,21 @@ const styles = theme => ({
       label: 'Perene',
     },
   ];
-
+  const familia = [
+    {
+      value: '',
+      label: 'Selecione uma família',
+    },
+    {
+      value: 'Acanthaceae‎',
+      label: 'Acanthaceae‎',
+    },
+    {
+      value: 'Blandfordiaceae‎',
+      label: 'Blandfordiaceae‎',
+    },
+  ];
+ 
   
 
 
@@ -65,38 +85,41 @@ class DadosBasicosForm extends React.Component{
         <Grid container spacing={24}>
           <Grid item xs={6} >
             <TextField
-              
               id="nomeCientifico"
               name="nomeCientifico"
               label="Nome Científico"
-              
               onChange={this.props.onChangenomeCientifico}
               fullWidth
                 />
           </Grid>
           <Grid item xs={6} >
-          <TextField
-              id="Familia"
-              label="Família"
-              margin="normal"
-              onChange={this.props.onChangeFamilia}
-              fullWidth
-              
-          />
-          </Grid>
+                        
+            <TextField
+                id="Familia"
+                select
+                fullWidth
+                onChange={this.props.onChangeFamilia}
+                SelectProps={{native: true,}}
+                margin="normal"
+              >
+                {familia.map(option => (
+                      <option key={option.value} value={option.value}>
+                      {option.label}
+                      </option>
+                    ))}
+              </TextField>
           
+          </Grid>
           <Grid item xs={6}>
-          <TextField
-            id="origem"
-            select
-            label="Origem"
-            fullWidth
-            onChange={this.props.onChangeOrigem}
-            SelectProps={{native: true,}}
-            helperText="Selecione a Origem da espécie"
-            margin="normal"
-            >
-            {origem.map(option => (
+            <TextField
+                id="origem"
+                select
+                fullWidth
+                onChange={this.props.onChangeOrigem}
+                SelectProps={{native: true,}}
+                margin="normal"
+              >
+                {origem.map(option => (
                       <option key={option.value} value={option.value}>
                       {option.label}
                       </option>
@@ -105,43 +128,37 @@ class DadosBasicosForm extends React.Component{
           </Grid>
 
           <Grid item xs={6}>
-          <TextField
-        id="folhagem"
-        select
-        label="Folhagem"
-        onChange={this.props.onChangeFolhagem}
-        fullWidth
-        
-        SelectProps={{
-                native: true,
-                }}
-                helperText="Selecione o tipo de folhagem"
-                margin="normal"
-                >
-                {folhagem.map(option => (
-                  <option key={option.value} value={option.value}>
-                  {option.label}
-                  </option>
-                ))}
-              </TextField>
+              <TextField
+                  id="folhagem"
+                  select
+                  onChange={this.props.onChangeFolhagem}
+                  fullWidth
+                  SelectProps={{native: true,}}
+                          margin="normal"
+              >
+                  {folhagem.map(option => (
+                      <option key={option.value} value={option.value}>
+                         {option.label}
+                      </option>
+                        ))}
+                  </TextField>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-             
-              id="altura"
-              name="altura"
-              label="Altura (metros)"
-              onChange={this.props.onChangeAtura}
-              fullWidth
-            />
+              <TextField
+                id="altura"
+                name="altura"
+                label="Altura (metros)"
+                onChange={this.props.onChangeAtura}
+                fullWidth
+              />
           </Grid>
           <Grid item xs={6} >
-            <TextField   id="diametroCopa" name="diametroCopa" label="Diâmetro Copa" fullWidth />
+             <TextField   id="diametroCopa" name="diametroCopa" label="Diâmetro Copa" fullWidth />
           </Grid>
         </Grid>
         <Grid item xs={6} >
-        <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className={classes.button}>PROXIMO</Button>
+           <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className={classes.button}>PROXIMO</Button>
         </Grid>
         </form>
       </React.Fragment>

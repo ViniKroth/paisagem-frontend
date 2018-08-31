@@ -24,47 +24,49 @@ class PotenciaisForm extends React.Component{
         evt.preventDefault();
         this.props.onSubmit();
       }
-    
+      handleBack(evt) {
+        evt.preventDefault();
+        this.props.onBack();
+      }
       render() {
         const { classes} = this.props;
         return (
             
           <React.Fragment>
             <Typography variant="title" gutterBottom>
-              Dados Básicos
+              Potenciais
             </Typography>
             <form onSubmit={this.handleSubmit}>
             <Grid container spacing={24}>
-              <Grid item xs={12} >
-                <TextField
-                  
-                  id="potencialArq"
-                  name="potencialArq"
-                  label="Potencial Arquitetônico"
-                  helperText="Descreva o potencial arquitetônico desta espécie"
-                  onChange={this.props.onChangePotencialArq}
-                  fullWidth
+                <Grid item xs={12} >
+                    <TextField
+                        id="potencialArq"
+                        name="potencialArq"
+                        label="Potencial Arquitetônico"
+                        helperText="Descreva o potencial arquitetônico desta espécie"
+                        onChange={this.props.onChangePotencialArq}
+                        fullWidth
                     />
               </Grid>
-              <Grid item xs={12} >
-             
+                <Grid item xs={12} >
                    <TextField
-                   
-                   id="potencialPaisag"
-                   name="potencialPaisag"
-                   label="Potencial Paisagístico"
-                   helperText="Descreva o potencial paisagístico desta espécie"
-                   onChange={this.props.onChangePotencialPaisag}
-                   fullWidth
+                        id="potencialPaisag"
+                        name="potencialPaisag"
+                        label="Potencial Paisagístico"
+                        helperText="Descreva o potencial paisagístico desta espécie"
+                        onChange={this.props.onChangePotencialPaisag}
+                        fullWidth
                      />
                   
               
               </Grid>
             </Grid>
-            <Grid item xs={6} sm={6} >
-            <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className={classes.button}>PROXIMO</Button>
-
-            </Grid>
+                <Grid item xs={6} >
+                    <Button id="next" onClick={(e) => this.handleSubmit(e)} variant="contained" color="primary" className={classes.button}>PROXIMO</Button>
+                </Grid>
+                <Grid item xs={6} >
+                    <Button id="back" onClick={(e) => this.handleBack(e)} variant="contained" color="" className="button">VOLTAR</Button>
+                </Grid>
             </form>
           </React.Fragment>
         );

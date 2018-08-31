@@ -60,6 +60,7 @@ class CadastroEspecie extends Page {
       step: 0,
     };
     this.goToNext = this.goToNext.bind(this);
+    this.goToBack = this.goToBack.bind(this);
   }
 
   getStep(step){
@@ -80,6 +81,7 @@ class CadastroEspecie extends Page {
         return <PotenciaisForm
           key="Potenciais"
           onSubmit={this.goToNext}
+          onBack={this.goToBack}
           onChangenomeCientifico={this.handleChange('nomeCientifico')}
           onChangePotencialArq={this.handleChange('potencialarq')}
           onChangePotencialPaisag={this.handleChange('potencialpaisag')}
@@ -87,6 +89,7 @@ class CadastroEspecie extends Page {
       case 2:
         return <ImageForm
         key="ImgUpLoad"
+        onBack={this.goToBack}
         onSubmit={this.goToNext}
       />;
       case 3:
@@ -97,18 +100,23 @@ class CadastroEspecie extends Page {
 
   goToNext() {
     const { step } = this.state;
-    if (step !== 3) {
+    if (step !== 2) {
       this.setState({ step: step + 1 });
     } else {
-      alert('Submitting');
+      alert('');
       
       const values = {
         //nomeCientifico: this.state.nomeCientifico,
         //familia: this.state.familia,
-        
       };
       console.log(this.state) ;
     }
+  };
+  goToBack() {
+    const { step } = this.state;
+    if (step !== 0) {
+      this.setState({ step: step - 1 });
+    } 
   };
 
   handleChange(campo) {
