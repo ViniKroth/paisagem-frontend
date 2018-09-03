@@ -6,8 +6,17 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 
 import withStyles from "@material-ui/core/styles/withStyles";
+
+
 
 const styles = theme => ({
   button: {
@@ -58,11 +67,32 @@ const familia = [
   }
 ];
 
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
 class DadosBasicosForm extends React.Component {
   constructor() {
     super();
+    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  state = {
+    outono: true,
+    primavera: false,
+    verao: false,
+    inverno: false,
+  };
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -71,6 +101,7 @@ class DadosBasicosForm extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { outono, verao, primavera, inverno } = this.state;
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -128,29 +159,47 @@ class DadosBasicosForm extends React.Component {
                 fullWidth
                 SelectProps={{ native: true }}
                 margin="normal"
-              >
+             >
                 {folhagem.map(option => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
                 ))}
               </TextField>
+            </Grid><FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox checked={outono}  value="gilad" />
+              }
+              label="Gilad Gray"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={verao}  value="jason" />
+              }
+              label="Jason Killian"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={inverno}
+                  
+                  value="antoine"
+                />
+              }
+              label="Antoine Llorca"
+            />
+          </FormGroup>
+            <Grid item xs={6}>
+            
             </Grid>
 
             <Grid item xs={6}>
               <TextField
                 id="altura"
                 name="altura"
-                label="Altura (metros)"
-                onChange={this.props.onChangeAtura}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="diametroCopa"
-                name="diametroCopa"
-                label="Diâmetro Copa"
+                label="Porte (metros)"
+                onChange={this.props.onChangeAltura}
                 fullWidth
               />
             </Grid>

@@ -78,7 +78,7 @@ class CadastroEspecie extends Page {
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
             onChangeOrigem={this.handleChange("origem")}
-            onChangeAtura={this.handleChange("altura")}
+            onChangeAltura={this.handleChange("altura")}
           />
         );
       case 1:

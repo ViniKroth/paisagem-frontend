@@ -28,8 +28,7 @@ class ImageComponent extends React.Component {
         this.state = {
             file: '',
             imagePreviewUrl: '',
-            imageUpload: [],
-            renderList: [],
+            imageUpload: []
         };
     }
     //Função acionada quando clicado no upload
@@ -73,6 +72,15 @@ class ImageComponent extends React.Component {
     _handleDelete(row) {
         var i = row.rowIndex;
         document.getElementById('imgTable').deleteRow(i);
+        
+        for(var j=0; j< this.state.imageUpload.length;j++){
+            if(this.state.imageUpload[j]===row.state.file){
+                var list = this.state.imageUpload.splice(j, 1);
+                this.setState({ imageUpload : list })
+                console.log('AQUI',this.state.imageUpload)
+            }
+        }
+        
     }
     //NOTAS PARA FAZER: renderizar Lista de Imagens para Upload
     render() {
@@ -142,5 +150,6 @@ class ImageComponent extends React.Component {
         )
     }
 }
+
 
 export default withStyles(styles)(ImageComponent);
