@@ -66,7 +66,7 @@ class ImageForm extends React.Component {
             <Grid item xs={6}>
               <React.Fragment>
                 <ImageComponent />
-              </React.Fragment>
+             </React.Fragment>
             </Grid>
           </Grid>
           <Grid container spacing={24}>
