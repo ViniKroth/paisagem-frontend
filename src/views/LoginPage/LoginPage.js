@@ -4,13 +4,7 @@ import LoginForm from "components/LoginForm/LoginForm";
 
 class LoginPage extends Page {
   componentDidMount = () => {
-    this.setState(() => {
-      return {
-        render: this.isAuthenticated()
-          ? this.authenticated()
-          : this.unauthenticated()
-      };
-    });
+    this.setState({ render: this.unauthenticated() });
   };
 
   authenticated = () => {

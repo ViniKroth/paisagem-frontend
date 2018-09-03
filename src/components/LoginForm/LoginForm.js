@@ -1,6 +1,6 @@
 import React from "react";
-import "./styles.css";
-
+//import "./styles.css";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
@@ -9,6 +9,16 @@ import TextField from "@material-ui/core/TextField";
 import { login } from "services/auth/auth";
 
 import { withRouter } from "react-router-dom";
+
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -53,12 +63,14 @@ class LoginForm extends React.Component {
 
   render() {
     const { username, password, isLoading, errors } = this.state;
+    const { classes } = this.props;
 
     return (
       <div className="container">
         <form onSubmit={this.onSubmit}>
           <h1>Login</h1>
           <TextField
+            id="username"
             className="input"
             name="username"
             label="Usuário"
@@ -68,6 +80,7 @@ class LoginForm extends React.Component {
           />
           <br />
           <TextField
+            id="senha"
             className="input"
             name="password"
             label="Senha"
@@ -77,9 +90,10 @@ class LoginForm extends React.Component {
             type="password"
           />
           <br />
-          <Button className="submitBtn" type="submit" disabled={isLoading}>
-            Autenticar-se
-          </Button>
+          <Button variant="contained" color="primary" >
+        Primary
+      </Button>
+          
         </form>
         {/* {show_stringify(this.state)} */}
       </div>

@@ -42,6 +42,7 @@ class Page extends React.Component {
   }
 
   isAuthenticated = async () => {
+    return false;
     try {
       const isAuthenticated = await validToken();
       if (isAuthenticated) {
