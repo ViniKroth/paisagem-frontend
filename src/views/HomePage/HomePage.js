@@ -125,21 +125,32 @@ class HomePage extends Page {
 
   unauthenticated = () => {
     return (
-      <div className="container">
-        <p>
-          <a onClick={() => this.redirect("/login")} className="clickable">
-            Logue-se
-          </a>{" "}
-          para acessar a Home Page!
-        </p>
-        <p>
-          Tenta entrar nessa rota:{" "}
-          <a onClick={() => this.redirect("/protected")} className="clickable">
-            Protegida
-          </a>{" "}
-          aqui! Logado e depois deslogado pra ver o que acontece.
-        </p>
+      <div style={{
+        paddingTop:"100px"
+      }}>
+        <Button variant="contained" 
+        size="large"
+        color="secondary" 
+        onClick={() => this.redirect("/login")} 
+        className="clickable">
+         login
+        </Button >
       </div>
+      // <div className="container">
+      //   <p>
+      //     <a onClick={() => this.redirect("/login")} className="clickable">
+      //       Logue-se
+      //     </a>{" "}
+      //     para acessar a Home Page!
+      //   </p>
+      //   <p>
+      //     Tenta entrar nessa rota:{" "}
+      //     <a onClick={() => this.redirect("/protected")} className="clickable">
+      //       Protegida
+      //     </a>{" "}
+      //     aqui! Logado e depois deslogado pra ver o que acontece.
+      //   </p>
+      // </div>
     );
   };
 }
