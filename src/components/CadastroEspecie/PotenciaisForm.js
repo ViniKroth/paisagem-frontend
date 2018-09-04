@@ -54,6 +54,16 @@ class PotenciaisForm extends React.Component {
                 fullWidth
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="descricao"
+                name="descricao"
+                label="Descrição geral da espécie"
+                helperText="Forneça uma breve descrição geral da  espécie"
+                onChange={this.props.onChangeDescricao}
+                fullWidth
+              />
+            </Grid>
           </Grid>
           <Grid container spaing={24}>
             <Grid item xs={6}>

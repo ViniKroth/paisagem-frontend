@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-
+import FormLabel from '@material-ui/core/FormLabel';
 import withStyles from "@material-ui/core/styles/withStyles";
 
 
@@ -26,7 +26,7 @@ const styles = theme => ({
 const origem = [
   {
     value: "",
-    label: "Selecione a Origem da espécie"
+    label: "Origem da Espécie"
   },
   {
     value: "n",
@@ -41,7 +41,7 @@ const origem = [
 const folhagem = [
   {
     value: "",
-    label: "Selecione o tipo de folhagem"
+    label: "Tipo de Folhagem"
   },
   {
     value: "c",
@@ -55,7 +55,7 @@ const folhagem = [
 const familia = [
   {
     value: "",
-    label: "Selecione uma família"
+    label: "Família"
   },
   {
     value: "Acanthaceae‎",
@@ -67,18 +67,6 @@ const familia = [
   }
 ];
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
 
 class DadosBasicosForm extends React.Component {
   constructor() {
@@ -88,7 +76,7 @@ class DadosBasicosForm extends React.Component {
   }
 
   state = {
-    outono: true,
+    outono: false,
     primavera: false,
     verao: false,
     inverno: false,
@@ -98,6 +86,8 @@ class DadosBasicosForm extends React.Component {
     evt.preventDefault();
     this.props.onSubmit();
   }
+
+  
 
   render() {
     const { classes } = this.props;
@@ -166,42 +156,68 @@ class DadosBasicosForm extends React.Component {
                   </option>
                 ))}
               </TextField>
-            </Grid><FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox checked={outono}  value="gilad" />
-              }
-              label="Gilad Gray"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox checked={verao}  value="jason" />
-              }
-              label="Jason Killian"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={inverno}
-                  
-                  value="antoine"
-                />
-              }
-              label="Antoine Llorca"
-            />
-          </FormGroup>
-            <Grid item xs={6}>
-            
             </Grid>
+            
 
             <Grid item xs={6}>
               <TextField
-                id="altura"
-                name="altura"
-                label="Porte (metros)"
-                onChange={this.props.onChangeAltura}
+                id="porte"
+                name="porte"
+                label="Porte"
+                onChange={this.props.onChangePorte}
                 fullWidth
               />
+            </Grid>
+            <Grid item xs={12}>
+            </Grid>
+          </Grid>
+          <Grid container spacing={24}>
+          <Grid item xs={24}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">Selecione o período de Floração da Espécie</FormLabel>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox 
+                            checked={this.props.FloracaoOutono}  
+                            value="outono"
+                            onChange={this.props.onChangeOutono} 
+                          />
+                        }
+                        label="Outono"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox 
+                          checked={this.props.FloracaoVerao}  
+                            value="verao" 
+                            onChange={this.props.onChangeVerao} 
+                          />
+                        }
+                        label="Verão"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={this.props.FloracaoInverno}  
+                            onChange={this.props.onChangeInverno} 
+                            value="inverno"
+                          />
+                        }
+                        label="Inverno"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={this.props.FloracaoPrimavera}  
+                            onChange={this.props.onChangePrimavera} 
+                            value="primavera"
+                          />
+                        }
+                        label="Primavera"
+                      />
+                  </FormGroup>
+                </FormControl>
             </Grid>
           </Grid>
           <Grid container spacing={24}>

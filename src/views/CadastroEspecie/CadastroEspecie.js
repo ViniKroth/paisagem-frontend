@@ -54,7 +54,8 @@ class CadastroEspecie extends Page {
   constructor() {
     super();
     this.state = {
-      step: 0
+      step: 0,
+     
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
@@ -74,11 +75,21 @@ class CadastroEspecie extends Page {
             onSubmit={this.goToNext}
             nomeCientifico={this.state.nomeCientifico}
             familia={this.state.familia}
+            outono={this.state.FloracaoOutono}
+            outono={this.state.FloracaoVerao}
+            outono={this.state.FloracaoInverno}
+            outono={this.state.FloracaoPrimavera}
+
             onChangenomeCientifico={this.handleChange("nomeCientifico")}
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
             onChangeOrigem={this.handleChange("origem")}
-            onChangeAltura={this.handleChange("altura")}
+            onChangePorte={this.handleChange("porte")}
+            onChangeOutono={this.handleChangeFloracao("FloracaoOutono")}
+            onChangeVerao={this.handleChangeFloracao("FloracaoVerao")}
+            onChangeInverno={this.handleChangeFloracao("FloracaoInverno")}
+            onChangePrimavera={this.handleChangeFloracao("FloracaoPrimavera")}
+
           />
         );
       case 1:
@@ -112,15 +123,24 @@ class CadastroEspecie extends Page {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }, () => this.renderAuthentication());
     } else {
-      alert("");
+      alert("Cadastrado com Sucesso!");
 
       const values = {
-        //nomeCientifico: this.state.nomeCientifico,
-        //familia: this.state.familia,
+        
       };
       console.log(this.state);
     }
   }
+
+  handleChangeFloracao = name => event => {
+    this.setState({ [name]: event.target.checked }, () => this.renderAuthentication());
+   // this.setState({ [name]: event.target.checked });
+   
+    
+  };
+
+
+
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
