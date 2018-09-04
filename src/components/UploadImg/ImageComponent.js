@@ -1,6 +1,6 @@
 import React from "react";
 import "./ImageComponentStyle.css"
-import { withRouter } from "react-router-dom";
+import Alert from '../AlertDialog/Alert.js';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button'
@@ -28,6 +28,7 @@ class ImageComponent extends React.Component {
         this.state = {
             file: '',
             imagePreviewUrl: '',
+            qntImagensError: false,
             imageUpload: []
         };
     }
@@ -35,18 +36,21 @@ class ImageComponent extends React.Component {
     _handleSubmit(e) {
         e.preventDefault();
         //Aqui vai ser feito o upload para a api e depois inserido no banco
-
+        this.setState({qntImagensError : false})
         //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
         // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
+        if (this.props.quantidadeImagens === "" || this.props.quantidadeImagens > this.state.imageUpload.length) {
+            var imageUploadAtual = this.state.imageUpload //Pega o status atual
+            imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
 
-        var imageUploadAtual = this.state.imageUpload //Pega o status atual
-        imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-        this.setState({ imageUpload: imageUploadAtual }, () => {
-            //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
-            console.log(this.state.imageUpload)
-            console.log('UPLOAD', this.state.file);
-        });
+            this.setState({ imageUpload: imageUploadAtual }, () => {
+                //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
+                console.log(this.state.imageUpload)
+                console.log('UPLOAD', this.state.file);
+            });
+        }else{
+            this.setState({qntImagensError : true})
+        }
     }
 
     _handleImageChange(e) {
@@ -72,17 +76,16 @@ class ImageComponent extends React.Component {
     _handleDelete(row) {
         var i = row.rowIndex;
         document.getElementById('imgTable').deleteRow(i);
-        
-        for(var j=0; j< this.state.imageUpload.length;j++){
-            if(this.state.imageUpload[j]===row.state.file){
+
+        for (var j = 0; j < this.state.imageUpload.length; j++) {
+            if (this.state.imageUpload[j] === row.state.file) {
                 var list = this.state.imageUpload.splice(j, 1);
-                this.setState({ imageUpload : list })
-                console.log('AQUI',this.state.imageUpload)
+                this.setState({ imageUpload: list })
+                console.log('AQUI', this.state.imageUpload)
             }
         }
-        
+
     }
-    //NOTAS PARA FAZER: renderizar Lista de Imagens para Upload
     render() {
         const { classes } = this.props;
         let { imagePreviewUrl } = this.state;
@@ -124,6 +127,15 @@ class ImageComponent extends React.Component {
                         onClick={(e) => this._handleSubmit(e)}>
                         ENVIAR
                         </Button>
+                        {
+                            this.state.qntImagensError
+                            ?
+                            
+                            <Alert titulo ="ERRO: Quantidade de Imagens" texto="Quantidade de imagens ultrapassou o limite!" abrir = {this.state.qntImagensError}/>
+                            
+                            :
+                            ""
+                        }
                     <div className="imgPreview" >
                         {imagePreview}
                     </div>
