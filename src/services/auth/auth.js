@@ -51,25 +51,27 @@ export const logout = () => {
 export const validToken = async () => {
   const token = localStorage.getItem("token");
 
-  const response = await axios({
-    method: "get",
-    url: `${api}/self/token`,
-    timeout: 5000,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}` // Passando o token de autorização
-    }
-  });
+  return token ? true : false;
 
-  if (response) {
-    const responseData = response.data;
-    const isAuthenticated = responseData.data;
-    //console.log('Valid token response:', responseData)
-    return isAuthenticated;
-  } else {
-    return {
-      statusDesc: "Erro obtendo resposta do servidor.",
-      statusCode: HTTPStatusCodes.InternalServerError
-    };
-  }
+  // const response = await axios({
+  //   method: "get",
+  //   url: `${api}/login/token`,
+  //   timeout: 5000,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${token}` // Passando o token de autorização
+  //   }
+  // });
+
+  // if (response) {
+  //   const responseData = response.data;
+  //   const isAuthenticated = responseData.data;
+  //   //console.log('Valid token response:', responseData)
+  //   return isAuthenticated;
+  // } else {
+  //   return {
+  //     statusDesc: "Erro obtendo resposta do servidor.",
+  //     statusCode: HTTPStatusCodes.InternalServerError
+  //   };
+  // }
 };
