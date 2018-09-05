@@ -75,13 +75,13 @@ class CadastroEspecie extends Page {
           <DadosBasicosForm
             key="Dados"
             onSubmit={this.goToNext}
-            nomeCientifico={this.state.especie.nomeCientifico}
+            nomeCientifico={this.state.especie.nome_cientifico}
             familia={this.state.especie.familia}
             outono={this.state.especie.FloracaoOutono}
             verao={this.state.especie.FloracaoVerao}
             inverno={this.state.especie.FloracaoInverno}
             primavera={this.state.especie.FloracaoPrimavera}
-            onChangenomeCientifico={this.handleChange("nomeCientifico")}
+            onChangenomeCientifico={this.handleChange("nome_cientifico")}
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
             onChangeOrigem={this.handleChange("origem")}
@@ -98,7 +98,7 @@ class CadastroEspecie extends Page {
             key="Potenciais"
             onSubmit={this.goToNext}
             onBack={this.goToBack}
-            onChangenomeCientifico={this.handleChange("nomeCientifico")}
+            onChangenomeCientifico={this.handleChange("nome_cientifico")}
             onChangePotencialArq={this.handleChange("potencialarq")}
             onChangePotencialPaisag={this.handleChange("potencialpaisag")}
           />
@@ -123,7 +123,13 @@ class CadastroEspecie extends Page {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }, () => this.renderAuthentication());
     } else {
-      console.log(this.state);
+      var especie = Object.assign({}, this.state.especie);
+
+      delete especie.FloracaoVerao;
+      delete especie.FloracaoOutono;
+      delete especie.FloracaoInverno;
+      delete especie.FloracaoPrimavera;
+
       var result = await create(this.state.especie);
 
       console.log(result);
@@ -133,7 +139,21 @@ class CadastroEspecie extends Page {
 
   handleChangeFloracao = name => event => {
     var especie = this.state.especie;
+    especie.floracao = !event.target.checked
+      ? undefined
+      : name == FloracaoOutono
+        ? "outono"
+        : name == FloracaoVerao
+          ? "verao"
+          : name == FloracaoInverno
+            ? "inverno"
+            : name == FloracaoPrimavera
+              ? "primavera"
+              : undefined;
+
+    //TODO - Remover isso e usar a string acima para ver quem esta marcado
     especie[name] = event.target.checked;
+
     this.setState({ especie }, () => this.renderAuthentication());
     // this.setState({ [name]: event.target.checked });
   };
