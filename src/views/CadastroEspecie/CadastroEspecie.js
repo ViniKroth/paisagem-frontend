@@ -14,6 +14,8 @@ import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
 
+import { create } from "services/especies/especies";
+
 const styles = theme => ({
   layout: {
     width: "auto",
@@ -55,7 +57,7 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-     
+      especie: {}
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
@@ -73,13 +75,12 @@ class CadastroEspecie extends Page {
           <DadosBasicosForm
             key="Dados"
             onSubmit={this.goToNext}
-            nomeCientifico={this.state.nomeCientifico}
-            familia={this.state.familia}
-            outono={this.state.FloracaoOutono}
-            outono={this.state.FloracaoVerao}
-            outono={this.state.FloracaoInverno}
-            outono={this.state.FloracaoPrimavera}
-
+            nomeCientifico={this.state.especie.nomeCientifico}
+            familia={this.state.especie.familia}
+            outono={this.state.especie.FloracaoOutono}
+            verao={this.state.especie.FloracaoVerao}
+            inverno={this.state.especie.FloracaoInverno}
+            primavera={this.state.especie.FloracaoPrimavera}
             onChangenomeCientifico={this.handleChange("nomeCientifico")}
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
@@ -89,7 +90,6 @@ class CadastroEspecie extends Page {
             onChangeVerao={this.handleChangeFloracao("FloracaoVerao")}
             onChangeInverno={this.handleChangeFloracao("FloracaoInverno")}
             onChangePrimavera={this.handleChangeFloracao("FloracaoPrimavera")}
-
           />
         );
       case 1:
@@ -117,29 +117,26 @@ class CadastroEspecie extends Page {
     }
   }
 
-  goToNext() {
+  async goToNext() {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }, () => this.renderAuthentication());
     } else {
-      alert("Cadastrado com Sucesso!");
-
-      const values = {
-        
-      };
       console.log(this.state);
+      var result = await create(this.state.especie);
+
+      console.log(result);
+      //alert("Cadastrado com Sucesso!");
     }
   }
 
   handleChangeFloracao = name => event => {
-    this.setState({ [name]: event.target.checked }, () => this.renderAuthentication());
-   // this.setState({ [name]: event.target.checked });
-   
-    
+    var especie = this.state.especie;
+    especie[name] = event.target.checked;
+    this.setState({ especie }, () => this.renderAuthentication());
+    // this.setState({ [name]: event.target.checked });
   };
-
-
 
   goToBack() {
     const { step } = this.state;
@@ -149,9 +146,11 @@ class CadastroEspecie extends Page {
     }
   }
 
-  handleChange(campo) {
-    return evt => this.setState({ [campo]: evt.target.value });
-  }
+  handleChange = campo => event => {
+    var especie = this.state.especie;
+    especie[campo] = event.target.value;
+    return this.setState({ especie });
+  };
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
