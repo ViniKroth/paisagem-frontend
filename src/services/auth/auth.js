@@ -22,10 +22,10 @@ export const login = async (user_name, password, encrypt_password) => {
 
   if (response) {
     const api_response = response.data;
-    console.error(response.data);
-    const token = api_response.data.token;
 
     if (api_response.data) {
+      const token = api_response.data.token;
+
       if (api_response.data.token) {
         localStorage.setItem("token", token);
         localStorage.setItem("username", params.user_name);
