@@ -3,12 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 
 import Grid from "@material-ui/core/Grid";
-
 
 // import {show_stringify} from 'helpers/json'
 
@@ -16,14 +15,13 @@ import { login } from "services/auth/auth";
 
 import { withRouter } from "react-router-dom";
 
-
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit *3
+    marginTop: theme.spacing.unit * 3
   },
   input: {
-    display: 'none',
+    display: "none"
   },
 
   paper: {
@@ -37,7 +35,6 @@ const styles = theme => ({
     }
   },
 
-  
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
@@ -47,12 +44,8 @@ const styles = theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     }
-  },
-  
-
+  }
 });
-
-
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -101,47 +94,49 @@ class LoginForm extends React.Component {
 
     return (
       <main className={classes.layout}>
-      <Paper className={classes.paper}  elevation={1}>
-      <Grid container spacing={24}>
-      <Grid item xs={12}>
-      <Typography variant="display2" gutterBottom>
-           Login
-         </Typography>
-         </Grid>
+        <Paper className={classes.paper} elevation={1}>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <Typography variant="display2" gutterBottom>
+                Login
+              </Typography>
+            </Grid>
 
-         <Grid item xs={12} sm={12}> 
-        <form onSubmit={this.onSubmit}>
-           
-           
-          <TextField
-            id="username"
-            className="input"
-            name="username"
-            label="Usuário"
-            onChange={this.onChange}
-            error={errors.username}
-            valume={username}
-          />
-         
-          <br/>
-          <TextField
-            id="senha"
-            className="input"
-            name="password"
-            label="Senha"
-            onChange={this.onChange}
-            value={password}
-            error={errors.password}
-            type="password"
-          />
-          <br />
-          <Button className= {classes.button} variant="contained" color="primary" >
-        Fazer login
-      </Button>
-          
-        </form>
-        </Grid>
-        </Grid>
+            <Grid item xs={12} sm={12}>
+              <form onSubmit={this.onSubmit}>
+                <TextField
+                  id="username"
+                  className="input"
+                  name="username"
+                  label="Usuário"
+                  onChange={this.onChange}
+                  error={errors.username}
+                  valume={username}
+                />
+
+                <br />
+                <TextField
+                  id="senha"
+                  className="input"
+                  name="password"
+                  label="Senha"
+                  onChange={this.onChange}
+                  value={password}
+                  error={errors.password}
+                  type="password"
+                />
+                <br />
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Fazer login
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
         </Paper>
         {/* {show_stringify(this.state)} */}
       </main>
@@ -149,4 +144,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(LoginForm)
+export default withStyles(styles)(LoginForm);
