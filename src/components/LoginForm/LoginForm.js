@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
       isLoading: true
     });
     const { username, password } = this.state;
-    const loginAttempt = await login(username, password, true);
+    const loginAttempt = await login(username, password, false);
 
     if (loginAttempt) {
       if (loginAttempt.statusCode !== 200) {
@@ -144,4 +144,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(LoginForm);
+export default withRouter(withStyles(styles)(LoginForm));

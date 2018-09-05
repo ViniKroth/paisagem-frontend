@@ -4,9 +4,9 @@ import { api } from "configs/";
 import { HTTPStatusCodes } from "configs/constants";
 //import * as querystring from 'querystring'
 
-export const login = async (user_name, password, encrypt_password) => {
+export const login = async (username, password, encrypt_password) => {
   const params = {
-    user_name: user_name,
+    username: username,
     password: encrypt_password ? crypto.SHA256(password).toString() : password
   };
 
@@ -28,7 +28,7 @@ export const login = async (user_name, password, encrypt_password) => {
 
       if (api_response.data.token) {
         localStorage.setItem("token", token);
-        localStorage.setItem("username", params.user_name);
+        localStorage.setItem("username", params.username);
         localStorage.setItem("password", params.password);
         console.log("Login Attempt Response: ", api_response);
         return api_response;
