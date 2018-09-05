@@ -1,14 +1,51 @@
 import React from "react";
-import "./styles.css";
-
+//import "./styles.css";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+
+import Grid from "@material-ui/core/Grid";
 
 // import {show_stringify} from 'helpers/json'
 
 import { login } from "services/auth/auth";
 
 import { withRouter } from "react-router-dom";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 3
+  },
+  input: {
+    display: "none"
+  },
+
+  paper: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 3
+    }
+  },
+
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 2 * 2)]: {
+      width: 800,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  }
+});
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -30,7 +67,7 @@ class LoginForm extends React.Component {
       isLoading: true
     });
     const { username, password } = this.state;
-    const loginAttempt = await login(username, password, true);
+    const loginAttempt = await login(username, password, false);
 
     if (loginAttempt) {
       if (loginAttempt.statusCode !== 200) {
@@ -53,38 +90,58 @@ class LoginForm extends React.Component {
 
   render() {
     const { username, password, isLoading, errors } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div className="container">
-        <form onSubmit={this.onSubmit}>
-          <h1>Login</h1>
-          <TextField
-            className="input"
-            name="username"
-            label="Usuário"
-            onChange={this.onChange}
-            error={errors.username}
-            value={username}
-          />
-          <br />
-          <TextField
-            className="input"
-            name="password"
-            label="Senha"
-            onChange={this.onChange}
-            value={password}
-            error={errors.password}
-            type="password"
-          />
-          <br />
-          <Button className="submitBtn" type="submit" disabled={isLoading}>
-            Autenticar-se
-          </Button>
-        </form>
+      <main className={classes.layout}>
+        <Paper className={classes.paper} elevation={1}>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <Typography variant="display2" gutterBottom>
+                Login
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={12}>
+              <form onSubmit={this.onSubmit}>
+                <TextField
+                  id="username"
+                  className="input"
+                  name="username"
+                  label="Usuário"
+                  onChange={this.onChange}
+                  error={errors.username}
+                  valume={username}
+                />
+
+                <br />
+                <TextField
+                  id="senha"
+                  className="input"
+                  name="password"
+                  label="Senha"
+                  onChange={this.onChange}
+                  value={password}
+                  error={errors.password}
+                  type="password"
+                />
+                <br />
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Fazer login
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
+        </Paper>
         {/* {show_stringify(this.state)} */}
-      </div>
+      </main>
     );
   }
 }
 
-export default withRouter(LoginForm);
+export default withRouter(withStyles(styles)(LoginForm));

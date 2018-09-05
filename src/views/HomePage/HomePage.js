@@ -29,7 +29,7 @@ class HomePage extends Page {
 
     this.setState(() => {
       return {
-        render: this.isAuthenticated()
+        render: this.isAuthenticated().value
           ? this.authenticated()
           : this.unauthenticated()
       };

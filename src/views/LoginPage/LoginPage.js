@@ -4,9 +4,12 @@ import LoginForm from "components/LoginForm/LoginForm";
 
 class LoginPage extends Page {
   componentDidMount = () => {
+    this.showHeader();
+
+    //TODO - Alterar para o método renderAuthentocated da Page
     this.setState(() => {
       return {
-        render: this.isAuthenticated()
+        render: this.isAuthenticated().value
           ? this.authenticated()
           : this.unauthenticated()
       };
@@ -14,7 +17,6 @@ class LoginPage extends Page {
   };
 
   authenticated = () => {
-    this.showHeader();
     return (
       <div className="container">
         <p>Você já está logado!</p>
@@ -23,7 +25,6 @@ class LoginPage extends Page {
   };
 
   unauthenticated = () => {
-    this.hideHeader();
     return (
       <div>
         <LoginForm />

@@ -46,8 +46,15 @@ class Header extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.renderHeaderButtons();
+  componentDidMount() {
+    //TODO - Migrar o método isAuthenticated para um Context (mais a frente)
+    this.setState(() => {
+      return {
+        render: this.isAuthenticated().value
+          ? this.renderLogout()
+          : this.renderLogin()
+      };
+    });
   }
 
   redirect = path => {
@@ -89,9 +96,9 @@ class Header extends React.Component {
       const isAuthenticated = await validToken();
 
       if (!isAuthenticated) {
-        await this.setState({ render: this.renderLogin() });
+        await this.setState(() => ({ render: this.renderLogin() }));
       } else {
-        await this.setState({ render: this.renderLogout() });
+        await this.setState(() => ({ render: this.renderLogout() }));
       }
     } catch (error) {
       console.error(error);
@@ -137,6 +144,19 @@ class Header extends React.Component {
       return <div />;
     }
   }
+
+  isAuthenticated = async () => {
+    try {
+      const isAuthenticated = await validToken();
+      if (isAuthenticated) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 export default withStyles(styles)(withRouter(Header));
