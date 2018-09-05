@@ -141,13 +141,13 @@ class CadastroEspecie extends Page {
     var especie = this.state.especie;
     especie.floracao = !event.target.checked
       ? undefined
-      : name == FloracaoOutono
+      : name == "FloracaoOutono"
         ? "outono"
-        : name == FloracaoVerao
+        : name == "FloracaoVerao"
           ? "verao"
-          : name == FloracaoInverno
+          : name == "FloracaoInverno"
             ? "inverno"
-            : name == FloracaoPrimavera
+            : name == "FloracaoPrimavera"
               ? "primavera"
               : undefined;
 
