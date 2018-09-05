@@ -13,6 +13,9 @@ class Page extends React.Component {
       render: undefined,
       headerVisible: true // por padrão mostra o header nas páginas
     };
+  }
+
+  componentDidMount() {
     this.renderAuthentication();
   }
 
@@ -89,7 +92,7 @@ class Page extends React.Component {
 
   renderAuthentication = async () => {
     try {
-      const isAuthenticated = await validToken();
+      const isAuthenticated = true; //await validToken();
       if (isAuthenticated) {
         await this.setState({ render: this.authenticated() });
       } else {
