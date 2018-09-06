@@ -11,9 +11,10 @@ import Grid from "@material-ui/core/Grid";
 
 // import {show_stringify} from 'helpers/json'
 
-import { login } from "services/auth/auth";
-
 import { withRouter } from "react-router-dom";
+
+// Importando o Contexto de autenticação, não tratamos mais com os services.
+import LoginContext from "../Context/LoginContext/LoginContext";
 
 const styles = theme => ({
   button: {
@@ -56,18 +57,15 @@ class LoginForm extends React.Component {
       isLoading: false,
       errors: {}
     };
-    console.log(this.state);
+
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  async onSubmit(e) {
-    e.preventDefault();
-    this.setState({
-      isLoading: true
-    });
+  // Passando a função de login por parametro pois ela vem do contexto
+  async onSubmit(loginMethod) {
     const { username, password } = this.state;
-    const loginAttempt = await login(username, password, false);
+    const loginAttempt = await loginMethod(username, password, false);
 
     if (loginAttempt) {
       if (loginAttempt.statusCode !== 200) {
@@ -89,57 +87,62 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { username, password, isLoading, errors } = this.state;
+    const { username, password, errors } = this.state;
     const { classes } = this.props;
 
     return (
-      <main className={classes.layout}>
-        <Paper className={classes.paper} elevation={1}>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <Typography variant="display2" gutterBottom>
-                Login
-              </Typography>
-            </Grid>
+      <LoginContext.Consumer>
+        {value => {
+          const { authService } = value;
+          return (
+            <main className={classes.layout}>
+              <Paper className={classes.paper} elevation={1}>
+                <Grid container spacing={24}>
+                  <Grid item xs={12}>
+                    <Typography variant="display2" gutterBottom>
+                      Login
+                    </Typography>
+                  </Grid>
 
-            <Grid item xs={12} sm={12}>
-              <form onSubmit={this.onSubmit}>
-                <TextField
-                  id="username"
-                  className="input"
-                  name="username"
-                  label="Usuário"
-                  onChange={this.onChange}
-                  error={errors.username}
-                  valume={username}
-                />
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      id="username"
+                      className="input"
+                      name="username"
+                      label="Usuário"
+                      onChange={this.onChange}
+                      error={errors.username}
+                      valume={username}
+                    />
 
-                <br />
-                <TextField
-                  id="senha"
-                  className="input"
-                  name="password"
-                  label="Senha"
-                  onChange={this.onChange}
-                  value={password}
-                  error={errors.password}
-                  type="password"
-                />
-                <br />
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                >
-                  Fazer login
-                </Button>
-              </form>
-            </Grid>
-          </Grid>
-        </Paper>
-        {/* {show_stringify(this.state)} */}
-      </main>
+                    <br />
+                    <TextField
+                      id="senha"
+                      className="input"
+                      name="password"
+                      label="Senha"
+                      onChange={this.onChange}
+                      value={password}
+                      error={errors.password}
+                      type="password"
+                    />
+                    <br />
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                      onClick={() => this.onSubmit(authService.login)}
+                    >
+                      Fazer login
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Paper>
+              {/* {show_stringify(this.state)} */}
+            </main>
+          );
+        }}
+      </LoginContext.Consumer>
     );
   }
 }

@@ -4,9 +4,6 @@ import "./styles.css";
 import { withRouter } from "react-router-dom";
 // import {show_stringify} from 'helpers/json'
 
-// Serviços
-import { validToken, logout } from "services/auth/auth";
-
 // Biblioteca de Componentes
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,6 +12,9 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+
+// Importando o Contexto de autenticação, não tratamos mais com os services.
+import LoginContext from "../Context/LoginContext/LoginContext";
 
 const styles = theme => ({
   root: {
@@ -46,17 +46,6 @@ class Header extends React.Component {
     }
   }
 
-  componentDidMount() {
-    //TODO - Migrar o método isAuthenticated para um Context (mais a frente)
-    this.setState(() => {
-      return {
-        render: this.isAuthenticated().value
-          ? this.renderLogout()
-          : this.renderLogin()
-      };
-    });
-  }
-
   redirect = path => {
     const { history } = this.props;
     history.push(path);
@@ -76,14 +65,15 @@ class Header extends React.Component {
     );
   };
 
-  renderLogout = () => {
+  //Passando função de logout por parametro pois ela vem do Contexto
+  renderLogout = logout => {
     return (
       <Button
         color="inherit"
         id="logoutBtn"
         onClick={() => {
           logout();
-          this.setState({ render: this.renderLogin() });
+          this.redirect("/");
         }}
       >
         Deslogar
@@ -91,72 +81,56 @@ class Header extends React.Component {
     );
   };
 
-  renderHeaderButtons = async () => {
-    try {
-      const isAuthenticated = await validToken();
-
-      if (!isAuthenticated) {
-        await this.setState(() => ({ render: this.renderLogin() }));
-      } else {
-        await this.setState(() => ({ render: this.renderLogout() }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   render() {
     const { display, classes } = this.props;
-    const { render } = this.state;
     if (display) {
       return (
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
-              <img
-                className={classes.menuButton + " App-logo"}
-                src={logo}
-                alt="logo"
-                onClick={() => {
-                  this.redirect("/");
-                }}
-              />
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.flex}
-              >
-                Paisagem
-              </Typography>
-              {render}
-            </Toolbar>
-          </AppBar>
-        </div>
+        /* Chamando o Consumidor do Contexto de autencicação, para ter acesso ao state dele (pela variavel value) */
+        <LoginContext.Consumer>
+          {value => {
+            //Abrindo a variavel value em constantes, só para facilitar o uso.
+            const { isAuthenticated, userData, authService } = value;
+            return (
+              <div className={classes.root}>
+                <AppBar position="static">
+                  <Toolbar>
+                    <IconButton
+                      className={classes.menuButton}
+                      color="inherit"
+                      aria-label="Menu"
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                    <img
+                      className={classes.menuButton + " App-logo"}
+                      src={logo}
+                      alt="logo"
+                      onClick={() => {
+                        this.redirect("/");
+                      }}
+                    />
+                    <Typography
+                      variant="title"
+                      color="inherit"
+                      className={classes.flex}
+                    >
+                      Paisagem
+                    </Typography>
+                    {/* Verificando se o usuário está logado, mais pratico que o método de usar um render no state. */}
+                    {isAuthenticated()
+                      ? this.renderLogout(authService.logout)
+                      : this.renderLogin()}
+                  </Toolbar>
+                </AppBar>
+              </div>
+            );
+          }}
+        </LoginContext.Consumer>
       );
     } else {
       return <div />;
     }
   }
-
-  isAuthenticated = async () => {
-    try {
-      const isAuthenticated = await validToken();
-      if (isAuthenticated) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 }
 
 export default withStyles(styles)(withRouter(Header));

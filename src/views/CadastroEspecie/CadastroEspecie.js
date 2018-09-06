@@ -63,11 +63,6 @@ class CadastroEspecie extends Page {
     this.goToBack = this.goToBack.bind(this);
   }
 
-  componentDidMount = () => {
-    this.showHeader();
-    this.renderAuthentication();
-  };
-
   getStep(step) {
     switch (step) {
       case 0:
