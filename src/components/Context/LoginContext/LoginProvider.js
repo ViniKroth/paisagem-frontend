@@ -42,7 +42,6 @@ class LoginProvider extends Component {
   //Verifica se o usuário está logado
   isAuthenticated = forceValidation => {
     const { lastTokenCheck, token, authService } = this.state;
-
     //Verifica se existe um token salvo.
     if (token) {
       //Verifica se o token já foi checado.
