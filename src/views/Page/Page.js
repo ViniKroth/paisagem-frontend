@@ -5,18 +5,14 @@ import { validToken } from "services/auth/auth";
 
 // Internal Components
 import Header from "components/Header/Header";
+import LoginContext from "../../components/Context/LoginContext/LoginContext";
 
 class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      render: undefined,
       headerVisible: true // por padrão mostra o header nas páginas
     };
-  }
-
-  componentDidMount() {
-    this.renderAuthentication();
   }
 
   /*
@@ -43,19 +39,6 @@ class Page extends React.Component {
     this.setState({ headerVisible: false });
     return this.state.headerVisible;
   }
-
-  isAuthenticated = async () => {
-    try {
-      const isAuthenticated = await validToken();
-      if (isAuthenticated) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   /*
      *  Views
@@ -90,31 +73,23 @@ class Page extends React.Component {
     );
   };
 
-  renderAuthentication = async () => {
-    try {
-      const isAuthenticated = true; //await validToken();
-      if (isAuthenticated) {
-        await this.setState({ render: this.authenticated() });
-      } else {
-        await this.setState({ render: this.unauthenticated() });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   render() {
-    const { render, headerVisible } = this.state;
-    if (render) {
-      return (
-        <div>
-          <Header display={headerVisible} />
-          {render}
-        </div>
-      );
-    } else {
-      return this.loading();
-    }
+    const { headerVisible } = this.state;
+    return (
+      <LoginContext.Consumer>
+        {value => {
+          const { isAuthenticated } = value;
+          return (
+            <React.Fragment>
+              <Header display={headerVisible} />
+              {!isAuthenticated()
+                ? this.unauthenticated()
+                : this.authenticated()}
+            </React.Fragment>
+          );
+        }}
+      </LoginContext.Consumer>
+    );
   }
 }
 

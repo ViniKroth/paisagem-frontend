@@ -15,6 +15,9 @@ import App from "boot/App";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors/";
 
+// Context Import
+import AppProvider from "./components/Context/AppProvider";
+
 const theme = createMuiTheme({
   palette: {
     //Utilizando a cor verde como primaria, porém um pouco mais escura.
@@ -31,10 +34,14 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    {/* Adicionando o provedor de contexto na volta de todo app, 
+    para termos acesso ao contexto em todas páginas */}
+    <AppProvider>
+      <CssBaseline />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AppProvider>
   </MuiThemeProvider>,
   document.getElementById("root")
 );
