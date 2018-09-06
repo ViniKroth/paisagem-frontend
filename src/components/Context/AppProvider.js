@@ -9,12 +9,14 @@ import LoginProvider from "./LoginContext/LoginProvider.js";
 class AppProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      headerVisible: true
+    };
   }
 
   render() {
     return (
-      <AppContext.Provider value={this.state.appContext}>
+      <AppContext.Provider value={this.state}>
         <LoginProvider>{this.props.children}</LoginProvider>
       </AppContext.Provider>
     );

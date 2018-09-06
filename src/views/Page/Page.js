@@ -6,6 +6,7 @@ import { validToken } from "services/auth/auth";
 // Internal Components
 import Header from "components/Header/Header";
 import LoginContext from "../../components/Context/LoginContext/LoginContext";
+import AppContext from "../../components/Context/AppContext";
 
 class Page extends React.Component {
   constructor(props) {
@@ -23,22 +24,6 @@ class Page extends React.Component {
     const { history } = this.props;
     history.push(path);
   };
-
-  toggleHeader() {
-    const { headerVisible } = this.state;
-    this.setState({ headerVisible: !headerVisible });
-    return this.state.showHeader;
-  }
-
-  showHeader() {
-    this.setState({ headerVisible: true });
-    return this.state.showHeader;
-  }
-
-  hideHeader() {
-    this.setState({ headerVisible: false });
-    return this.state.headerVisible;
-  }
 
   /*
      *  Views
@@ -74,21 +59,27 @@ class Page extends React.Component {
   };
 
   render() {
-    const { headerVisible } = this.state;
     return (
-      <LoginContext.Consumer>
-        {value => {
-          const { isAuthenticated } = value;
+      <AppContext.Consumer>
+        {appValue => {
+          const { headerVisible } = appValue;
           return (
-            <React.Fragment>
-              <Header display={headerVisible} />
-              {!isAuthenticated()
-                ? this.unauthenticated()
-                : this.authenticated()}
-            </React.Fragment>
+            <LoginContext.Consumer>
+              {loginValue => {
+                const { isAuthenticated } = loginValue;
+                return (
+                  <React.Fragment>
+                    <Header display={headerVisible} />
+                    {!isAuthenticated()
+                      ? this.unauthenticated()
+                      : this.authenticated()}
+                  </React.Fragment>
+                );
+              }}
+            </LoginContext.Consumer>
           );
         }}
-      </LoginContext.Consumer>
+      </AppContext.Consumer>
     );
   }
 }
