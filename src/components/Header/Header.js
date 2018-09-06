@@ -68,7 +68,14 @@ class Header extends React.Component {
   //Passando função de logout por parametro pois ela vem do Contexto
   renderLogout = logout => {
     return (
-      <Button color="inherit" id="logoutBtn" onClick={() => logout()}>
+      <Button
+        color="inherit"
+        id="logoutBtn"
+        onClick={() => {
+          logout();
+          this.redirect("/");
+        }}
+      >
         Deslogar
       </Button>
     );
