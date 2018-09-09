@@ -4,13 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -104,7 +98,16 @@ class DadosBasicosForm extends React.Component {
                 id="nomeCientifico"
                 name="nomeCientifico"
                 label="Nome Científico"
-                onChange={this.props.onChangenomeCientifico}
+                onChange={this.props.onChangenomeCientifico}                
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="nomePopular"
+                name="nomePopular"
+                label="Nome Popular"
+                onChange={this.props.onChangenomePopular}                
                 fullWidth
               />
             </Grid>

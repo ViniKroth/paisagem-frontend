@@ -6,7 +6,6 @@ import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 
@@ -71,12 +70,14 @@ class CadastroEspecie extends Page {
             key="Dados"
             onSubmit={this.goToNext}
             nomeCientifico={this.state.especie.nome_cientifico}
+            nomePopular={this.state.especie.nome_popular}
             familia={this.state.especie.familia}
             outono={this.state.especie.FloracaoOutono}
             verao={this.state.especie.FloracaoVerao}
             inverno={this.state.especie.FloracaoInverno}
             primavera={this.state.especie.FloracaoPrimavera}
             onChangenomeCientifico={this.handleChange("nome_cientifico")}
+            onChangenomePopular={this.handleChange("nome_popular")}
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
             onChangeOrigem={this.handleChange("origem")}
