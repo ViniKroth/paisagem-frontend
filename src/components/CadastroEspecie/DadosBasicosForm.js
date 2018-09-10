@@ -4,7 +4,13 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -24,13 +30,45 @@ const origem = [
   },
   {
     value: "n",
-    label: "Nativa"
+    label: "Nativa do Rio Grande do Sul"
   },
   {
     value: "e",
     label: "Exótica"
   }
 ];
+
+const frutificacao = [
+  {
+    value: "",
+    label: "Frutificação"
+  },
+  {
+    value: "carnosa",
+    label: "Carnosa"
+  },
+  {
+    value: "seco",
+    label: "Seco"
+  }
+];
+
+
+const classificacao = [
+  {
+    value: "",
+    label: "Classificação/extrato"
+  },
+  {
+    value: "arvore",
+    label: "Árvore"
+  },
+  {
+    value: "arbusto",
+    label: "Arbusto"
+  }
+];
+
 
 const folhagem = [
   {
@@ -74,6 +112,7 @@ class DadosBasicosForm extends React.Component {
     primavera: false,
     verao: false,
     inverno: false,
+    nomePopular: [{ name: '' }],
   };
 
   handleSubmit(evt) {
@@ -98,16 +137,7 @@ class DadosBasicosForm extends React.Component {
                 id="nomeCientifico"
                 name="nomeCientifico"
                 label="Nome Científico"
-                onChange={this.props.onChangenomeCientifico}                
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="nomePopular"
-                name="nomePopular"
-                label="Nome Popular"
-                onChange={this.props.onChangenomePopular}                
+                onChange={this.props.onChangenomeCientifico}
                 fullWidth
               />
             </Grid>
@@ -146,6 +176,35 @@ class DadosBasicosForm extends React.Component {
 
             <Grid item xs={6}>
               <TextField
+                id="porte"
+                name="porte"
+                label="Porte"
+                onChange={this.props.onChangePorte}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+            <TextField
+                id="classificacao"
+                select
+                onChange={this.props.onChangeClassificacao}
+                fullWidth
+                SelectProps={{ native: true }}
+                margin="normal"
+             >
+                {classificacao.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+          
+
+          
+
+          <Grid item xs={6}>
+              <TextField
                 id="folhagem"
                 select
                 onChange={this.props.onChangeFolhagem}
@@ -160,22 +219,76 @@ class DadosBasicosForm extends React.Component {
                 ))}
               </TextField>
             </Grid>
-            
 
             <Grid item xs={6}>
               <TextField
-                id="porte"
-                name="porte"
-                label="Porte"
-                onChange={this.props.onChangePorte}
+                id="frutificacao"
+                select
+                onChange={this.props.onChangeFrutificacao}
                 fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
+                SelectProps={{ native: true }}
+                margin="normal"
+             >
+                {frutificacao.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
           </Grid>
+
+          
           <Grid container spacing={24}>
-          <Grid item xs={24}>
+          <Grid item xs={6}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">Selecione o período de Frutificação da espécie</FormLabel>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox 
+                            checked={this.props.FrutificacaoOutono}  
+                            value="outono"
+                            onChange={this.props.onChangeFrutificacaoOutono} 
+                          />
+                        }
+                        label="Outono"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox 
+                          checked={this.props.FrutificacaoVerao}  
+                            value="verao" 
+                            onChange={this.props.onChangeFrutificacaoVerao} 
+                          />
+                        }
+                        label="Verão"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={this.props.FrutificacaoInverno}  
+                            onChange={this.props.onChangeFrutificacaoInverno} 
+                            value="inverno"
+                          />
+                        }
+                        label="Inverno"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={this.props.FrutificacaoPrimavera}  
+                            onChange={this.props.onChangeFrutificacaoPrimavera} 
+                            value="primavera"
+                          />
+                        }
+                        label="Primavera"
+                      />
+                  </FormGroup>
+                </FormControl>
+            </Grid>
+        
+          <Grid item xs={6}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Floração da Espécie</FormLabel>
                     <FormGroup>
@@ -223,6 +336,7 @@ class DadosBasicosForm extends React.Component {
                 </FormControl>
             </Grid>
           </Grid>
+          
           <Grid container spacing={24}>
             <Grid item xs={6} />
             <Grid item xs={6}>
