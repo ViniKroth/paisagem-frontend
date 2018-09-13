@@ -103,7 +103,6 @@ const familia = [
 class DadosBasicosForm extends React.Component {
   constructor() {
     super();
-    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -121,7 +120,26 @@ class DadosBasicosForm extends React.Component {
   }
 
   
+  handleNomePopularChange = (idx) => (evt) => {
+    const nomesPopulares = this.state.nomePopular.map((nomePop, sidx) => {
+      if (idx !== sidx) return nomePop;
+      return { ...nomePop, name: evt.target.value };
+    });
+    
+    this.setState({ nomePopular: nomesPopulares });
+  }
+  
 
+
+  handleAddNomePopular = () => {
+    this.setState({ nomePopular: this.state.nomePopular.concat([{ name: '' }]) });
+    console.log(this.state);
+  }
+  
+  handleRemoveNomePopular = (idx) => () => {
+    this.setState({ nomePopular: this.state.nomePopular.filter((s, sidx) => idx !== sidx) });
+  }
+  
   render() {
     const { classes } = this.props;
     const { outono, verao, primavera, inverno } = this.state;
@@ -141,6 +159,26 @@ class DadosBasicosForm extends React.Component {
                 fullWidth
               />
             </Grid>
+
+            <Grid item xs={6}>
+
+            {this.state.nomePopular.map((nomesPopulares, idx) => (
+          <div className="shareholder">
+            <TextField
+              
+              placeholder={`Nome Popular #${idx + 1} `}
+              value={nomesPopulares.name}
+              onChange={this.handleNomePopularChange(idx)}
+            />
+       	     <Button type="button" onClick={this.handleRemoveNomePopular(idx)} className="small">Tirar</Button>
+          </div>
+        ))}
+        <Button type="button" onClick={this.handleAddNomePopular} className="small">Nome Popular +</Button>           
+                 
+                </Grid>
+                
+
+
             <Grid item xs={6}>
               <TextField
                 id="Familia"

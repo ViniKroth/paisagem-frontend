@@ -86,8 +86,12 @@ class CadastroEspecie extends Page {
             onChangeVerao={this.handleChangeFloracao("FloracaoVerao")}
             onChangeInverno={this.handleChangeFloracao("FloracaoInverno")}
             onChangePrimavera={this.handleChangeFloracao("FloracaoPrimavera")}
+            onChangeFrutificacaoOutono={this.handleChangeFrutificacao("FrutificacaoOutono")}
+            onChangeFrutificacaoVerao={this.handleChangeFrutificacao("FrutificacaoVerao")}
+            onChangeFrutificacaoInverno={this.handleChangeFrutificacao("FrutificacaoInverno")}
+            onChangeFrutificacaoPrimavera={this.handleChangeFrutificacao("FrutificacaoPrimavera")}
             onChangeClassificacao={this.handleChange("classificacao")}
-            onChangeFrutificacao={this.handleChange("frutificacao_tipo")}
+            
           />
         );
       case 1:
@@ -137,9 +141,30 @@ class CadastroEspecie extends Page {
     }
   }
 
+  handleChangeFrutificacao = name => event => {
+    var especie = this.state.especie;
+    event.target.checked
+      ? undefined
+      : name == "FrutificacaoOutono"
+        ? "outono"
+        : name == "FrutificacaoVerao"
+          ? "verao"
+          : name == "FrutificacaoInverno"
+            ? "inverno"
+            : name == "FrutificacaoPrimavera"
+              ? "primavera"
+              : undefined;
+
+    //TODO - Remover isso e usar a string acima para ver quem esta marcado
+    especie[name] = event.target.checked;
+
+    //this.setState({ especie }, () => this.renderAuthentication());
+    this.setState({ [name]: event.target.checked });
+  };
+
   handleChangeFloracao = name => event => {
     var especie = this.state.especie;
-    especie.floracao = !event.target.checked
+    event.target.checked
       ? undefined
       : name == "FloracaoOutono"
         ? "outono"
@@ -154,8 +179,8 @@ class CadastroEspecie extends Page {
     //TODO - Remover isso e usar a string acima para ver quem esta marcado
     especie[name] = event.target.checked;
 
-    this.setState({ especie }, () => this.renderAuthentication());
-    // this.setState({ [name]: event.target.checked });
+    //this.setState({ especie }, () => this.renderAuthentication());
+    this.setState({ [name]: event.target.checked });
   };
 
   goToBack() {
