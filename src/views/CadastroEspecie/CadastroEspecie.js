@@ -56,7 +56,11 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-      especie: {}
+      especie: {nomePopular: [{ name: '' }]},
+                file: '',
+                imagePreviewUrl: '',
+                qntImagensError: false,
+                imageUpload: []
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
@@ -76,6 +80,7 @@ class CadastroEspecie extends Page {
             verao={this.state.especie.FloracaoVerao}
             inverno={this.state.especie.FloracaoInverno}
             primavera={this.state.especie.FloracaoPrimavera}
+            nomePopular = {this.state.especie.nomePopular}
             onChangenomeCientifico={this.handleChange("nome_cientifico")}
             onChangenomePopular={this.handleChange("nome_popular")}
             onChangeFamilia={this.handleChange("familia")}
@@ -91,6 +96,10 @@ class CadastroEspecie extends Page {
             onChangeFrutificacaoInverno={this.handleChangeFrutificacao("FrutificacaoInverno")}
             onChangeFrutificacaoPrimavera={this.handleChangeFrutificacao("FrutificacaoPrimavera")}
             onChangeClassificacao={this.handleChange("classificacao")}
+            handleNomePopularChange={this.handleNomePopularChange}
+            handleAddNomePopular={this.handleAddNomePopular}
+            handleRemoveNomePopular={this.handleRemoveNomePopular}
+
             
           />
         );
@@ -111,6 +120,14 @@ class CadastroEspecie extends Page {
             key="ImgUpLoad"
             onBack={this.goToBack}
             onSubmit={this.goToNext}
+            handleSubmitImage={this.handleSubmitImage}
+            handleImageChange={this.handleImageChange}
+            handleImageDelete={this.handleImageDelete}
+            file={this.state.especie.file}
+            imagePreviewUrl={this.state.especie.imagePreviewUrl}
+            qntImagensError = {false}
+            imageUpload={this.state.especie.imageUpload}
+
           />
         );
       case 3: {
@@ -196,6 +213,81 @@ class CadastroEspecie extends Page {
     especie[campo] = event.target.value;
     return this.setState({ especie });
   };
+
+//Nomes populares
+  handleNomePopularChange = (idx) => (evt) => {
+    var especie = this.state.especie;
+    const nomesPopulares = this.state.especie.nomePopular.map((nomePop, sidx) => {
+      if (idx !== sidx) return nomePop;
+      return { ...nomePop, name: evt.target.value };
+    });
+    especie["nomePopular"] = nomesPopulares;
+    this.setState({ especie });
+  }
+  
+  handleAddNomePopular = () => {
+    var especie = this.state.especie;
+    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ name: '' }]) ;
+    this.setState({ especie });
+    console.log(this.state);
+  }
+  
+  handleRemoveNomePopular = (idx) => () => {
+    var especie = this.state.especie;
+    especie["nomePopular"] =this.state.especie.nomePopular.filter((s, sidx) => idx !== sidx);
+    this.setState({ especie  });
+  }
+
+///
+ //Função acionada quando clicado no upload
+ handleSubmitImage(e) {
+  e.preventDefault();
+  //Aqui vai ser feito o upload para a api e depois inserido no banco
+  this.setState({qntImagensError : false})
+      var imageUploadAtual = this.state.imageUpload //Pega o status atual
+      imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
+
+      this.setState({ imageUpload: imageUploadAtual }, () => {
+          console.log(this.state.imageUpload)
+          console.log('UPLOAD', this.state.file);
+      });
+ 
+}
+
+handleImageChange(e) {
+  e.preventDefault();
+
+  //leitura do arquivo (função pronta)
+  let reader = new FileReader();
+  let file = e.target.files[0];
+
+  reader.onloadend = () => {
+
+      console.log(file)
+      this.setState({
+          file: file,
+          imagePreviewUrl: reader.result
+      });
+
+  }
+  if (file && file.type.match('image.*')) {
+      reader.readAsDataURL(file)
+  }
+}
+handleImageDelete(row) {
+  var i = row.rowIndex;
+  document.getElementById('imgTable').deleteRow(i);
+
+  for (var j = 0; j < this.state.imageUpload.length; j++) {
+      if (this.state.imageUpload[j] === row.state.file) {
+          var list = this.state.imageUpload.splice(j, 1);
+          this.setState({ imageUpload: list })
+          console.log('AQUI', this.state.imageUpload)
+      }
+  }
+
+}
+
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   unauthenticated = () => {

@@ -15,13 +15,25 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import withStyles from "@material-ui/core/styles/withStyles";
-
-
+import RemoveIcon from '@material-ui/icons/Remove';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   button: {
-    marginTop: theme.spacing.unit * 5
-  }
+    marginTop: theme.spacing.unit * 5,
+    
+  },
+
+  RemoveNome:{
+    marginLeft: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    
+  },
+
+  AddNome: {
+    marginTop: theme.spacing.unit * 2
+  },
+
 });
 const origem = [
   {
@@ -111,7 +123,6 @@ class DadosBasicosForm extends React.Component {
     primavera: false,
     verao: false,
     inverno: false,
-    nomePopular: [{ name: '' }],
   };
 
   handleSubmit(evt) {
@@ -120,29 +131,11 @@ class DadosBasicosForm extends React.Component {
   }
 
   
-  handleNomePopularChange = (idx) => (evt) => {
-    const nomesPopulares = this.state.nomePopular.map((nomePop, sidx) => {
-      if (idx !== sidx) return nomePop;
-      return { ...nomePop, name: evt.target.value };
-    });
-    
-    this.setState({ nomePopular: nomesPopulares });
-  }
-  
-
-
-  handleAddNomePopular = () => {
-    this.setState({ nomePopular: this.state.nomePopular.concat([{ name: '' }]) });
-    console.log(this.state);
-  }
-  
-  handleRemoveNomePopular = (idx) => () => {
-    this.setState({ nomePopular: this.state.nomePopular.filter((s, sidx) => idx !== sidx) });
-  }
+ 
   
   render() {
     const { classes } = this.props;
-    const { outono, verao, primavera, inverno } = this.state;
+    //const { outono, verao, primavera, inverno } = this.state;
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -153,6 +146,7 @@ class DadosBasicosForm extends React.Component {
             <Grid item xs={6}>
               <TextField
                 id="nomeCientifico"
+                required
                 name="nomeCientifico"
                 label="Nome Científico"
                 onChange={this.props.onChangenomeCientifico}
@@ -160,23 +154,6 @@ class DadosBasicosForm extends React.Component {
               />
             </Grid>
 
-            <Grid item xs={6}>
-
-            {this.state.nomePopular.map((nomesPopulares, idx) => (
-          <div className="shareholder">
-            <TextField
-              
-              placeholder={`Nome Popular #${idx + 1} `}
-              value={nomesPopulares.name}
-              onChange={this.handleNomePopularChange(idx)}
-            />
-       	     <Button type="button" onClick={this.handleRemoveNomePopular(idx)} className="small">Tirar</Button>
-          </div>
-        ))}
-        <Button type="button" onClick={this.handleAddNomePopular} className="small">Nome Popular +</Button>           
-                 
-                </Grid>
-                
 
 
             <Grid item xs={6}>
@@ -376,6 +353,40 @@ class DadosBasicosForm extends React.Component {
           </Grid>
           
           <Grid container spacing={24}>
+            <Grid item xs={1} sm={6}>
+
+              {this.props.nomePopular.map((nomesPopulares, idx) => (
+                  <div className="nomesPopulares">
+                    <TextField
+                      
+                      placeholder={`Nome Popular (${idx + 1}) `}
+                      value={nomesPopulares.name}
+                      onChange={this.props.handleNomePopularChange(idx)}
+                    />
+                    <IconButton
+                    
+                      onClick={this.props.handleRemoveNomePopular(idx)} 
+                      className={classes.RemoveNome}
+                    >
+                     <RemoveIcon />
+                    </IconButton>
+                  </div>
+              ))}
+              <Button 
+                 onClick={this.props.handleAddNomePopular}
+                 variant="contained"
+                 className={classes.AddNome}
+                 
+               >
+                Adicionar Nome Popular
+              </Button>           
+                      
+            </Grid>
+  
+          </Grid>
+
+          <Grid container spacing={24}>
+
             <Grid item xs={6} />
             <Grid item xs={6}>
               <Button
