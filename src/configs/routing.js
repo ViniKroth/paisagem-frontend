@@ -12,6 +12,8 @@ import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js'
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
+import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
+
 
 export default () => {
   return (
@@ -20,6 +22,7 @@ export default () => {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/protected" component={Page} />
+        <Route path="/image" component={ImagemReferencia}/>
 
         {/* User Container */}
         <Route path="/users/list" component={UserListPage} />
