@@ -13,7 +13,8 @@ import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
 import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
-
+import DadosEspecie from "../components/DetalhesEspecieForm/DadosEspecie";
+import DetalheEspecie from "../views/DetalheEspecies/DetalheEspecie";
 
 export default () => {
   return (
@@ -23,6 +24,8 @@ export default () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/protected" component={Page} />
         <Route path="/image" component={ImagemReferencia}/>
+        <Route path= "/dados" component={DadosEspecie}/>
+        <Route path= "/detalheEspecie" component={DetalheEspecie}/>
 
         {/* User Container */}
         <Route path="/users/list" component={UserListPage} />

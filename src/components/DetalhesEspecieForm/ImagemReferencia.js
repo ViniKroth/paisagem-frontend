@@ -12,11 +12,9 @@ import des from './araucaria-silhouette-vector.jpg'
 
 const tutorialSteps = [
   {
-    label: 'Araraucária',
     imgPath: ara,
   },
   {
-    label: 'Desenho',
     imgPath: des,
   },
   
@@ -68,9 +66,7 @@ class ImagemReferencia extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Paper square elevation={0} className={classes.header}>
-          <Typography>{tutorialSteps[activeStep].label}</Typography>
-        </Paper>
+        <h6></h6>
         <img
           className={classes.img}
           src={tutorialSteps[activeStep].imgPath}
@@ -83,14 +79,14 @@ class ImagemReferencia extends React.Component {
           className={classes.mobileStepper}
           nextButton={
             <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
-              Next
+              Próximo
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </Button>
           }
           backButton={
             <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
               {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
+              Anterior
             </Button>
           }
         />
