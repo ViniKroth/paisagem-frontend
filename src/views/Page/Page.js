@@ -9,13 +9,6 @@ import LoginContext from "../../components/Context/LoginContext/LoginContext";
 import AppContext from "../../components/Context/AppContext";
 
 class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      headerVisible: true // por padrão mostra o header nas páginas
-    };
-  }
-
   /*
      *  Helpers
      */
@@ -50,23 +43,17 @@ class Page extends React.Component {
     );
   };
 
-  loading = () => {
-    return (
-      <div className="container">
-        <p>Carregando pagina. Aguarde...</p>
-      </div>
-    );
-  };
-
   render() {
     return (
       <AppContext.Consumer>
         {appValue => {
           const { headerVisible } = appValue;
+
           return (
             <LoginContext.Consumer>
               {loginValue => {
                 const { isAuthenticated } = loginValue;
+
                 return (
                   <React.Fragment>
                     <Header display={headerVisible} />

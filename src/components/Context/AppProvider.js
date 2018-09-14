@@ -9,8 +9,13 @@ import LoginProvider from "./LoginContext/LoginProvider.js";
 class AppProvider extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      headerVisible: true
+      headerVisible: true,
+      isLoaded: true,
+      setLoaded: isLoaded => {
+        this.setState({ isLoaded });
+      }
     };
   }
 
@@ -21,8 +26,6 @@ class AppProvider extends Component {
       </AppContext.Provider>
     );
   }
-
-  //Métodos de Login
 }
 
 export default AppProvider;

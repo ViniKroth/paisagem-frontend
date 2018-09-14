@@ -1,37 +1,41 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-// Views
-import LoginPage from "views/LoginPage/LoginPage";
-import HomePage from "views/HomePage/HomePage";
-import Page from "views/Page/Page";
-import BlankPage from "views/BlankPage/BlankPage";
-import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js'
+// Wrapper para as páginas
+import ViewWrapper from "../helpers/ViewWrapper";
 
 // Users
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
 
-export default () => {
-  return (
-    <main>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/protected" component={Page} />
+// Views
+// Implementado um Wrapper que substitui o import normal para adicionar loader e outras funcionalidades.
+// Ver o arquivo src/helpers/ViewWrapper.js
+const Page = ViewWrapper("Page/Page");
+const HomePage = ViewWrapper("HomePage/HomePage");
+const LoginPage = ViewWrapper("LoginPage/LoginPage");
+const BlankPage = ViewWrapper("BlankPage/BlankPage");
+const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
 
-        {/* User Container */}
-        <Route path="/users/list" component={UserListPage} />
-        <Route path="/users/details/:id" component={UserDetailsPage} />
-        <Route path="/users/edit" component={UserEditPage} />
-        <Route path="/users/edit/:id" component={UserEditPage} />
-        <Route path='/cadastroEspecie' component={CadastroEspecie}/>
-        {/* End of User Container */}
+export default () => (
+  <main>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/protected" component={Page} />
 
-        {/* 404 - Page not Found */}
-        <Route component={BlankPage} />
-      </Switch>
-    </main>
-  );
-};
+      {/* User Container */}
+      <Route path="/users/list" component={UserListPage} />
+      <Route path="/users/details/:id" component={UserDetailsPage} />
+      <Route path="/users/edit" component={UserEditPage} />
+      <Route path="/users/edit/:id" component={UserEditPage} />
+      {/* End of User Container */}
+
+      <Route path="/cadastroEspecie" component={CadastroEspecie} />
+
+      {/* 404 - Page not Found */}
+      <Route component={BlankPage} />
+    </Switch>
+  </main>
+);
