@@ -12,7 +12,7 @@ class Page extends React.Component {
     headerVisible: PropTypes.bool.isRequired,
     setLoaded: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
-    userData: PropTypes.any.isRequired
+    userData: PropTypes.any
   };
 
   /*
@@ -27,15 +27,8 @@ class Page extends React.Component {
     this.props.setLoaded(loaded);
   };
 
-  isAuthenticated = async () => {
-    let result;
-    this.setLoaded(false);
-
-    result = await this.props.isAuthenticated();
-
-    this.setLoaded(true);
-
-    return result;
+  isAuthenticated = () => {
+    return this.props.isAuthenticated();
   };
 
   /*
