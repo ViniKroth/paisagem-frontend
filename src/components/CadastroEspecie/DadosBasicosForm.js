@@ -17,6 +17,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import withStyles from "@material-ui/core/styles/withStyles";
 import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const styles = theme => ({
   button: {
@@ -368,7 +369,7 @@ class DadosBasicosForm extends React.Component {
                       onClick={this.props.handleRemoveNomePopular(idx)} 
                       className={classes.RemoveNome}
                     >
-                     <RemoveIcon />
+                     <ClearIcon />
                     </IconButton>
                   </div>
               ))}
