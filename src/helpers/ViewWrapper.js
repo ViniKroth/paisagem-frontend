@@ -4,6 +4,10 @@ import Loadable from "react-loadable";
 
 import Loader from "../components/Loader/Loader";
 
+import AppContext from "./../components/Context/AppContext";
+
+import LoginContext from "./../components/Context/LoginContext/LoginContext";
+
 // Criando um componente de Wrapper para as views, que adiciona o loader e o contexto no import.
 const ViewWrapper = path =>
   Loadable({
@@ -20,7 +24,31 @@ const ViewWrapper = path =>
     // Renderização custom da página sendo carregada
     render(loaded, props) {
       let Component = loaded.default;
-      return <Component {...props} />;
+      return (
+        <AppContext.Consumer>
+          {appState => {
+            return (
+              <LoginContext.Consumer>
+                {LoginValue => {
+                  const { setLoaded, isLoaded, headerVisible } = appState;
+                  const { isAuthenticated, userData } = LoginValue;
+
+                  return (
+                    <Component
+                      isAuthenticated={isAuthenticated}
+                      headerVisible={headerVisible}
+                      setLoaded={setLoaded}
+                      isLoaded={isLoaded}
+                      userData={userData}
+                      {...props}
+                    />
+                  );
+                }}
+              </LoginContext.Consumer>
+            );
+          }}
+        </AppContext.Consumer>
+      );
     }
   });
 
