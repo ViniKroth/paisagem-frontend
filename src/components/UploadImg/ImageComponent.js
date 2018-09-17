@@ -48,6 +48,7 @@ class ImageComponent extends React.Component {
                 console.log(this.state.imageUpload)
                 console.log('UPLOAD', this.state.file);
             });
+            this.props.handleChangeImage(this.state);
        
     }
 

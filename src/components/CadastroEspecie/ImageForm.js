@@ -48,12 +48,15 @@ class ImageForm extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.onSubmit();
+    
   }
 
   handleBack(evt) {
     evt.preventDefault();
     this.props.onBack();
   }
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -63,9 +66,9 @@ class ImageForm extends React.Component {
         </Typography>
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
-            <Grid item xs={6}>
+            <Grid item xs={6} sm={6}>
               <React.Fragment>
-                <ImageComponent/>
+                <ImageComponent  handleChangeImage = {this.props.handleChangeImage} />
              </React.Fragment>
             </Grid>
           </Grid>

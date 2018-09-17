@@ -56,15 +56,18 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-      especie: {nomePopular: [{ name: '' }]},
-                file: '',
-                imagePreviewUrl: '',
-                qntImagensError: false,
-                imageUpload: []
+      especie: {nomePopular: [{ name: '' }],
+    
+      image : {},
+    
+    },
+               
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
+
+
 
   getStep(step) {
     switch (step) {
@@ -120,13 +123,7 @@ class CadastroEspecie extends Page {
             key="ImgUpLoad"
             onBack={this.goToBack}
             onSubmit={this.goToNext}
-            handleSubmitImage={this.handleSubmitImage}
-            handleImageChange={this.handleImageChange}
-            handleImageDelete={this.handleImageDelete}
-            file={this.state.especie.file}
-            imagePreviewUrl={this.state.especie.imagePreviewUrl}
-            qntImagensError = {false}
-            imageUpload={this.state.especie.imageUpload}
+            handleChangeImage={this.handleChangeImage}
 
           />
         );
@@ -214,6 +211,14 @@ class CadastroEspecie extends Page {
     return this.setState({ especie });
   };
 
+
+  handleChangeImage = imgState => {
+    console.log(1,imgState)
+    var especie = this.state.especie;
+    especie["image"] = imgState;
+    return this.setState({ especie });
+  };
+
 //Nomes populares
   handleNomePopularChange = (idx) => (evt) => {
     var especie = this.state.especie;
@@ -254,39 +259,6 @@ class CadastroEspecie extends Page {
  
 }
 
-handleImageChange(e) {
-  e.preventDefault();
-
-  //leitura do arquivo (função pronta)
-  let reader = new FileReader();
-  let file = e.target.files[0];
-
-  reader.onloadend = () => {
-
-      console.log(file)
-      this.setState({
-          file: file,
-          imagePreviewUrl: reader.result
-      });
-
-  }
-  if (file && file.type.match('image.*')) {
-      reader.readAsDataURL(file)
-  }
-}
-handleImageDelete(row) {
-  var i = row.rowIndex;
-  document.getElementById('imgTable').deleteRow(i);
-
-  for (var j = 0; j < this.state.imageUpload.length; j++) {
-      if (this.state.imageUpload[j] === row.state.file) {
-          var list = this.state.imageUpload.splice(j, 1);
-          this.setState({ imageUpload: list })
-          console.log('AQUI', this.state.imageUpload)
-      }
-  }
-
-}
 
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
