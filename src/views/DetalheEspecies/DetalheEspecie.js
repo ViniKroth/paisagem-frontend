@@ -95,7 +95,7 @@ class DetalheEspecie extends Page {
     handleChange = (event, value) => {
         this.setState({ value });
     };
-    unauthenticated = () => {
+    authenticated = () => {
         const { value } = this.state;
         const { classes } = this.props;
         return (
@@ -116,13 +116,13 @@ class DetalheEspecie extends Page {
                                 {value === 0 && <TabContainer><Typography variant="display1" align="center">
                                     Araucaria
               </Typography>
-
-                                    
-                                    <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
-                                    <Grid item xs={24} sm={12}>
+              <Grid item xs={24} sm={12}>
                                         <ImagemReferencia />
 
                                     </Grid>
+                                    
+                                    <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
+                                    
                                 </TabContainer>}
                                 {value === 1 && <TabContainer><b>Potencial Arquitetônico:</b> {this.state.potencialarq}<br/> <b>Potencial Paisagístico:</b> {this.state.potencialpaisag}</TabContainer>}
                                 {value === 2 && <TabContainer><img
