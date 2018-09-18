@@ -81,10 +81,10 @@ class HomePage extends Page {
           backgroundImage:`url(${img})`
         }}
       >
-       <Paper elevation={1}>
-                <Grid container spacing={60}>
-                  <Grid item xs={40}>
-                  </Grid>
+       <Paper elevation={0}>
+       <Grid container spacing={14}>
+       <Grid item xs={32} sm={12}>
+                  
         <Button
           variant="contained"
           size="large"
@@ -107,6 +107,7 @@ class HomePage extends Page {
         </Button>
        
      
+      </Grid>
       </Grid>
       </Paper>
       </div>
