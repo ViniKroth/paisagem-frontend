@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import ara from './araucaria.jpg';
-import des from './araucaria-silhouette-vector.jpg'
+import des from './araucaria-silhouette-vector.jpg';
+
 
 const tutorialSteps = [
   {
@@ -22,8 +23,11 @@ const tutorialSteps = [
 
 const styles = theme => ({
   root: {
+    alignItems: 'center',
     maxWidth: 400,
+    marginLeft:theme.spacing.unit * 18,
     flexGrow: 1,
+    
   },
   header: {
     display: 'flex',
@@ -31,6 +35,7 @@ const styles = theme => ({
     height: 50,
     paddingLeft: theme.spacing.unit * 4,
     marginBottom: 20,
+    marginLeft: 20,
     backgroundColor: theme.palette.background.default,
   },
   img: {
@@ -38,6 +43,7 @@ const styles = theme => ({
     maxWidth: 400,
     overflow: 'hidden',
     width: '100%',
+    
   },
 });
 

@@ -100,36 +100,51 @@ class DadisEspecie extends React.Component {
                         <Grid item xs={6}>
 
                             <Typography variant="body1" gutterBottom>
-                                <b>Nome Científico: </b> {this.props.NomeCientifico}
+                                <b>Nome Científico: </b> {this.props.nome_cientifico}
                             </Typography>
 
+                        </Grid>
+                        <Grid item xs={6}>
+                        <Typography variant="body1" gutterBottom>
+                                <b>Nome Popular: </b> {this.props.nome_popular}
+                            </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="body1" gutterBottom>
-                                <b>Família: </b> {this.props.Familia}
+                                <b>Família: </b> {this.props.nome_familia}
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
                         <Typography variant="body1" gutterBottom>
-                                <b>Origem: </b> {this.props.Origem}
+                                <b>Origem: </b> {this.props.origem}
                             </Typography>
                         </Grid>
 
                         <Grid item xs={6}>
                             <Typography variant="body1" gutterBottom>
-                                <b>Folhagem: </b> {this.props.Folhagem}
+                                <b>Folhagem: </b> {this.props.folhagem}
                             </Typography>
                         </Grid>
 
 
                         <Grid item xs={6}>
                         <Typography variant="body1" gutterBottom>
-                                <b>Porte: </b> {this.props.Porte}
+                                <b>Porte: </b> {this.props.porte}
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
                         <Typography variant="body1" gutterBottom>
-                                <b>Período de Floração: </b> {this.props.Porte}
+                                <b>Período de Floração: </b> {this.props.floracao}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                        <Typography variant="body1" gutterBottom>
+                                <b>Gênero: </b> {this.props.genero}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                        <Typography variant="body1" gutterBottom>
+                                <b>População: </b> {this.props.populacao}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
