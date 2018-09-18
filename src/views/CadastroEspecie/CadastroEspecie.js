@@ -1,18 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
-
 import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
-
 import { create } from "services/especies/especies";
 
 const styles = theme => ({
@@ -84,6 +81,7 @@ class CadastroEspecie extends Page {
             inverno={this.state.especie.FloracaoInverno}
             primavera={this.state.especie.FloracaoPrimavera}
             nomePopular = {this.state.especie.nomePopular}
+            porte={this.state.especie.porte}
             onChangenomeCientifico={this.handleChange("nome_cientifico")}
             onChangenomePopular={this.handleChange("nome_popular")}
             onChangeFamilia={this.handleChange("familia")}
@@ -112,7 +110,6 @@ class CadastroEspecie extends Page {
             key="Potenciais"
             onSubmit={this.goToNext}
             onBack={this.goToBack}
-            onChangenomeCientifico={this.handleChange("nome_cientifico")}
             onChangePotencialArq={this.handleChange("potencialarq")}
             onChangePotencialPaisag={this.handleChange("potencialpaisag")}
           />
@@ -201,7 +198,7 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 0) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step - 1 }, () => this.renderAuthentication());
+      this.setState({ step: step - 1 }) //, () => this.renderAuthentication());
     }
   }
 
@@ -262,7 +259,7 @@ class CadastroEspecie extends Page {
 
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
-  authenticated = () => {
+  unauthenticated = () => {
     const { classes } = this.props;
 
     return (
