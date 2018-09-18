@@ -36,18 +36,9 @@ class PotenciaisForm extends React.Component {
           <Grid container spacing={24}>
             <Grid item xs={12}>
               <TextField
-                id="potencialArq"
-                name="potencialArq"
-                label="Potencial Arquitetônico"
-                helperText="Descreva o potencial arquitetônico desta espécie"
-                onChange={this.props.onChangePotencialArq}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
                 id="potencialPaisag"
                 name="potencialPaisag"
+                multiline
                 label="Potencial Paisagístico"
                 helperText="Descreva o potencial paisagístico desta espécie"
                 onChange={this.props.onChangePotencialPaisag}
@@ -58,6 +49,7 @@ class PotenciaisForm extends React.Component {
               <TextField
                 id="descricao"
                 name="descricao"
+                multiline
                 label="Descrição geral da espécie"
                 helperText="Forneça uma breve descrição geral da  espécie"
                 onChange={this.props.onChangeDescricao}
@@ -71,7 +63,7 @@ class PotenciaisForm extends React.Component {
                 id="back"
                 onClick={e => this.handleBack(e)}
                 variant="contained"
-                color=""
+                
                 className={classes.button}
               >
                 VOLTAR

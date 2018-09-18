@@ -6,7 +6,6 @@ import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 
@@ -57,11 +56,18 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-      especie: {}
+      especie: {nomePopular: [{ name: '' }],
+    
+      image : {},
+    
+    },
+               
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
+
+
 
   getStep(step) {
     switch (step) {
@@ -71,12 +77,15 @@ class CadastroEspecie extends Page {
             key="Dados"
             onSubmit={this.goToNext}
             nomeCientifico={this.state.especie.nome_cientifico}
+            nomePopular={this.state.especie.nome_popular}
             familia={this.state.especie.familia}
             outono={this.state.especie.FloracaoOutono}
             verao={this.state.especie.FloracaoVerao}
             inverno={this.state.especie.FloracaoInverno}
             primavera={this.state.especie.FloracaoPrimavera}
+            nomePopular = {this.state.especie.nomePopular}
             onChangenomeCientifico={this.handleChange("nome_cientifico")}
+            onChangenomePopular={this.handleChange("nome_popular")}
             onChangeFamilia={this.handleChange("familia")}
             onChangeFolhagem={this.handleChange("folhagem")}
             onChangeOrigem={this.handleChange("origem")}
@@ -85,6 +94,16 @@ class CadastroEspecie extends Page {
             onChangeVerao={this.handleChangeFloracao("FloracaoVerao")}
             onChangeInverno={this.handleChangeFloracao("FloracaoInverno")}
             onChangePrimavera={this.handleChangeFloracao("FloracaoPrimavera")}
+            onChangeFrutificacaoOutono={this.handleChangeFrutificacao("FrutificacaoOutono")}
+            onChangeFrutificacaoVerao={this.handleChangeFrutificacao("FrutificacaoVerao")}
+            onChangeFrutificacaoInverno={this.handleChangeFrutificacao("FrutificacaoInverno")}
+            onChangeFrutificacaoPrimavera={this.handleChangeFrutificacao("FrutificacaoPrimavera")}
+            onChangeClassificacao={this.handleChange("classificacao")}
+            handleNomePopularChange={this.handleNomePopularChange}
+            handleAddNomePopular={this.handleAddNomePopular}
+            handleRemoveNomePopular={this.handleRemoveNomePopular}
+
+            
           />
         );
       case 1:
@@ -104,6 +123,8 @@ class CadastroEspecie extends Page {
             key="ImgUpLoad"
             onBack={this.goToBack}
             onSubmit={this.goToNext}
+            handleChangeImage={this.handleChangeImage}
+
           />
         );
       case 3: {
@@ -116,7 +137,9 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step + 1 }, () => this.renderAuthentication());
+      this.setState({ step: step + 1 }
+        //, () => this.renderAuthentication()
+      );
     } else {
       var especie = Object.assign({}, this.state.especie);
 
@@ -132,9 +155,30 @@ class CadastroEspecie extends Page {
     }
   }
 
+  handleChangeFrutificacao = name => event => {
+    var especie = this.state.especie;
+    event.target.checked
+      ? undefined
+      : name == "FrutificacaoOutono"
+        ? "outono"
+        : name == "FrutificacaoVerao"
+          ? "verao"
+          : name == "FrutificacaoInverno"
+            ? "inverno"
+            : name == "FrutificacaoPrimavera"
+              ? "primavera"
+              : undefined;
+
+    //TODO - Remover isso e usar a string acima para ver quem esta marcado
+    especie[name] = event.target.checked;
+
+    //this.setState({ especie }, () => this.renderAuthentication());
+    this.setState({ [name]: event.target.checked });
+  };
+
   handleChangeFloracao = name => event => {
     var especie = this.state.especie;
-    especie.floracao = !event.target.checked
+    event.target.checked
       ? undefined
       : name == "FloracaoOutono"
         ? "outono"
@@ -149,8 +193,8 @@ class CadastroEspecie extends Page {
     //TODO - Remover isso e usar a string acima para ver quem esta marcado
     especie[name] = event.target.checked;
 
-    this.setState({ especie }, () => this.renderAuthentication());
-    // this.setState({ [name]: event.target.checked });
+    //this.setState({ especie }, () => this.renderAuthentication());
+    this.setState({ [name]: event.target.checked });
   };
 
   goToBack() {
@@ -166,6 +210,56 @@ class CadastroEspecie extends Page {
     especie[campo] = event.target.value;
     return this.setState({ especie });
   };
+
+
+  handleChangeImage = imgState => {
+    console.log(1,imgState)
+    var especie = this.state.especie;
+    especie["image"] = imgState;
+    return this.setState({ especie });
+  };
+
+//Nomes populares
+  handleNomePopularChange = (idx) => (evt) => {
+    var especie = this.state.especie;
+    const nomesPopulares = this.state.especie.nomePopular.map((nomePop, sidx) => {
+      if (idx !== sidx) return nomePop;
+      return { ...nomePop, name: evt.target.value };
+    });
+    especie["nomePopular"] = nomesPopulares;
+    this.setState({ especie });
+  }
+  
+  handleAddNomePopular = () => {
+    var especie = this.state.especie;
+    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ name: '' }]) ;
+    this.setState({ especie });
+    console.log(this.state);
+  }
+  
+  handleRemoveNomePopular = (idx) => () => {
+    var especie = this.state.especie;
+    especie["nomePopular"] =this.state.especie.nomePopular.filter((s, sidx) => idx !== sidx);
+    this.setState({ especie  });
+  }
+
+///
+ //Função acionada quando clicado no upload
+ handleSubmitImage(e) {
+  e.preventDefault();
+  //Aqui vai ser feito o upload para a api e depois inserido no banco
+  this.setState({qntImagensError : false})
+      var imageUploadAtual = this.state.imageUpload //Pega o status atual
+      imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
+
+      this.setState({ imageUpload: imageUploadAtual }, () => {
+          console.log(this.state.imageUpload)
+          console.log('UPLOAD', this.state.file);
+      });
+ 
+}
+
+
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {

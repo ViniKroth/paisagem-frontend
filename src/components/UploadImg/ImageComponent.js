@@ -39,7 +39,7 @@ class ImageComponent extends React.Component {
         this.setState({qntImagensError : false})
         //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
         // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
-        if (this.props.quantidadeImagens === "" || this.props.quantidadeImagens > this.state.imageUpload.length) {
+       
             var imageUploadAtual = this.state.imageUpload //Pega o status atual
             imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
 
@@ -48,9 +48,8 @@ class ImageComponent extends React.Component {
                 console.log(this.state.imageUpload)
                 console.log('UPLOAD', this.state.file);
             });
-        }else{
-            this.setState({qntImagensError : true})
-        }
+            this.props.handleChangeImage(this.state);
+       
     }
 
     _handleImageChange(e) {
