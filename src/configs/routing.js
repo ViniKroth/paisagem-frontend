@@ -12,6 +12,9 @@ import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js'
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
+import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
+import DadosEspecie from "../components/DetalhesEspecieForm/DadosEspecie";
+import DetalheEspecie from "../views/DetalheEspecies/DetalheEspecie";
 
 export default () => {
   return (
@@ -20,14 +23,16 @@ export default () => {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/protected" component={Page} />
+        <Route path="/image" component={ImagemReferencia}/>
 
         {/* User Container */}
         <Route path="/users/list" component={UserListPage} />
         <Route path="/users/details/:id" component={UserDetailsPage} />
         <Route path="/users/edit" component={UserEditPage} />
         <Route path="/users/edit/:id" component={UserEditPage} />
-        <Route path='/especie/cadastro' component={CadastroEspecie}/>
         {/* End of User Container */}
+        <Route path= "/especies/detalhe" component={DetalheEspecie}/>
+        <Route path='/especies/cadastro' component={CadastroEspecie}/>
 
         {/* 404 - Page not Found */}
         <Route component={BlankPage} />
