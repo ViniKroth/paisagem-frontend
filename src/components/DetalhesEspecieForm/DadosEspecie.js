@@ -132,11 +132,7 @@ class DadisEspecie extends React.Component {
                                 <b>Porte: </b> {this.props.porte}
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Período de Floração: </b> {this.props.floracao}
-                            </Typography>
-                        </Grid>
+                        
                         <Grid item xs={6}>
                         <Typography variant="body1" gutterBottom>
                                 <b>Gênero: </b> {this.props.genero}
@@ -147,7 +143,11 @@ class DadisEspecie extends React.Component {
                                 <b>População: </b> {this.props.populacao}
                             </Typography>
                         </Grid>
+                        
                         <Grid item xs={12}>
+                        <Typography variant="body1" gutterBottom>
+                                <b>Época de Floração: </b> <br/> {this.props.floracao}
+                            </Typography>
                         </Grid>
                     </Grid>
                    

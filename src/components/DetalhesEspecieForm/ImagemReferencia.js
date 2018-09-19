@@ -11,16 +11,6 @@ import ara from './araucaria.jpg';
 import des from './araucaria-silhouette-vector.jpg';
 
 
-const tutorialSteps = [
-  {
-    imgPath: ara,
-  },
-  {
-    imgPath: des,
-  },
-  
-];
-
 const styles = theme => ({
   root: {
     alignItems: 'center',
@@ -67,9 +57,17 @@ class ImagemReferencia extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { activeStep } = this.state;
-
+    const tutorialSteps = [
+      {
+        imgPath: this.props.foto,
+      },
+      {
+        imgPath: this.props.desenho,
+      },
+      
+    ];
     const maxSteps = tutorialSteps.length;
-
+   
     return (
       <div className={classes.root}>
         <h6></h6>
