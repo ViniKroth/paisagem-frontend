@@ -42,12 +42,12 @@ class Header extends React.Component {
     //console.log('Show Header?', props.display)
   }
 
-  componentWillReceiveProps(props) {
-    const { display } = this.prop;
-    if (props.display !== display) {
-      this.setState({ display: props.display });
-    }
-  }
+  // componentWillReceiveProps(props) {
+  //   const { display } = this.prop;
+  //   if (props.display !== display) {
+  //     this.setState({ display: props.display });
+  //   }
+  // }
 
   redirect = path => {
     const { history } = this.props;
@@ -59,7 +59,11 @@ class Header extends React.Component {
   };
 
   handleClose = path => {
-    this.setState({ anchorEl: null }, this.redirect(path));
+    this.setState({ anchorEl: null }, 
+      () => { 
+        if (path) this.redirect(path)
+      }
+    );
   };
 
   renderLogin = () => {

@@ -53,15 +53,6 @@ class HomePage extends Page {
             paddingTop: "100px"
           }}
         />
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          onClick={() => this.redirect("/cadastroEspecie")}
-          className="clickable"
-        >
-          Cadastrar Especie
-        </Button>
       </React.Fragment>
     );
   };
@@ -76,26 +67,6 @@ class HomePage extends Page {
             backgroundImage: `url(${img})`
           }}
         />
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          onClick={() => this.redirect("/login")}
-          // className="clickable"
-        >
-          login
-        </Button>
-        <br />
-        <br />
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          onClick={() => this.redirect("/listagemEspecie")}
-          className="clickable"
-        >
-          Listagem de Especie
-        </Button>
       </React.Fragment>
     );
   };
