@@ -7,16 +7,10 @@ import Button from "@material-ui/core/Button";
 
 // Views
 import Page from "views/Page/Page";
-import { Menu, MenuItem, IconButton } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Paper from "@material-ui/core/Paper";
 
-import Grid from "@material-ui/core/Grid";
+import "./styles.css";
 
-// Serviços
-import { listAll } from "services/user/user";
-
-import img from "./paisagem.jpeg"
+import img from "./paisagem.jpeg";
 
 const styles = theme => ({
   button: {
@@ -51,14 +45,14 @@ const styles = theme => ({
 });
 
 class HomePage extends Page {
-  
   authenticated = () => {
     return (
-      <div
-        style={{
-          paddingTop: "100px"
-        }}
-      >
+      <React.Fragment>
+        <div
+          style={{
+            paddingTop: "100px"
+          }}
+        />
         <Button
           variant="contained"
           size="large"
@@ -68,29 +62,26 @@ class HomePage extends Page {
         >
           Cadastrar Especie
         </Button>
-      </div>
+      </React.Fragment>
     );
   };
 
   unauthenticated = () => {
-   
     return (
-      <div
-        style={{
-          height: "93vh",
-          backgroundImage:`url(${img})`
-        }}
-      >
-       <Paper elevation={0}>
-       <Grid container spacing={14}>
-       <Grid item xs={32} sm={12}>
-                  
+      <React.Fragment>
+        <div
+          className="blur-bgimage"
+          style={{
+            height: "93vh",
+            backgroundImage: `url(${img})`
+          }}
+        />
         <Button
           variant="contained"
           size="large"
           color="primary"
           onClick={() => this.redirect("/login")}
-          className="clickable"
+          // className="clickable"
         >
           login
         </Button>
@@ -105,13 +96,7 @@ class HomePage extends Page {
         >
           Listagem de Especie
         </Button>
-       
-     
-      </Grid>
-      </Grid>
-      </Paper>
-      </div>
-        
+      </React.Fragment>
     );
   };
 }
