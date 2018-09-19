@@ -24,16 +24,15 @@ export default () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/protected" component={Page} />
         <Route path="/image" component={ImagemReferencia}/>
-        <Route path= "/dados" component={DadosEspecie}/>
-        <Route path= "/detalheEspecie" component={DetalheEspecie}/>
 
         {/* User Container */}
         <Route path="/users/list" component={UserListPage} />
         <Route path="/users/details/:id" component={UserDetailsPage} />
         <Route path="/users/edit" component={UserEditPage} />
         <Route path="/users/edit/:id" component={UserEditPage} />
-        <Route path='/cadastroEspecie' component={CadastroEspecie}/>
         {/* End of User Container */}
+        <Route path= "/especies/detalhe" component={DetalheEspecie}/>
+        <Route path='/especies/cadastro' component={CadastroEspecie}/>
 
         {/* 404 - Page not Found */}
         <Route component={BlankPage} />
