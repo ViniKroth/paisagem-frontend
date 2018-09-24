@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 // Biblioteca de Componentes
-
+//&
 // Views
 import Page from "views/Page/Page";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
@@ -81,7 +81,8 @@ class HomePage extends Page {
           backgroundImage:`url(${img})`
         }}
       >
-       <Paper elevation={0}>
+      
+       <Paper elevation={10}>
        <Grid container spacing={14}>
        <Grid item xs={32} sm={12}>
                   
@@ -110,6 +111,7 @@ class HomePage extends Page {
       </Grid>
       </Grid>
       </Paper>
+      
       </div>
         
     );
