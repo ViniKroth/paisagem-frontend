@@ -81,7 +81,13 @@ class HomePage extends Page {
           backgroundImage:`url(${img})`
         }}
       >
-      
+      /*
+      <div 
+        style={{
+          position: "absolute",
+          marginLeft: "900px",
+          marginBottom: "900px"
+      }}>
        <Paper elevation={10}>
        <Grid container spacing={14}>
        <Grid item xs={32} sm={12}>
@@ -111,7 +117,7 @@ class HomePage extends Page {
       </Grid>
       </Grid>
       </Paper>
-      
+      </div>
       </div>
         
     );
