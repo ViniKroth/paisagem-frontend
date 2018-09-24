@@ -15,13 +15,27 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import withStyles from "@material-ui/core/styles/withStyles";
+import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
+import icone from './icone.png';
 
 
 
 const styles = theme => ({
     button: {
         marginTop: theme.spacing.unit * 5
-    }
+    },
+    root: {
+        overflow: 'hidden',
+        padding: `0 ${theme.spacing.unit * 3}px`,
+    },
+    wrapper: {
+        maxWidth: 400,
+    },
+    paper: {
+        margin: theme.spacing.unit,
+        padding: theme.spacing.unit * 2,
+    },
 });
 const origem = [
     {
@@ -68,7 +82,7 @@ const familia = [
 ];
 
 
-class DadisEspecie extends React.Component {
+class DadosEspecie extends React.Component {
     constructor() {
         super();
 
@@ -92,65 +106,141 @@ class DadisEspecie extends React.Component {
     render() {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
+        const message = "TEste";
         return (
             <React.Fragment>
                 <h6></h6>
                 <form onSubmit={this.handleSubmit}>
-                    <Grid container spacing={24}>
-                        <Grid item xs={6}>
+                    <div className={classes.root}>
+                        <div className={classes.wrapper}>
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar> <img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap> <b>Nome Popular: </b> {this.props.nome_popular}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
 
-                            <Typography variant="body1" gutterBottom>
-                                <b>Nome Científico: </b> {this.props.nome_cientifico}
-                            </Typography>
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap><b>Família: </b> {this.props.nome_familia}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
 
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Nome Popular: </b> {this.props.nome_popular}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography variant="body1" gutterBottom>
-                                <b>Família: </b> {this.props.nome_familia}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Origem: </b> {this.props.origem}
-                            </Typography>
-                        </Grid>
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap> <b>Origem: </b> {this.props.origem}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
 
-                        <Grid item xs={6}>
-                            <Typography variant="body1" gutterBottom>
-                                <b>Folhagem: </b> {this.props.folhagem}
-                            </Typography>
-                        </Grid>
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap> <b>Folhagem: </b> {this.props.folhagem}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
 
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap> <b>Porte: </b> {this.props.porte}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
 
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Porte: </b> {this.props.porte}
-                            </Typography>
-                        </Grid>
-                        
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Gênero: </b> {this.props.genero}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>População: </b> {this.props.populacao}
-                            </Typography>
-                        </Grid>
-                        
-                        <Grid item xs={12}>
-                        <Typography variant="body1" gutterBottom>
-                                <b>Época de Floração: </b> <br/> {this.props.floracao}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                   
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>   <b>Gênero: </b> {this.props.genero}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>  <b>População: </b> {this.props.populacao}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                    <Grid item>
+                                        <Avatar><img
+                                                    className={classes.img}
+                                                    src={icone}
+                                                    alt="nativa"
+                                                    height="30" width="30"
+                                                /></Avatar>
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>  <b>Época de Floração: </b> {this.props.floracao}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        </div>
+                    </div>
 
                 </form>
             </React.Fragment>
@@ -158,4 +248,4 @@ class DadisEspecie extends React.Component {
     }
 }
 
-export default withStyles(styles)(DadisEspecie);
+export default withStyles(styles)(DadosEspecie);

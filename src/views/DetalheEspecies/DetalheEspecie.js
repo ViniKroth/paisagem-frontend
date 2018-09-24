@@ -159,7 +159,7 @@ class DetalheEspecie extends Page {
 
                             <Grid item xs={12}>
                                 {value === 0 && <TabContainer><Typography variant="display1" align="center">
-                                    {this.state.nome_cientifico}
+                                    <i>{this.state.nome_cientifico}</i>
               </Typography>
 
                                     <Grid item xs={24} sm={12}>
