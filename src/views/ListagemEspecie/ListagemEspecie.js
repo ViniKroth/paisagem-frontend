@@ -13,6 +13,9 @@ import Page from "views/Page/Page.js";
 import Paper from "@material-ui/core/Paper";
 import mate from "./mate.png";
 import araucaria from "./araucaria.jpg";
+import IconButton from '@material-ui/core/IconButton';
+import Filter from '@material-ui/icons/Filter';
+import { Icon } from '@material-ui/core';
 
 const styles = theme => ({
   layout: {
@@ -58,7 +61,7 @@ const styles = theme => ({
 
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; //esse cards é temporario
+//const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; //esse cards é temporario
 
 class ListagemEspecie extends Page {
   constructor() {
@@ -72,6 +75,7 @@ class ListagemEspecie extends Page {
         origem: mate, // com icone
         porte: '',
         folhagem: '', // com icone
+        cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     };
 }
 
@@ -91,19 +95,19 @@ class ListagemEspecie extends Page {
             <Typography variant="display3" align="center" color="textPrimary" gutterBottom>
               Listagem de Espécies
             </Typography>
-            <Typography variant="title" align="center" color="textSecondary" paragraph>
-              Something short and leading about the collection below—its contents, the creator, etc.
-              Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
-            </Typography>
-            
+            <IconButton variant="outlined" label = "filtrar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+              <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </IconButton>
           </div>
         </div>
         <div className={classNames(classes.layout, classes.cardGrid)}>
           {/* End hero unit */}
           <Grid container spacing={24}>
-            {cards.map(card => (
-              <Grid item key={card} sm={6} md={4} lg={4}>
+            {this.state.cards.map(card => (
+              <Grid item key={card} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
