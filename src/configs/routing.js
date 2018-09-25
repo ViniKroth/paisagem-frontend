@@ -15,6 +15,7 @@ import UserListPage from "views/UserPages/List/UserListPage";
 import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
 import DadosEspecie from "../components/DetalhesEspecieForm/DadosEspecie";
 import DetalheEspecie from "../views/DetalheEspecies/DetalheEspecie";
+import ListagemEspecie from "../views/ListagemEspecie/ListagemEspecie.js";
 
 export default () => {
   return (
@@ -33,6 +34,7 @@ export default () => {
         {/* End of User Container */}
         <Route path= "/especies/detalhe" component={DetalheEspecie}/>
         <Route path='/especies/cadastro' component={CadastroEspecie}/>
+        <Route path='/especies/listas' component={ListagemEspecie}/>
 
         {/* 404 - Page not Found */}
         <Route component={BlankPage} />
