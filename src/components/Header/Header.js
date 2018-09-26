@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo_ages.svg";
 import "./styles.css";
 import { withRouter } from "react-router-dom";
+import ShutDown from '@material-ui/icons/PowerSettingsNew';
 // import {show_stringify} from 'helpers/json'
 
 // Biblioteca de Componentes
@@ -60,7 +61,8 @@ class Header extends React.Component {
           this.redirect("/login");
         }}
       >
-        Logar-se
+        <ShutDown/>
+        {/*Logar-se*/}
       </Button>
     );
   };
@@ -76,6 +78,7 @@ class Header extends React.Component {
           this.redirect("/");
         }}
       >
+
         Deslogar
       </Button>
     );
