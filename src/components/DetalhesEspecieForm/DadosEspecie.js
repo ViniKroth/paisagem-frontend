@@ -1,23 +1,15 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormLabel from '@material-ui/core/FormLabel';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import icone from './icone.png';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 
@@ -107,6 +99,7 @@ class DadosEspecie extends React.Component {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
         const message = "TEste";
+        /*
         return (
             <React.Fragment>
                 <h6></h6>
@@ -117,14 +110,14 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar> <img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Nome Popular: </b> {this.props.nome_popular}</Typography>
+                                        <Typography noWrap> <b>Nome Popular: </b> Teste</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -133,14 +126,14 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
-                                        <Typography noWrap><b>Família: </b> {this.props.nome_familia}</Typography>
+                                        <Typography noWrap><b>Família: </b> Teste</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -149,14 +142,14 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Origem: </b> {this.props.origem}</Typography>
+                                        <Typography noWrap> <b>Origem: </b> Teste</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -165,11 +158,11 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
                                         <Typography noWrap> <b>Folhagem: </b> {this.props.folhagem}</Typography>
@@ -181,11 +174,11 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
                                         <Typography noWrap> <b>Porte: </b> {this.props.porte}</Typography>
@@ -197,11 +190,11 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
                                         <Typography noWrap>   <b>Gênero: </b> {this.props.genero}</Typography>
@@ -213,11 +206,11 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
                                         <Typography noWrap>  <b>População: </b> {this.props.populacao}</Typography>
@@ -228,11 +221,11 @@ class DadosEspecie extends React.Component {
                                 <Grid container wrap="nowrap" spacing={16}>
                                     <Grid item>
                                         <Avatar><img
-                                                    className={classes.img}
-                                                    src={icone}
-                                                    alt="nativa"
-                                                    height="30" width="30"
-                                                /></Avatar>
+                                            className={classes.img}
+                                            src={icone}
+                                            alt="nativa"
+                                            height="30" width="30"
+                                        /></Avatar>
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
                                         <Typography noWrap>  <b>Época de Floração: </b> {this.props.floracao}</Typography>
@@ -245,6 +238,52 @@ class DadosEspecie extends React.Component {
                 </form>
             </React.Fragment>
         );
+        */
+        ///*
+        return (
+            <div className={classes.root}>
+                <List>
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> Teste </Typography></ListItemText>
+                    </ListItem>
+                    <li>
+                        <Divider inset />
+                    </li>
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>Família: </b> Teste</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Origem: </b> Teste</Typography></ListItemText>
+                    </ListItem>
+                </List>
+            </div>
+        );
+       // */
     }
 }
 

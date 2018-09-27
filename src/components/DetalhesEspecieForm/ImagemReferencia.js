@@ -10,7 +10,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import ara from './araucaria.jpg';
 import des from './araucaria-silhouette-vector.jpg';
 
-
 const styles = theme => ({
   root: {
     alignItems: 'center',
@@ -42,6 +41,15 @@ class ImagemReferencia extends React.Component {
     activeStep: 0,
   };
 
+   tutorialSteps = [
+    {
+      imgPath: ara,
+    },
+    {
+      imgPath: des,
+    },
+    
+  ];
   handleNext = () => {
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
@@ -57,24 +65,16 @@ class ImagemReferencia extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { activeStep } = this.state;
-    const tutorialSteps = [
-      {
-        imgPath: this.props.foto,
-      },
-      {
-        imgPath: this.props.desenho,
-      },
-      
-    ];
-    const maxSteps = tutorialSteps.length;
+   
+    const maxSteps = this.tutorialSteps.length;
    
     return (
       <div className={classes.root}>
         <h6></h6>
         <img
           className={classes.img}
-          src={tutorialSteps[activeStep].imgPath}
-          alt={tutorialSteps[activeStep].label}
+          src={this.tutorialSteps[activeStep].imgPath}
+          alt={this.tutorialSteps[activeStep].label}
         />
         <MobileStepper
           steps={maxSteps}
@@ -96,6 +96,7 @@ class ImagemReferencia extends React.Component {
         />
       </div>
     );
+    
   }
 }
 
