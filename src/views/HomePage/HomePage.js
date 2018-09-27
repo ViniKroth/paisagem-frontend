@@ -18,6 +18,8 @@ import { listAll } from "services/user/user";
 
 import img from "./paisagem.jpeg"
 
+//import logo from "./logo.jpg"
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -28,11 +30,11 @@ const styles = theme => ({
   },
 
   paper: {
-    marginTop: theme.spacing.unit * 20,
+    marginTop: theme.spacing.unit * 12,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 20,
+      marginTop: theme.spacing.unit * 8,
       marginBottom: theme.spacing.unit * 3,
       padding: theme.spacing.unit * 3
     }
@@ -102,20 +104,14 @@ class HomePage extends Page {
       <Grid item xs={26} sm={12}> 
 
        <Paper className={classes.paper}>
-       <Grid item xs={12}> 
-       <Typography variant="display3" align="center">O que é o projeto Paisagem</Typography> 
+       <Grid item xs={12}>
+       <img src={require('./logo.jpg')} />
+       <Typography variant="display3" align="center" color="primary">O que é o projeto Paisagem</Typography> 
 
-       <Typography variant="body2" align="center">O projeto Paisagem surgiu a partir de uma demanda da professora Drª.Maria Alice Medeiros Dias do curso de Arquitetura e Urbanismo da Escola Politécnica da PUCRS,tendo ela notado a necessidade de um sistema que seria um facilitador para o mapeamento da flora e também com o intuito de trazer uma maior visibilidade e acessibilidade a área de pesquisa sobre Paisagismo, tanto para especialistas quanto para interessados no assunto.
+       <Typography variant="body2" align="center" color="primary">O projeto Paisagem surgiu a partir de uma demanda da professora Drª.Maria Alice Medeiros Dias do curso de Arquitetura e Urbanismo da Escola Politécnica da PUCRS,tendo ela notado a necessidade de um sistema que seria um facilitador para o mapeamento da flora e também com o intuito de trazer uma maior visibilidade e acessibilidade a área de pesquisa sobre Paisagismo, tanto para especialistas quanto para interessados no assunto.
 Inicialmente o sistema web responsivo terá funcionalidades para facilitar a localização e mapeamento de espécies de plantas na PUCRS. Cada uma das plantas estará especificada no sistema com suas características, informações e geolocalização no campus. Mais informações das funcionalidades que estarão disponíveis no sistema podem ser encontradas na pagina de Requisitos.
 O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental de Engenharia de Software, do curso de bacharelado em Engenharia de Software da Escola Politécnica da PUCRS, em 2018/2 com previsão de conclusão ao final do semestre.</Typography>
 </Grid>
-     
-  
-      
-      
-          <Typography variant="display1" align="center">
-            [imagem]
-          </Typography>
     
               
         <Button
