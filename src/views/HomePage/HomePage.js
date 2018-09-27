@@ -23,7 +23,10 @@ import img from "./paisagem.jpeg"
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    width: 'auto',
+    display: 'flex',
+    
   },
   input: {
     display: "none"
@@ -36,7 +39,7 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 8,
       marginBottom: theme.spacing.unit * 3,
-      padding: theme.spacing.unit * 3
+      padding: theme.spacing.unit * 8
     }
   },
 
@@ -100,8 +103,8 @@ class HomePage extends Page {
         }}
       >
       <main className={classes.layout}>
-       <Grid container spacing={26}>
-      <Grid item xs={26} sm={12}> 
+       <Grid container spacing={15}>
+      <Grid item xs={12} sm={12}> 
 
        <Paper className={classes.paper}>
        <Grid item xs={12}>
@@ -119,7 +122,7 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
           size="large"
           color="primary"
           onClick={() => this.redirect("/login")}
-          className="clickable"
+          className={classes.button}
         >
           login
         </Button>
@@ -130,7 +133,7 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
           size="large"
           color="primary"
           onClick={() => this.redirect("/listagemEspecie")}
-          className="clickable"
+          className={classes.button}
         >
           Listagem de Especie
         </Button>
