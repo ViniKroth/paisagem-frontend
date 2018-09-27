@@ -11,7 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Page from "views/Page/Page.js";
 import Paper from "@material-ui/core/Paper";
-import mate from "./mate.png";
+import nativa from "./nativa.png";
+import exotica from "./exotica.png";
+import perene from "./perene.png";
+import caduca from "./caduca.png";
 import araucaria from "./araucaria.jpg";
 import IconButton from '@material-ui/core/IconButton';
 import Filter from '@material-ui/icons/Filter';
@@ -57,6 +60,11 @@ const styles = theme => ({
     height: '30%',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  img: {
+    height:'10%',
+     width:'25%',
+    align: 'center'
   }
 
 });
@@ -68,14 +76,14 @@ class ListagemEspecie extends Page {
     super();
     this.state = {
         value: 0,
-        nome_cientifico: 'Paenibacillus riograndensis',
+        nome_cientifico: 'Araucaria angustifolia',
         nome_popular: ['po', 'de'],
         //foto: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22288%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20288%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_164edaf95ee%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_164edaf95ee%22%3E%3Crect%20width%3D%22288%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.32500076293945%22%20y%3D%22118.8%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
         foto: araucaria,
-        origem: mate, // com icone
+        origem: 'Nativa', // com icone
         porte: '',
-        folhagem: '', // com icone
-        cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        folhagem: 'Perene', // com icone
+        cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // não sei como limitar o numero de cards por página
     };
 }
 
@@ -92,9 +100,9 @@ class ListagemEspecie extends Page {
         {/* Hero unit */}
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography variant="display3" align="center" color="textPrimary" gutterBottom>
+            <Typography variant="display3" align="center" color="inherit" gutterBottom>
               Listagem de Espécies
-            </Typography>
+            </Typography >
             <IconButton variant="outlined" label = "filtrar">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
               <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
@@ -115,14 +123,42 @@ class ListagemEspecie extends Page {
                     title= {this.state.nome_cientifico.italics()}
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="headline" component="h2"  >
+                    <Typography gutterBottom variant="headline" component="h2">
+                    {
+                      (this.state.origem == "Nativa")  // verifica se é nativa ou exótica
+                      ?
+                      <img
+                      className={classes.img}
+                      src={nativa}
+                      title = {this.state.origem}
+                    />
+                    :
                     <img
-                        src={this.state.origem}
-                        alt="nativa"
-                        height="40" width="40"
-                      />
+                    className={classes.img}
+                      src={exotica}
+                      title = {this.state.origem}
+                    />
+                    }
+                    {
+                      (this.state.folhagem == "Perene") // verifica se é perene ou caduca
+                      ?
+                      <img
+                      className={classes.img}
+                      src={perene}
+                      title = {this.state.folhagem}
+                    />
+                    :
+                    <img
+                    className={classes.img}
+                      src={caduca}
+                      height="40" width="60"
+                      align = "center"
+                      title = {this.state.folhagem}
+                    />
+                    }
+                    
                       <i>
-                     {"\t"} {this.state.nome_cientifico} 
+                     {"\t"} {this.state.nome_cientifico}
                      </i>
                     </Typography>
                     <Typography>                      
@@ -132,9 +168,6 @@ class ListagemEspecie extends Page {
                       <p>
                       Porte: {this.state.porte}
                       </p>                      
-                      <icon>
-                        {this.state.folhagem}
-                      </icon>
                     </Typography>
                   </CardContent>
                   <CardActions>
