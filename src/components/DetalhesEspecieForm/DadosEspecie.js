@@ -252,7 +252,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> Teste </Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.props.nome_popular} </Typography></ListItemText>
                     </ListItem>
                     <li>
                         <Divider inset />
@@ -266,7 +266,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Família: </b> Teste</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Família: </b> {this.props.nome_familia}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -278,7 +278,67 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Origem: </b> Teste</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Origem: </b> {this.props.origem}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>Folhagem: </b> {this.props.folhagem}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Porte: </b> {this.props.porte}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Gênero: </b> {this.props.genero}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>População: </b> {this.props.populacao}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.floracao}</Typography></ListItemText>
                     </ListItem>
                 </List>
             </div>

@@ -143,9 +143,10 @@ class DetalheEspecie extends Page {
         const { classes } = this.props;
         return (
             <Grid container spacing={24}>
+
                 <main className={classes.layout}>
-                    <Paper className={classes.paper}>
                         <div className={classes.root}>
+                        <h1></h1>
                             <Grid item xs={12}>
                                 <AppBar position="static">
                                     <Tabs value={value} onChange={this.handleChange}>
@@ -161,7 +162,7 @@ class DetalheEspecie extends Page {
                                     <i>Araucaria angustifolia</i>
               </Typography>
 
-                                    <Grid item xs={24} sm={12}>
+                                    <Grid item xs={12} sm={12}>
                                         <ImagemReferencia  foto={this.state.foto} desenho={this.state.desenho}/>
 
                                     </Grid>
@@ -222,7 +223,7 @@ class DetalheEspecie extends Page {
 
                             </Grid>
                         </div>
-                    </Paper>
+                 
                 </main>
             </Grid>
         );
