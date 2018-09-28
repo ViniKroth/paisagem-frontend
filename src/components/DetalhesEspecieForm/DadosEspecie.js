@@ -77,7 +77,10 @@ const familia = [
 class DadosEspecie extends React.Component {
     constructor() {
         super();
-
+        this.state = {
+            nomePopular: [],
+            
+        }            
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -92,154 +95,17 @@ class DadosEspecie extends React.Component {
         evt.preventDefault();
         this.props.onSubmit();
     }
-
-
-
+ 
+    componentDidMount(){
+        this.criaEspecie();
+        this.setState({nomePopular: this.props.nome_popular});
+    }
     render() {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
         const message = "TEste";
-        /*
-        return (
-            <React.Fragment>
-                <h6></h6>
-                <form onSubmit={this.handleSubmit}>
-                    <div className={classes.root}>
-                        <div className={classes.wrapper}>
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar> <img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Nome Popular: </b> Teste</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
 
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap><b>Família: </b> Teste</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Origem: </b> Teste</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Folhagem: </b> {this.props.folhagem}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap> <b>Porte: </b> {this.props.porte}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap>   <b>Gênero: </b> {this.props.genero}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap>  <b>População: </b> {this.props.populacao}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                            <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                    <Grid item>
-                                        <Avatar><img
-                                            className={classes.img}
-                                            src={icone}
-                                            alt="nativa"
-                                            height="30" width="30"
-                                        /></Avatar>
-                                    </Grid>
-                                    <Grid item xs zeroMinWidth>
-                                        <Typography noWrap>  <b>Época de Floração: </b> {this.props.floracao}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </div>
-                    </div>
-
-                </form>
-            </React.Fragment>
-        );
-        */
-        ///*
+     
         return (
             <div className={classes.root}>
                 <List>
@@ -252,7 +118,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.props.nome_popular} </Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.state.nomePopular.map((nome) =><Typography noWrap> nome</Typography>)} </Typography></ListItemText>
                     </ListItem>
                     <li>
                         <Divider inset />

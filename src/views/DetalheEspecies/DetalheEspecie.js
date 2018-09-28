@@ -80,7 +80,7 @@ class DetalheEspecie extends Page {
             floracao: '',
             folhagem: '',
             origem: '',
-            nome_popular: '',
+            nome_popular: [],
             potencialarq: '',
             potencialpaisag: '',
             porte: '',
