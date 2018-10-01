@@ -124,6 +124,7 @@ class CadastroEspecie extends Page {
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
+            qntImagensError= {2}
 
           />
         );
@@ -262,7 +263,7 @@ class CadastroEspecie extends Page {
 
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
-  authenticated = () => {
+  unauthenticated = () => {
     const { classes } = this.props;
 
     return (

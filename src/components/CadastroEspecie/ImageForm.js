@@ -61,17 +61,27 @@ class ImageForm extends React.Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Grid container spacing={64}>
+        <Grid item xs={12} >
         <Typography variant="title" gutterBottom>
-          Imagens
-        </Typography>
-        <form onSubmit={this.handleSubmit}>
-          <Grid container spacing={24}>
-            <Grid item xs={6} sm={6}>
-              <React.Fragment>
-                <ImageComponent  handleChangeImage = {this.props.handleChangeImage} />
-             </React.Fragment>
-            </Grid>
-          </Grid>
+            Imagens
+          </Typography>
+        </Grid>
+     
+            <form onSubmit={this.handleSubmit}>
+            
+              
+                <React.Fragment>
+                <Grid item xs={24} >
+                  <ImageComponent 
+                    handleChangeImage = {this.props.handleChangeImage}
+                    qntImagensError= {this.props.qntImagensError}
+                  
+                  />
+                  </Grid>
+              </React.Fragment>
+              
+            
           <Grid container spacing={24}>
             <Grid item xs={6}>
               <Button
@@ -95,9 +105,12 @@ class ImageForm extends React.Component {
                 SAlVAR
               </Button>
             </Grid>
-          </Grid>
+            </Grid>
         </form>
+        </Grid>
       </React.Fragment>
+      
+      
     );
   }
 }
