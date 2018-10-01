@@ -61,25 +61,24 @@ class ImageForm extends React.Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Grid container spacing={64}>
-        <Grid item xs={12} >
+        
         <Typography variant="title" gutterBottom>
             Imagens
           </Typography>
-        </Grid>
+     
      
             <form onSubmit={this.handleSubmit}>
-            
+            <Grid container spacing={24}>
+               
               
-                <React.Fragment>
-                <Grid item xs={24} >
+               
                   <ImageComponent 
                     handleChangeImage = {this.props.handleChangeImage}
                     qntImagensError= {this.props.qntImagensError}
                   
                   />
-                  </Grid>
-              </React.Fragment>
+                  
+              
               
             
           <Grid container spacing={24}>
@@ -106,8 +105,9 @@ class ImageForm extends React.Component {
               </Button>
             </Grid>
             </Grid>
+            </Grid>
         </form>
-        </Grid>
+        
       </React.Fragment>
       
       

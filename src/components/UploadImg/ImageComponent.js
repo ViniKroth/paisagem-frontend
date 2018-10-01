@@ -134,7 +134,7 @@ class ImageComponent extends React.Component {
 
         return (
             <Grid container spacing={24}>
-             
+             <Grid item xs={12}>
                 <div className="previewComponent">
                     <form onSubmit={(e) => this._handleSubmit(e)}>
                     
@@ -153,20 +153,19 @@ class ImageComponent extends React.Component {
                             }
                             label="Desenho"
                         />
-                        
+                    
                 
             
-            <Grid item xs={12}>
+            
                     <Button id="submitBtn"
                         variant="contained"
                         color="primary"
-                        fullWidth
+                        
                         className={classes.button}
                         onClick={(e) => this._handleSubmit(e)}>
                         ENVIAR
                         </Button>
-            </Grid>
-            <Grid item xs={12}>
+                       
                         {
                             this.props.qntImagensError
                             ?
@@ -179,7 +178,8 @@ class ImageComponent extends React.Component {
                     <div className="imgPreview" >
                         {imagePreview}
                     </div>
-             </Grid>
+             
+             
                 </form>
                 {
                     this.state.imageUpload.length === 0
@@ -200,6 +200,7 @@ class ImageComponent extends React.Component {
                 }
 
             </div>
+            </Grid>
             </Grid>
             
         )
