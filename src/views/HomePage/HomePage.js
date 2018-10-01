@@ -22,11 +22,7 @@ import img from "./paisagem.jpeg"
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
-   
-    marginLeft: theme.spacing.unit *3,
-    width: 'auto',
-    display: 'flex',
+    margin: theme.spacing.unit
     
   },
   input: {
@@ -99,7 +95,7 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "93vh",
+          height: "94vh",
           backgroundImage:`url(${img})`
         }}
       >
@@ -111,13 +107,15 @@ class HomePage extends Page {
        <Grid item xs={12}>
        <img src={require('./logo2.PNG')} />
        <Typography variant="display3" align="center" color="primary">O que é o projeto Paisagem</Typography> 
-
+       <br />
+        
        <Typography variant="Headline" align="center" color="primary">O projeto Paisagem surgiu a partir de uma demanda da professora Drª.Maria Alice Medeiros Dias do curso de Arquitetura e Urbanismo da Escola Politécnica da PUCRS,tendo ela notado a necessidade de um sistema que seria um facilitador para o mapeamento da flora e também com o intuito de trazer uma maior visibilidade e acessibilidade a área de pesquisa sobre Paisagismo, tanto para especialistas quanto para interessados no assunto.
 Inicialmente o sistema web responsivo terá funcionalidades para facilitar a localização e mapeamento de espécies de plantas na PUCRS. Cada uma das plantas estará especificada no sistema com suas características, informações e geolocalização no campus. Mais informações das funcionalidades que estarão disponíveis no sistema podem ser encontradas na pagina de Requisitos.
 O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental de Engenharia de Software, do curso de bacharelado em Engenharia de Software da Escola Politécnica da PUCRS, em 2018/2 com previsão de conclusão ao final do semestre.</Typography>
 </Grid>
-    
-              
+        <br />
+        <br />
+         <div>    
         <Button
           variant="contained"
           size="large"
@@ -127,8 +125,7 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
         >
           login
         </Button>
-        <br />
-        <br />
+        
         <Button
           variant="contained"
           size="large"
@@ -138,7 +135,7 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
         >
           Listagem de Especie
         </Button>
-       
+       </div>
        
      
       </Paper>
