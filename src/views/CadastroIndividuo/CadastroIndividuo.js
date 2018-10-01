@@ -9,7 +9,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 
-import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
+import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
 
@@ -49,7 +49,7 @@ const styles = theme => ({
   }
 });
 
-const steps = ["Dados", "Potencial", "Imagens"];
+const steps = ["Localização",  "Imagens"];
 
 class CadastroIndividuo extends Page {
   constructor(props) {
@@ -57,8 +57,70 @@ class CadastroIndividuo extends Page {
     this.state = {
       imagens: [],
       localizacao: null,
-      comentario: null
-    }             
+      comentario: null,
+      step: 0,
+    }    
+    this.goToNext = this.goToNext.bind(this);
+    this.goToBack = this.goToBack.bind(this);         
+  }
+
+  getStep(step) {
+    switch (step) {
+      case 0:
+      return (
+        <LocalizacaoIndividuo
+        
+        onSubmit={this.goToNext}
+        
+        />
+      );      
+      case 1:
+      return (
+       <ImageForm
+            key="ImgUpLoad"
+            onBack={this.goToBack}
+            onSubmit={this.goToNext}
+            handleChangeImage={this.handleChangeImage}
+
+          />
+      );
+        
+      case 2: {
+       
+      }
+    }
+  }
+
+
+  async goToNext() {
+    const { step } = this.state;
+    if (step !== 2) {
+      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      this.setState({ step: step + 1 }
+        //, () => this.renderAuthentication()
+      );
+    } else {
+      var especie = Object.assign({}, this.state.especie);
+
+      delete especie.FloracaoVerao;
+      delete especie.FloracaoOutono;
+      delete especie.FloracaoInverno;
+      delete especie.FloracaoPrimavera;
+
+      var result = await create(this.state.especie);
+
+      console.log(result);
+      //alert("Cadastrado com Sucesso!");
+    }
+  }
+
+
+  goToBack() {
+    const { step } = this.state;
+    if (step !== 0) {
+      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      this.setState({ step: step - 1 }, () => this.renderAuthentication());
+    }
   }
 
   handleChange = event => {
@@ -112,14 +174,14 @@ class CadastroIndividuo extends Page {
 }
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
-  authenticated = () => {
+  unauthenticated = () => {
     const { classes } = this.props;
 
     return (
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography variant="display1" align="center">
-            Cadastro de Espécie
+            Cadastro de Individuo
           </Typography>
           <Stepper activeStep={this.state.step} className={classes.stepper}>
             {steps.map(label => (
@@ -129,11 +191,8 @@ class CadastroIndividuo extends Page {
             ))}
           </Stepper>
           {this.getStep(this.state.step)}
-          <input
-          name="comentario"
-          onChange={this.handleChange}
-          >
-          </input>
+          
+          
         </Paper>
       </main>
     );
