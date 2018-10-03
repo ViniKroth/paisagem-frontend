@@ -97,7 +97,6 @@ class DadosEspecie extends React.Component {
     }
  
     componentDidMount(){
-        this.criaEspecie();
         this.setState({nomePopular: this.props.nome_popular});
     }
     render() {
