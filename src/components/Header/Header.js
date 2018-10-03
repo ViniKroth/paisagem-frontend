@@ -117,7 +117,17 @@ class Header extends React.Component {
                       color="inherit"
                       className={classes.flex}
                     >
+
+                    <Button
+                      variant="contained"
+                      size="large"
+                      color="primary"
+                      onClick={() => this.redirect("/")}
+                      className={classes.button}
+                      >
                       Paisagem
+                    </Button>
+                      
                     </Typography>
                     {/* Verificando se o usuário está logado, mais pratico que o método de usar um render no state. */}
                     {isAuthenticated()
