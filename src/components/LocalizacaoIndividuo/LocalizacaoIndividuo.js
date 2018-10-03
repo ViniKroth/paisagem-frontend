@@ -40,9 +40,10 @@ const styles = theme => ({
 
 });
 
-navigator.geolocation.getCurrentPosition(function(position) {
-  //do_something(position.coords.latitude, position.coords.longitude);
-});
+
+
+
+
 
 class LocalizacaoIndividuo extends React.Component {
 
@@ -50,16 +51,26 @@ class LocalizacaoIndividuo extends React.Component {
   
   constructor() {
     super();
+    this.state= {
+      center: {
+        lat:navigator.geolocation.getCurrentPosition(function(position) {
+         return position.coords.latitude
+        }),
+        lng: navigator.geolocation.getCurrentPosition(function(position) {
+          return position.coords.longitude
+        })
+      },
+      zoom: 11
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  state = {
-    center: {
-      lat: 46.565696,
-      lng: 1.102020
-    },
-    zoom: 11
-  };
+
+
+
+
+
+ 
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -70,6 +81,7 @@ class LocalizacaoIndividuo extends React.Component {
  
   
   render() {
+
     const AnyReactComponent = ({ text }) => (
       <div style={{
         color: 'white', 
@@ -87,6 +99,9 @@ class LocalizacaoIndividuo extends React.Component {
     );
     const { classes } = this.props;
     //const { outono, verao, primavera, inverno } = this.state;
+ 
+
+
     return (
         <React.Fragment>
       
@@ -101,18 +116,20 @@ class LocalizacaoIndividuo extends React.Component {
         
           bootstrapURLKeys={{ key:  "AIzaSyClb62KCYOAJU_X1r90q4mUU0R600BoTGM"  }}
           defaultCenter={this.state.center}
-          defaultZoom={this.state.zoom}
+          defaultZoom={11}
         >
 
 
         
-          <AnyReactComponent
-            lat={this.state.center.lat}
-            lng={this.state.center.lng}
+          {/* <AnyReactComponent
+            lat={
+             center ["lat"]
+            }
+            lng={center ["lgn"]}
 
 
-            text={'Point'}
-          />
+            text={'YOU'}
+          /> */}
 
         </GoogleMapReact>
       </div>
