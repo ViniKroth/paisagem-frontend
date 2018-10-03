@@ -78,8 +78,8 @@ class Header extends React.Component {
           this.redirect("/");
         }}
       >
-
-        Deslogar
+        <ShutDown/>
+        {/*Deslogar*/}
       </Button>
     );
   };
