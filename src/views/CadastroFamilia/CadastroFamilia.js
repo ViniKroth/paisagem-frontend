@@ -34,9 +34,9 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3
     }
   },
-  stepper: {
+  /*stepper: {
     padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
-  },
+  },*/
   buttons: {
     display: "flex",
     justifyContent: "flex-end"
@@ -51,15 +51,15 @@ class CadastroFamilia extends Page {
   constructor() {
     super();
     this.state = {
-      step: 0,
       familia: {
-        nome: '',
+        nome : '',
+        descricao : ''
     
-        descricao : '',
-    
-      },
+      }
                
     };
+    this.end = this.end.bind(this);
+
   }
 
   handleChange = campo => event => {
@@ -67,14 +67,14 @@ class CadastroFamilia extends Page {
     familia[campo] = event.target.value;
     return this.setState({ familia });
   };
-  
-  handleAddNomePopular = () => {
-    var especie = this.state.familia;
-    especie["nomePopular"] = this.state.familia.nomePopular.concat([{ name: '' }]) ;
-    this.setState({ especie });
-    console.log(this.state);
-  }
-  
+
+  async end() {
+      var familia = Object.assign({}, this.state.familia);
+
+      var result = await create(this.state.familia);
+
+      console.log(result);
+    }
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
@@ -88,8 +88,7 @@ class CadastroFamilia extends Page {
           </Typography>
           <FamiliaForm
             key="Familias"
-            onSubmit={this.goToNext}
-            onBack={this.goToBack}
+            onSubmit={this.end}
             onChangeNome={this.handleChange("nome")}
             onChangeDescricao={this.handleChange("descricao")}
           />

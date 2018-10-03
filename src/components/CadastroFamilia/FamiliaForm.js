@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+//import Typography from "@material-ui/core/Typography";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -21,10 +21,7 @@ class FamiliaForm extends React.Component {
     evt.preventDefault();
     this.props.onSubmit();
   }
-  handleBack(evt) {
-    evt.preventDefault();
-    this.props.onBack();
-  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -38,7 +35,7 @@ class FamiliaForm extends React.Component {
                 multiline
                 label="Nome"
                 helperText="Informe o nome da familia"
-                onChange={this.props.onChangePotencialPaisag}
+                onChange={this.props.onChangeNome}
                 fullWidth
               />
             </Grid>
