@@ -18,6 +18,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import GoogleMapReact from 'google-map-react';
+
+
 
 const styles = theme => ({
   button: {
@@ -37,16 +40,25 @@ const styles = theme => ({
 
 });
 
-
+navigator.geolocation.getCurrentPosition(function(position) {
+  //do_something(position.coords.latitude, position.coords.longitude);
+});
 
 class LocalizacaoIndividuo extends React.Component {
+
+
+  
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   state = {
-   
+    center: {
+      lat: 46.565696,
+      lng: 1.102020
+    },
+    zoom: 11
   };
 
   handleSubmit(evt) {
@@ -58,6 +70,21 @@ class LocalizacaoIndividuo extends React.Component {
  
   
   render() {
+    const AnyReactComponent = ({ text }) => (
+      <div style={{
+        color: 'white', 
+        background: 'grey',
+        padding: '15px 10px',
+        display: 'inline-flex',
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '100%',
+        transform: 'translate(-50%, -50%)'
+      }}>
+        {text}
+      </div>
+    );
     const { classes } = this.props;
     //const { outono, verao, primavera, inverno } = this.state;
     return (
@@ -69,7 +96,26 @@ class LocalizacaoIndividuo extends React.Component {
 
 
 
+        <div style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+        
+          bootstrapURLKeys={{ key:  "AIzaSyClb62KCYOAJU_X1r90q4mUU0R600BoTGM"  }}
+          defaultCenter={this.state.center}
+          defaultZoom={this.state.zoom}
+        >
 
+
+        
+          <AnyReactComponent
+            lat={this.state.center.lat}
+            lng={this.state.center.lng}
+
+
+            text={'Point'}
+          />
+
+        </GoogleMapReact>
+      </div>
 
        
           
