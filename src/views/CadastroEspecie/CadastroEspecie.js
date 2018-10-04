@@ -124,6 +124,7 @@ class CadastroEspecie extends Page {
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
+            qntImagensError= {2}
 
           />
         );
