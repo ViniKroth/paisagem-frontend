@@ -92,7 +92,7 @@ class ImageComponent extends React.Component {
         if (imagePreviewUrl) {
             imagePreview = (<img src={imagePreviewUrl} height="290" width="490" />);
         } else {
-            imagePreview = (<Typography variant="subheading" gutterBottom>
+            imagePreview = (<Typography variant="caption" gutterBottom>
                 Selecione uma Imagem para Visualização
           </Typography>);
         }
