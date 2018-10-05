@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import Paper from "@material-ui/core/Paper";
-//import Stepper from "@material-ui/core/Stepper";
-//import Step from "@material-ui/core/Step";
-//import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 
 import FamiliaForm from "components/CadastroFamilia/FamiliaForm.js";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { create } from "services/familia/familia";
 
@@ -34,9 +34,6 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3
     }
   },
-  /*stepper: {
-    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
-  },*/
   buttons: {
     display: "flex",
     justifyContent: "flex-end"
@@ -68,15 +65,24 @@ class CadastroFamilia extends Page {
     return this.setState({ familia });
   };
 
-  async end() {
+  notify = () => {
+    
+    toast.success("Familia Cadastrada com Sucesso");
+
+  };
+
+  async end() {    
+
       var familia = Object.assign({}, this.state.familia);
 
       var result = await create(this.state.familia);
 
+      this.notify();
       console.log(result);
+
     }
 
-  //Alterando para Authenticated pra manter o padrão do resto do sistema.
+  //Authenticated padrão do resto do sistema
   authenticated = () => {
     const { classes } = this.props;
 
@@ -92,6 +98,19 @@ class CadastroFamilia extends Page {
             onChangeNome={this.handleChange("nome")}
             onChangeDescricao={this.handleChange("descricao")}
           />
+                        <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
         </Paper>
       </main>
     );
