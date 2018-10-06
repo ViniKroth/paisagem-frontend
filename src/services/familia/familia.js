@@ -2,9 +2,9 @@ import axios from "axios";
 import { api } from "configs/";
 import { HTTPStatusCodes } from "configs/constants";
 
-export const create = async especie => {
+export const create = async familia => {
   const params = {
-    ...especie
+    ...familia
   };
   console.log(params);
   const response = await axios({

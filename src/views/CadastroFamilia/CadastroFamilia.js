@@ -11,7 +11,7 @@ import FamiliaForm from "components/CadastroFamilia/FamiliaForm.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { create } from "services/familia/familia";
+import { create, read } from "services/familia/familia";
 
 const styles = theme => ({
   layout: {
@@ -56,29 +56,48 @@ class CadastroFamilia extends Page {
                
     };
     this.end = this.end.bind(this);
-
   }
-
   handleChange = campo => event => {
     var familia = this.state.familia;
     familia[campo] = event.target.value;
     return this.setState({ familia });
   };
 
-  notify = () => {
-    
-    toast.success("Familia Cadastrada com Sucesso");
-
+  notify = (n,desc) => {
+    switch(n){
+      case 1 : toast.success("Familia Cadastrada com Sucesso.");
+      break;
+      case 2 : toast.error("Um ou mais campos não estão preenchidos.");
+      break;
+      case 3 : toast.dismiss();
+      break;
+      case 4 : toast(desc);
+      break;
+      default : toast("Isso foi clicado mas não fez nada.");
+    }
   };
 
   async end() {    
-
-      var familia = Object.assign({}, this.state.familia);
-
-      var result = await create(this.state.familia);
-
-      this.notify();
-      console.log(result);
+      //Ainda não checa se a familia já foi cadastrada anteriormente pra notificar
+      //Se feita a tentativa de colocar uma familia com mesmo nome, apresenta que foi cadastrada mas não cadastra de fato
+      //Necessário fazer varredura no banco pelo nome
+      if(this.state.familia.nome!='' && this.state.familia.descricao!=''){//checa se os campos foram preenchidos, se foram tenta criar
+        var result = await create(this.state.familia);
+       // if(fetch('/api/familias').catch(read(39))){
+         // this.notify(4,"caraiba");
+          this.notify(3);// limpa notificação anterior
+          this.notify(1);// mostra que foi cadastrado com sucesso
+          result = null; // zera a variavel(pode ser desnecessário, nao está sendo usada ainda)
+        //}
+        //else{
+        //  this.notify();
+        //}
+      }
+      else{ // retorna erro se os campos não foram preenchidos
+        this.notify(3); // limpa notificação anterior
+        this.notify(2); // notifica que não foi adicionado por falta de campos preenchidos
+      }
+      
 
     }
 
@@ -104,7 +123,7 @@ class CadastroFamilia extends Page {
                   hideProgressBar={false}
                   newestOnTop={false}
                   closeOnClick
-                  rtl={false}
+                  rtl={true}
                   pauseOnVisibilityChange
                   draggable
                   pauseOnHover
