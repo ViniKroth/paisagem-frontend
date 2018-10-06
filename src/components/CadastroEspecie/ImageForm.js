@@ -78,7 +78,6 @@ class ImageForm extends React.Component {
                 id="back"
                 onClick={e => this.handleBack(e)}
                 variant="contained"
-                color=""
                 className={classes.button}
               >
                 VOLTAR

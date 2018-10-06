@@ -133,29 +133,6 @@ class CadastroIndividuo extends Page {
     return this.setState({ especie });
   };
 
-//Nomes populares
-  handleNomePopularChange = (idx) => (evt) => {
-    var especie = this.state.especie;
-    const nomesPopulares = this.state.especie.nomePopular.map((nomePop, sidx) => {
-      if (idx !== sidx) return nomePop;
-      return { ...nomePop, name: evt.target.value };
-    });
-    especie["nomePopular"] = nomesPopulares;
-    this.setState({ especie });
-  }
-  
-  handleAddNomePopular = () => {
-    var especie = this.state.especie;
-    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ name: '' }]) ;
-    this.setState({ especie });
-    console.log(this.state);
-  }
-  
-  handleRemoveNomePopular = (idx) => () => {
-    var especie = this.state.especie;
-    especie["nomePopular"] =this.state.especie.nomePopular.filter((s, sidx) => idx !== sidx);
-    this.setState({ especie  });
-  }
 
 ///
  //Função acionada quando clicado no upload

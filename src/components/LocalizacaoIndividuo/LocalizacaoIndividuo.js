@@ -5,6 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import MapWithAMarker from './MapWithAMarker';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import {geolocated} from 'react-geolocated';
+
+const refs = {};
+
 class LocalizacaoIndividuo extends Component {
   constructor(props) {
     super(props)
@@ -21,6 +25,7 @@ class LocalizacaoIndividuo extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
+          
           console.log(position.coords);
           this.setState(prevState => ({
             currentLatLng: {
@@ -29,34 +34,63 @@ class LocalizacaoIndividuo extends Component {
               lng: position.coords.longitude
             },
             isMarkerShown: true
+            
+
           }))
         }
-      )
+      ),  {maximumAge:Infinity, timeout:5000, enableHighAccuracy:true}
     } else {
       error => console.log(error)
     }
+    
   }
+
+ 
+  onMarkerMounted = ref => {
+    refs.marker = ref;
+   
+}
+
+   onPositionChanged= () => {
+    const position = refs.marker.getPosition();
+    var newcurrentLatLng= {
+                    
+        lat: position.lat(),
+        lng: position.lng()
+      }
+       this.setState({currentLatLng:newcurrentLatLng},console.log(this.state))
+      }
+        
 
 
   componentDidMount() {
-    this.showCurrentLocation()
+    this.showCurrentLocation();
+    console.log(this.state);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.onSubmit();
   }
 
   render() {
     return (
       <React.Fragment>
         
-        <Typography variant="tittle1" gutterBottom>
+        <Typography variant="subheading" gutterBottom>
           Localização
         </Typography>
       <Typography variant="caption" gutterBottom>
-          Selecione a localização do individuo a ser cadastrado
+          Selecione a localização do individuo a ser cadastrado. Você pode alterar a localização como quiser!
         </Typography>
 
         <div>
           <MapWithAMarker
             isMarkerShown={this.state.isMarkerShown}
-            currentLocation={this.state.currentLatLng} />
+            currentLocation={this.state.currentLatLng}
+            onPositionChanged={this.onPositionChanged}
+            onMarkerMounted={this.onMarkerMounted}
+            />
         </div>
 
         <Grid container spacing={24}>
@@ -79,5 +113,5 @@ class LocalizacaoIndividuo extends Component {
 }
 
 
-render(<LocalizacaoIndividuo />, document.getElementById('root'));
+
 export default LocalizacaoIndividuo

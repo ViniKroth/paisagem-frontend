@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { compose, withProps } from 'recompose'
+import { compose, withProps, lifecycle } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 
 const MapWithAMarker = compose(
@@ -8,16 +8,21 @@ const MapWithAMarker = compose(
         loadingElement: <div style={{ height: `100%` , width: `100%`}} />,
         containerElement: <div style={{ height: `500px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
-    }),
+    }), 
     withScriptjs,
     withGoogleMap
 )((props) =>
     <GoogleMap
         defaultZoom={20}
         center={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }}
+        onClick={props.onMapClick}
     >
-        {props.isMarkerShown && <Marker position={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} onClick={props.onMarkerClick} />}
+        {props.isMarkerShown && <Marker position={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} draggable={true}  
+        ref={props.onMarkerMounted} onPositionChanged={props.onPositionChanged} />}
     </GoogleMap>
+    
 )
+
+
 
 export default MapWithAMarker
