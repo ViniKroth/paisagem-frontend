@@ -65,9 +65,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
@@ -157,9 +156,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
