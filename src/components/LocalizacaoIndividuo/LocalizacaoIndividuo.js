@@ -11,66 +11,14 @@ const refs = {};
 
 class LocalizacaoIndividuo extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      currentLatLng: {
-        lat: 0,
-        lng: 0
-      },
-      isMarkerShown: false
-    }
-  }
-
-  showCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          
-          console.log(position.coords);
-          this.setState(prevState => ({
-            currentLatLng: {
-              ...prevState.currentLatLng,
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            },
-            isMarkerShown: true
-            
-
-          }))
-        }
-      ),  {maximumAge:Infinity, timeout:5000, enableHighAccuracy:true}
-    } else {
-      error => console.log(error)
-    }
-    
-  }
-
- 
-  onMarkerMounted = ref => {
-    refs.marker = ref;
+    super(props);
    
-}
-
-   onPositionChanged= () => {
-    const position = refs.marker.getPosition();
-    var newcurrentLatLng= {
-                    
-        lat: position.lat(),
-        lng: position.lng()
-      }
-       this.setState({currentLatLng:newcurrentLatLng},console.log(this.state))
-      }
-        
-
-
-  componentDidMount() {
-    this.showCurrentLocation();
-    console.log(this.state);
   }
+
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onSubmit();
+    this.props.onSubmit(this.state);
   }
 
   render() {
@@ -86,10 +34,10 @@ class LocalizacaoIndividuo extends Component {
 
         <div>
           <MapWithAMarker
-            isMarkerShown={this.state.isMarkerShown}
-            currentLocation={this.state.currentLatLng}
-            onPositionChanged={this.onPositionChanged}
-            onMarkerMounted={this.onMarkerMounted}
+            isMarkerShown={this.props.isMarkerShown}
+            currentLocation={this.props.currentLocation}
+            onPositionChanged={this.props.onPositionChanged}
+            onMarkerMounted={this.props.onMarkerMounted}
             />
         </div>
 

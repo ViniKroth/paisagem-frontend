@@ -50,13 +50,17 @@ const styles = theme => ({
 });
 
 const steps = ["Localização",  "Imagens"];
-
+const refs = {};
 class CadastroIndividuo extends Page {
   constructor(props) {
     super(props);
     this.state = {
+      localizacao: {
+        lat: 0,
+        lng: 0
+      },
+      isMarkerShown: false,
       imagens: [],
-      localizacao: null,
       comentario: null,
       step: 0,
     }    
@@ -64,13 +68,58 @@ class CadastroIndividuo extends Page {
     this.goToBack = this.goToBack.bind(this);         
   }
 
+  showCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          
+          console.log(position.coords);
+          this.setState(prevState => ({
+            localizacao: {
+              ...prevState.currentLatLng,
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            },
+            isMarkerShown: true
+            
+
+          }))
+        }
+      ),  {maximumAge:Infinity, timeout:5000, enableHighAccuracy:true}
+    } else {
+      error => console.log(error)
+    }
+    
+  }
+  componentDidMount() {
+    this.showCurrentLocation();
+  }
+
+  onMarkerMounted = ref => {
+    refs.marker = ref;
+   
+}
+
+   onPositionChanged= () => {
+    const position = refs.marker.getPosition();
+    var newcurrentLatLng= {
+        lat: position.lat(),
+        lng: position.lng()
+      }
+       this.setState({localizacao:newcurrentLatLng},console.log(this.state))
+      }
+
   getStep(step) {
     switch (step) {
       case 0:
       return (
         <LocalizacaoIndividuo
         
-        onSubmit={this.goToNext}
+        onSubmit={this.teste}
+        isMarkerShown={this.state.isMarkerShown}
+        currentLocation={this.state.localizacao}
+        onPositionChanged={this.onPositionChanged}
+        onMarkerMounted={this.onMarkerMounted}
         
         />
       );      
@@ -94,32 +143,27 @@ class CadastroIndividuo extends Page {
 
   async goToNext() {
     const { step } = this.state;
-    if (step !== 2) {
+    if (step !== 1) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }
         //, () => this.renderAuthentication()
       );
     } else {
-      var especie = Object.assign({}, this.state.especie);
+      //var individuo = Object.assign({}, this.state);
 
-      delete especie.FloracaoVerao;
-      delete especie.FloracaoOutono;
-      delete especie.FloracaoInverno;
-      delete especie.FloracaoPrimavera;
+      //var result = await create(this.state.especie);
 
-      var result = await create(this.state.especie);
-
-      console.log(result);
+     // console.log(result);
       //alert("Cadastrado com Sucesso!");
     }
   }
 
-
+  
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step - 1 }, () => this.renderAuthentication());
+      this.setState({ step: step - 1 });
     }
   }
 
