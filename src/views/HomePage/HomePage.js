@@ -13,17 +13,13 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-// Serviços
-import { listAll } from "services/user/user";
-
-import img from "./paisagem.jpeg"
+import img from "./paisagem.jpeg";
 
 //import logo from "./logo.jpg"
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit
-    
   },
   input: {
     display: "none"
@@ -55,26 +51,22 @@ const styles = theme => ({
     }
   },
 
-  typography: {
- 
-  }
+  typography: {}
 });
-
-
 
 class HomePage extends Page {
   constructor(props) {
     super(props);
   }
-  
-    
+
   authenticated = () => {
     const { classes } = this.props;
-   
+
     return (
       <div
         style={{
           height: "94vh",
+<<<<<<< HEAD
           backgroundImage:`url(${img})`,
           height:"70%"
         }}
@@ -135,24 +127,99 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
       </Grid>
       
       </main>
+=======
+          backgroundImage: `url(${img})`
+        }}
+      >
+        <main className={classes.layout}>
+          <Grid container spacing={15}>
+            <Grid item xs={12} sm={12}>
+              <Paper className={classes.paper}>
+                <Grid item xs={12}>
+                  <img src={require("./logo2.PNG")} />
+                  <Typography variant="display3" align="center" color="primary">
+                    O que é o projeto Paisagem
+                  </Typography>
+                  <br />
+
+                  <Typography
+                    variant="Headline"
+                    align="justify"
+                    color="primary"
+                  >
+                    O projeto Paisagem surgiu a partir de uma demanda da
+                    professora Drª.Maria Alice Medeiros Dias do curso de
+                    Arquitetura e Urbanismo da Escola Politécnica da PUCRS,tendo
+                    ela notado a necessidade de um sistema que seria um
+                    facilitador para o mapeamento da flora e também com o
+                    intuito de trazer uma maior visibilidade e acessibilidade a
+                    área de pesquisa sobre Paisagismo, tanto para especialistas
+                    quanto para interessados no assunto. Inicialmente o sistema
+                    web responsivo terá funcionalidades para facilitar a
+                    localização e mapeamento de espécies de plantas na PUCRS.
+                    Cada uma das plantas estará especificada no sistema com suas
+                    características, informações e geolocalização no campus.
+                    Mais informações das funcionalidades que estarão disponíveis
+                    no sistema podem ser encontradas na pagina de Requisitos. O
+                    projeto Paisagem teve inicio na disciplina Prática na
+                    Agência Experimental de Engenharia de Software, do curso de
+                    bacharelado em Engenharia de Software da Escola Politécnica
+                    da PUCRS, em 2018/2 com previsão de conclusão ao final do
+                    semestre.
+                  </Typography>
+                </Grid>
+                <br />
+                <br />
+                <div>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/listagemEspecie")}
+                    className={classes.button}
+                  >
+                    Listagem de Especie
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() =>
+                      this.redirect("/cadastroEspecie/cadastroEspecie")
+                    }
+                    className={classes.button}
+                  >
+                    Cadastro de Espécies
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/")}
+                    className={classes.button}
+                  >
+                    Cadastro de Famílias
+                  </Button>
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
+        </main>
+>>>>>>> c157cfc500c7597ae49bd91e9f1c34201602d1ab
       </div>
-      
-        
     );
   };
 
-
- 
-    
   unauthenticated = () => {
-
-    
     const { classes } = this.props;
-   
+
     return (
       <div
         style={{
           height: "94vh",
+<<<<<<< HEAD
           backgroundImage:`url(${img})`,
           height:"70%"
         }}
@@ -201,15 +268,78 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
       </Grid>
       
       </main>
+=======
+          backgroundImage: `url(${img})`
+        }}
+      >
+        <main className={classes.layout}>
+          <Grid container spacing={15}>
+            <Grid item xs={12} sm={12}>
+              <Paper className={classes.paper}>
+                <Grid item xs={12}>
+                  <img src={require("./logo2.PNG")} />
+                  <Typography variant="display3" align="center" color="primary">
+                    O que é o projeto Paisagem
+                  </Typography>
+                  <br />
+
+                  <Typography
+                    variant="Headline"
+                    align="justify"
+                    color="primary"
+                  >
+                    O projeto Paisagem surgiu a partir de uma demanda da
+                    professora Drª.Maria Alice Medeiros Dias do curso de
+                    Arquitetura e Urbanismo da Escola Politécnica da PUCRS,tendo
+                    ela notado a necessidade de um sistema que seria um
+                    facilitador para o mapeamento da flora e também com o
+                    intuito de trazer uma maior visibilidade e acessibilidade a
+                    área de pesquisa sobre Paisagismo, tanto para especialistas
+                    quanto para interessados no assunto. Inicialmente o sistema
+                    web responsivo terá funcionalidades para facilitar a
+                    localização e mapeamento de espécies de plantas na PUCRS.
+                    Cada uma das plantas estará especificada no sistema com suas
+                    características, informações e geolocalização no campus.
+                    Mais informações das funcionalidades que estarão disponíveis
+                    no sistema podem ser encontradas na pagina de Requisitos. O
+                    projeto Paisagem teve inicio na disciplina Prática na
+                    Agência Experimental de Engenharia de Software, do curso de
+                    bacharelado em Engenharia de Software da Escola Politécnica
+                    da PUCRS, em 2018/2 com previsão de conclusão ao final do
+                    semestre.
+                  </Typography>
+                </Grid>
+                <br />
+                <br />
+                <div>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/login")}
+                    className={classes.button}
+                  >
+                    login
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/listagemEspecie")}
+                    className={classes.button}
+                  >
+                    Listagem de Especie
+                  </Button>
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
+        </main>
+>>>>>>> c157cfc500c7597ae49bd91e9f1c34201602d1ab
       </div>
-      
-        
     );
-  
-  }
   };
-
-
-
+}
 
 export default withStyles(styles)(HomePage);

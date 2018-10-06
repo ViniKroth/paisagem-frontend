@@ -13,6 +13,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 // Importando o Contexto de autenticação, não tratamos mais com os services.
 import LoginContext from "../Context/LoginContext/LoginContext";
@@ -35,13 +37,14 @@ class Header extends React.Component {
     super(props);
     this.state = {
       display: null,
-      render: null
+      render: null,
+      anchorEl: null
     };
     //console.log('Show Header?', props.display)
   }
 
   componentWillReceiveProps(props) {
-    const { display } = this.props;
+    const { display } = this.prop;
     if (props.display !== display) {
       this.setState({ display: props.display });
     }
@@ -50,6 +53,14 @@ class Header extends React.Component {
   redirect = path => {
     const { history } = this.props;
     history.push(path);
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = path => {
+    this.setState({ anchorEl: null }, this.redirect(path));
   };
 
   renderLogin = () => {
@@ -86,6 +97,9 @@ class Header extends React.Component {
 
   render() {
     const { display, classes } = this.props;
+    const { anchorEl } = this.state;
+    let open = Boolean(anchorEl);
+
     if (display) {
       return (
         /* Chamando o Consumidor do Contexto de autencicação, para ter acesso ao state dele (pela variavel value) */
@@ -101,9 +115,37 @@ class Header extends React.Component {
                       className={classes.menuButton}
                       color="inherit"
                       aria-label="Menu"
+                      onClick={this.handleMenu}
                     >
                       <MenuIcon />
                     </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem
+                        onClick={() => this.handleClose("especie/listar")}
+                      >
+                        Listar Especie
+                      </MenuItem>
+                      {isAuthenticated() && (
+                        <MenuItem
+                          onClick={() => this.handleClose("especie/cadastro")}
+                        >
+                          Cadastrar Especie
+                        </MenuItem>
+                      )}
+                    </Menu>
                     <img
                       className={classes.menuButton + " App-logo"}
                       src={logo}
