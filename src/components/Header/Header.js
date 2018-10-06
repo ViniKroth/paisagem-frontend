@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo_ages.svg";
 import "./styles.css";
 import { withRouter } from "react-router-dom";
-import ShutDown from '@material-ui/icons/PowerSettingsNew';
+import ShutDown from "@material-ui/icons/PowerSettingsNew";
 // import {show_stringify} from 'helpers/json'
 
 // Biblioteca de Componentes
@@ -44,7 +44,7 @@ class Header extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const { display } = this.prop;
+    const { display } = this.props;
     if (props.display !== display) {
       this.setState({ display: props.display });
     }
@@ -72,7 +72,7 @@ class Header extends React.Component {
           this.redirect("/login");
         }}
       >
-        <ShutDown/>
+        <ShutDown />
         {/*Logar-se*/}
       </Button>
     );
@@ -89,7 +89,7 @@ class Header extends React.Component {
           this.redirect("/");
         }}
       >
-        <ShutDown/>
+        <ShutDown />
         {/*Deslogar*/}
       </Button>
     );
@@ -159,17 +159,15 @@ class Header extends React.Component {
                       color="inherit"
                       className={classes.flex}
                     >
-
-                    <Button
-                      variant="contained"
-                      size="large"
-                      color="primary"
-                      onClick={() => this.redirect("/")}
-                      className={classes.button}
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="primary"
+                        onClick={() => this.redirect("/")}
+                        className={classes.button}
                       >
-                      Paisagem
-                    </Button>
-                      
+                        Paisagem
+                      </Button>
                     </Typography>
                     {/* Verificando se o usuário está logado, mais pratico que o método de usar um render no state. */}
                     {isAuthenticated()
