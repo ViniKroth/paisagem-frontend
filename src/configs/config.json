@@ -5,7 +5,7 @@
   "hml": {
     "api_url": "http://localhost:4501/api"
   },
-  "prod": {
+  "production": {
     "api_url": "http://localhost:4501/api"
   }
 }
