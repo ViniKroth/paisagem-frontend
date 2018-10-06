@@ -32,7 +32,7 @@ export default () => {
         <Route path="/users/edit" component={UserEditPage} />
         <Route path="/users/edit/:id" component={UserEditPage} />
         {/* End of User Container */}
-        <Route path= "/especies/detalhe" component={DetalheEspecie}/>
+        <Route path= "/especies/detalhe/:id" component={DetalheEspecie}/>
         <Route path='/especies/cadastro' component={CadastroEspecie}/>
         <Route path='/especies/listas' component={ListagemEspecie}/>
 
