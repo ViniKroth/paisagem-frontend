@@ -28,7 +28,11 @@ const styles = theme => ({
   input: {
     display: "none"
   },
-
+  logo:{
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
+    }
+  },
   paper: {
     marginTop: theme.spacing.unit * 12,
     marginBottom: theme.spacing.unit * 3,
@@ -71,7 +75,8 @@ class HomePage extends Page {
       <div
         style={{
           height: "94vh",
-          backgroundImage:`url(${img})`
+          backgroundImage:`url(${img})`,
+          height:"70%"
         }}
       >
       <main className={classes.layout}>
@@ -80,7 +85,7 @@ class HomePage extends Page {
 
        <Paper className={classes.paper}>
        <Grid item xs={12}>
-       <img src={require('./logo2.PNG')} />
+       <img className={classes.logo} src={require('./logo2.PNG')} />
        <Typography variant="display3" align="center" color="primary">O que é o projeto Paisagem</Typography> 
        <br />
         
@@ -148,16 +153,17 @@ O projeto Paisagem teve inicio na disciplina Prática na Agência Experimental d
       <div
         style={{
           height: "94vh",
-          backgroundImage:`url(${img})`
+          backgroundImage:`url(${img})`,
+          height:"70%"
         }}
       >
       <main className={classes.layout}>
-       <Grid container spacing={15}>
+       <Grid container spacing={15}> 
       <Grid item xs={12} sm={12}> 
 
        <Paper className={classes.paper}>
        <Grid item xs={12}>
-       <img src={require('./logo2.PNG')} />
+       <img className={classes.logo} src={require('./logo2.PNG')}/>
        <Typography variant="display3" align="center" color="primary">O que é o projeto Paisagem</Typography> 
        <br />
         
