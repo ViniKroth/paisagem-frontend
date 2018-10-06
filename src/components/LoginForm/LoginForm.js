@@ -15,24 +15,26 @@ import { withRouter } from "react-router-dom";
 
 // Importando o Contexto de autenticação, não tratamos mais com os services.
 import LoginContext from "../Context/LoginContext/LoginContext";
+import img from "./loginImg.jpg"
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit *3
+    
   },
   input: {
     display: "none"
   },
 
   paper: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 12,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 3,
+      marginTop: theme.spacing.unit * 8,
       marginBottom: theme.spacing.unit * 3,
-      padding: theme.spacing.unit * 3
+      padding: theme.spacing.unit * 8
     }
   },
 
@@ -95,16 +97,23 @@ class LoginForm extends React.Component {
         {value => {
           const { authService } = value;
           return (
+            <div
+            style={{
+              height: "94vh",
+              backgroundImage:`url(${img})`
+            }}
+            >
             <main className={classes.layout}>
-              <Paper className={classes.paper} elevation={1}>
-                <Grid container spacing={24}>
-                  <Grid item xs={12}>
-                    <Typography variant="display2" gutterBottom>
+            <Grid container spacing={15}>
+                  <Grid item xs={12} sm={12}>
+              <Paper className={classes.paper}>
+              
+                    <Typography variant="display2" gutterBottom color="primary">
                       Login
                     </Typography>
-                  </Grid>
+                  
 
-                  <Grid item xs={12} sm={12}>
+                  <Grid item xs={12}>
                     <TextField
                       id="username"
                       className="input"
@@ -135,11 +144,12 @@ class LoginForm extends React.Component {
                     >
                       Fazer login
                     </Button>
+                    </Grid>
+                    </Paper>
                   </Grid>
                 </Grid>
-              </Paper>
-              {/* {show_stringify(this.state)} */}
             </main>
+            </div>
           );
         }}
       </LoginContext.Consumer>
