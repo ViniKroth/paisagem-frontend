@@ -105,34 +105,24 @@ class DetalheEspecie extends Page {
         var result =  read(this.props.id_especie);
         this.setState({especie : result});
         var especie = this.state.especie;
+        
         var nomeCien = especie["nome_cientifico"]
-        this.setState({nome_cientifico : nomeCien})
         var nomePop = especie["nome_popular"]
-        this.setState({nome_popular : nomePop})
         var nomeFam = especie["nome_familia"]
-        this.setState({nome_familia : nomeFam})
         var flor = especie["floracao"]
-        this.setState({floracao : flor})
         var folha = especie["folhagem"]
-        this.setState({nome_cientifico : nomeCien})
         var ori = especie["origem"]
-        this.setState({origem : ori})
         var potenArq = especie["potencialarq"]
-        this.setState({potencialarq : potenArq})
         var pontenPaisag = especie["pontencialpaisag"]
-        this.setState({potencialpaisag : pontenPaisag})
         var port = especie["porte"]
-        this.setState({porte : port})
         var gen = especie["genero"]
-        this.setState({genero : gen})
         var popu = especie["populacao"]
-        this.setState({populacao : popu})
         var fot = especie["foto"]
-        this.setState({foto : fot})
         var desen = especie["desenho"]
-        this.setState({desenho : desen})
         var qtdIndivi = especie["qtd_individuos"]
-        this.setState({qtd_individuos : qtdIndivi})
+
+        this.setState({nome_cientifico : nomeCien, nome_popular : nomePop, nome_familia : nomeFam, floracao : flor, folhagem : nomeCien, origem : ori, potencialarq : potenArq,
+            potencialpaisag : pontenPaisag, porte : port, genero : gen, populacao : popu, foto : fot, desenho : desen, qtd_individuos : qtdIndivi})
         console.log(result);
     }
     handleChange = (event, value) => {
