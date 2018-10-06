@@ -10,10 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 
 import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
-import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
-import ImageForm from "components/CadastroEspecie/ImageForm.js";
+import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
 
-import { create } from "services/especies/especies";
 
 const styles = theme => ({
   layout: {
@@ -60,7 +58,7 @@ class CadastroIndividuo extends Page {
         lng: 0
       },
       isMarkerShown: false,
-      imagens: [],
+      imageUpload: [],
       comentario: null,
       step: 0,
     }    
@@ -115,7 +113,7 @@ class CadastroIndividuo extends Page {
       return (
         <LocalizacaoIndividuo
         
-        onSubmit={this.teste}
+        onSubmit={this.goToNext}
         isMarkerShown={this.state.isMarkerShown}
         currentLocation={this.state.localizacao}
         onPositionChanged={this.onPositionChanged}
@@ -125,8 +123,7 @@ class CadastroIndividuo extends Page {
       );      
       case 1:
       return (
-       <ImageForm
-            key="ImgUpLoad"
+       <ImgForm
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
@@ -172,23 +169,22 @@ class CadastroIndividuo extends Page {
   };
 
   handleChangeImage = imgState => {
-    var especie = this.state.especie;
-    especie["image"] = imgState;
-    return this.setState({ especie });
+    //console.log(1,imgState)
+    var imageUploadAtual = this.state.imageUpload;
+    imageUploadAtual.push(imgState);
+    return this.setState({ imageUpload : imageUploadAtual }, console.log(this.state));
   };
 
 
-///
- //Função acionada quando clicado no upload
+
  handleSubmitImage(e) {
   e.preventDefault();
-  //Aqui vai ser feito o upload para a api e depois inserido no banco
+  
   this.setState({qntImagensError : false})
-      var imageUploadAtual = this.state.imageUpload //Pega o status atual
-      imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
-
+      var imageUploadAtual = this.state.imageUpload 
+      imageUploadAtual.push(this.state.file) 
       this.setState({ imageUpload: imageUploadAtual }, () => {
-          console.log(this.state.imageUpload)
+          //console.log(this.state.imageUpload)
           console.log('UPLOAD', this.state.file);
       });
  

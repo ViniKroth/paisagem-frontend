@@ -11,6 +11,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Switch from '@material-ui/core/Switch';
+
+import Grid from "@material-ui/core/Grid";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 const styles = theme => ({
     buttons: {
@@ -18,7 +23,8 @@ const styles = theme => ({
         justifyContent: "flex-end"
     },
     button: {
-        marginTop: theme.spacing.unit * 3
+        marginTop: theme.spacing.unit * 3,
+        marginBottom : theme.spacing.unit * 3
     }
 });
 
@@ -26,10 +32,11 @@ class ImageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            file: '',
+            file: {},
             imagePreviewUrl: '',
             qntImagensError: false,
-            imageUpload: []
+            imageUpload: [],
+            tipoImg: "imagem" , //tipo da imagem atual
         };
     }
     //Função acionada quando clicado no upload
@@ -41,11 +48,12 @@ class ImageComponent extends React.Component {
         // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
        
             var imageUploadAtual = this.state.imageUpload //Pega o status atual
+            this.state.file.tipo = this.state.tipoImg //pega o tipo de imagem do componente switch
             imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
 
             this.setState({ imageUpload: imageUploadAtual }, () => {
                 //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
-                console.log(this.state.imageUpload)
+                //console.log(this.state.imageUpload)
                 console.log('UPLOAD', this.state.file);
             });
             this.props.handleChangeImage(this.state);
@@ -61,7 +69,7 @@ class ImageComponent extends React.Component {
 
         reader.onloadend = () => {
 
-            console.log(file)
+            //console.log(file)
             this.setState({
                 file: file,
                 imagePreviewUrl: reader.result
@@ -80,11 +88,20 @@ class ImageComponent extends React.Component {
             if (this.state.imageUpload[j] === row.state.file) {
                 var list = this.state.imageUpload.splice(j, 1);
                 this.setState({ imageUpload: list })
-                console.log('AQUI', this.state.imageUpload)
+                //console.log('AQUI', this.state.imageUpload)
             }
         }
 
     }
+    handleChangeTipoImg = name => event => {
+        if(event.target.checked){
+            this.setState({ [name]: "desenho" });
+        }else {
+            this.setState({ [name]: "imagem" });
+        }
+        
+      };
+
     render() {
         const { classes } = this.props;
         let { imagePreviewUrl } = this.state;
@@ -103,31 +120,54 @@ class ImageComponent extends React.Component {
                         {dado.name}
                     </TableCell>
                     <TableCell>
+                        {dado.tipo}
+                    </TableCell>
+                    <TableCell>
                         <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={(e) => this._handleDelete(this)}>
                             <DeleteIcon />
                         </IconButton>
                     </TableCell>
+                  
                 </TableRow>;
             })
         )
 
         return (
-
-            <div className="previewComponent">
-                <form onSubmit={(e) => this._handleSubmit(e)}>
-                    <input className="fileInput"
-                        type="file"
-                        onChange={(e) => this._handleImageChange(e)} />
-
+            <Grid container spacing={24}>
+             <Grid item xs={12}>
+                <div className="previewComponent">
+                    <form onSubmit={(e) => this._handleSubmit(e)}>
+                    
+                        <input className="fileInput"
+                            type="file"
+                            onChange={(e) => this._handleImageChange(e)} />
+                        
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    //checked={this.state.tipoImg}
+                                    onChange={this.handleChangeTipoImg('tipoImg')}
+                                    value="desenho"
+                                />
+                        
+                            }
+                            label="Desenho"
+                        />
+                    
+                
+            
+            
                     <Button id="submitBtn"
                         variant="contained"
                         color="primary"
+                        
                         className={classes.button}
                         onClick={(e) => this._handleSubmit(e)}>
                         ENVIAR
                         </Button>
+                       
                         {
-                            this.state.qntImagensError
+                            this.props.qntImagensError
                             ?
                             
                             <Alert titulo ="ERRO: Quantidade de Imagens" texto="Quantidade de imagens ultrapassou o limite!" abrir = {this.state.qntImagensError}/>
@@ -138,6 +178,8 @@ class ImageComponent extends React.Component {
                     <div className="imgPreview" >
                         {imagePreview}
                     </div>
+             
+             
                 </form>
                 {
                     this.state.imageUpload.length === 0
@@ -147,7 +189,8 @@ class ImageComponent extends React.Component {
                         <Table className={classes.table} id="imgTable">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Imagem</TableCell>
+                                    <TableCell>Imagem</TableCell> 
+                                    <TableCell>Tipo</TableCell>
                                     <TableCell>Deletar</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -157,7 +200,9 @@ class ImageComponent extends React.Component {
                 }
 
             </div>
-
+            </Grid>
+            </Grid>
+            
         )
     }
 }
