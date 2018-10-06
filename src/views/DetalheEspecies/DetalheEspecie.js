@@ -10,8 +10,8 @@ import Page from "views/Page/Page.js";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import map from "./map.png";
 import nativa from "./nativa.png";
+import exotica from "./exotica.png";
 import { read } from "services/especies/especies";
 import Avatar from '@material-ui/core/Avatar';
 import icone from '../../components/DetalhesEspecieForm/icone.png';
@@ -99,15 +99,15 @@ class DetalheEspecie extends Page {
     
     componentDidMount(){
         this.criaEspecie();
-        
     }
-    criaEspecie(){
-        var result =  read(this.props.id_especie);
+     criaEspecie = async() =>{
+        var result = await read(1);
+
         this.setState({especie : result});
         var especie = this.state.especie;
         
         var nomeCien = especie["nome_cientifico"]
-        var nomePop = especie["nome_popular"]
+        var nomePop = especie["nome_popular"] ? especie["nome_popular"] : []
         var nomeFam = especie["nome_familia"]
         var flor = especie["floracao"]
         var folha = especie["folhagem"]
@@ -128,6 +128,11 @@ class DetalheEspecie extends Page {
     handleChange = (event, value) => {
         this.setState({ value });
     };
+    authenticated = () => {
+        return(
+            this.unauthenticated()
+        );
+    }
     unauthenticated = () => {
         const { value } = this.state;
         const { classes } = this.props;
@@ -157,6 +162,7 @@ class DetalheEspecie extends Page {
 
                                     </Grid>
                                     <Grid item xs={12}>
+                                    <br/>
                                         {
                                             (this.state.origem === "Nativa")
                                                 ?
@@ -167,7 +173,12 @@ class DetalheEspecie extends Page {
                                                     height="59" width="100"
                                                 />
                                                 :
-                                                ""
+                                                <img
+                                                    className={classes.img}
+                                                    src={exotica}
+                                                    alt="exotica"
+                                                    height="59" width="100"
+                                                />
                                         }
                                     </Grid>
                                     <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
@@ -180,7 +191,7 @@ class DetalheEspecie extends Page {
                             <img
                                 className={classes.img}
                                 src={icone}
-                                alt="nativa"
+                                alt="icon"
                                 height="30" width="30"
                             />
                         </Avatar>
@@ -194,21 +205,17 @@ class DetalheEspecie extends Page {
                             <img
                                 className={classes.img}
                                 src={icone}
-                                alt="nativa"
+                                alt="icon"
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Potencial Paisagístico:</b> {this.state.potencialpaisag}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Descrição Geral:</b> {this.state.potencialpaisag}</Typography></ListItemText>
                     </ListItem>
                    
                 </List>                                
                                 </TabContainer>}
-                                {value === 2 && <TabContainer><img
-                                    className={classes.img}
-                                    src={map}
-                                    alt="map"
-                                    height="300" width="600"
-                                /></TabContainer>}
+                                {value === 2 && <TabContainer>
+                                </TabContainer>}
 
 
                             </Grid>
