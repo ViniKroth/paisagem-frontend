@@ -56,7 +56,7 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-      especie: {nomePopular: [{ name: '' }],
+      especie: {nomePopular: [{ nome: '' }],
     
       image : {},
     
@@ -98,6 +98,7 @@ class CadastroEspecie extends Page {
             onChangeFrutificacaoVerao={this.handleChangeFrutificacao("FrutificacaoVerao")}
             onChangeFrutificacaoInverno={this.handleChangeFrutificacao("FrutificacaoInverno")}
             onChangeFrutificacaoPrimavera={this.handleChangeFrutificacao("FrutificacaoPrimavera")}
+            onChangeFrutificacao={this.handleChange("tipoFruto")}
             onChangeClassificacao={this.handleChange("classificacao")}
             handleNomePopularChange={this.handleNomePopularChange}
             handleAddNomePopular={this.handleAddNomePopular}
@@ -113,7 +114,7 @@ class CadastroEspecie extends Page {
             onSubmit={this.goToNext}
             onBack={this.goToBack}
             onChangenomeCientifico={this.handleChange("nome_cientifico")}
-            onChangePotencialArq={this.handleChange("potencialarq")}
+            onChangeDescricao={this.handleChange("descricao")}
             onChangePotencialPaisag={this.handleChange("potencialpaisag")}
           />
         );
@@ -224,7 +225,7 @@ class CadastroEspecie extends Page {
     var especie = this.state.especie;
     const nomesPopulares = this.state.especie.nomePopular.map((nomePop, sidx) => {
       if (idx !== sidx) return nomePop;
-      return { ...nomePop, name: evt.target.value };
+      return { ...nomePop, nome: evt.target.value };
     });
     especie["nomePopular"] = nomesPopulares;
     this.setState({ especie });
@@ -232,7 +233,7 @@ class CadastroEspecie extends Page {
   
   handleAddNomePopular = () => {
     var especie = this.state.especie;
-    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ name: '' }]) ;
+    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ nome: '' }]) ;
     this.setState({ especie });
     console.log(this.state);
   }
