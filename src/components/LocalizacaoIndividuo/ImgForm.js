@@ -144,7 +144,9 @@ class ImgForm extends React.Component {
              <Grid item xs={12}>
             
                 <div className="previewComponent">
-                    <form onSubmit={(e) => this._handleSubmit(e)}>
+                    <form 
+                    //onSubmit={(e) => this._handleSubmit(e)}
+                    >
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
                             <Typography variant="caption" gutterBottom>
@@ -172,7 +174,8 @@ class ImgForm extends React.Component {
                                     color="primary"
                                     
                                         className={classes.button}
-                                        onClick={(e) => this._handleSubmit(e)}>
+                                        onClick={(e) => this._handleSubmit(e)}
+                                        >
                                         ENVIAR
                                     </Button>
                                     </Grid>
@@ -222,7 +225,7 @@ class ImgForm extends React.Component {
                         <Grid item xs={6}>
                         <Button
                             id="next"
-                            onClick={e => this.props.handleSubmit(e)}
+                           // onClick={e => this.props.handleSubmit(e)}
                             variant="contained"
                             color="primary"
                             className={classes.button}
