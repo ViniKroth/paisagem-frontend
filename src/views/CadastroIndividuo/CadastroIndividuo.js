@@ -118,6 +118,7 @@ class CadastroIndividuo extends Page {
         currentLocation={this.state.localizacao}
         onPositionChanged={this.onPositionChanged}
         onMarkerMounted={this.onMarkerMounted}
+        onChangeDescLocal = {this.handleChange} 
         
         />
       );      
@@ -146,11 +147,11 @@ class CadastroIndividuo extends Page {
         //, () => this.renderAuthentication()
       );
     } else {
-      //var individuo = Object.assign({}, this.state);
+      var individuo = Object.assign({}, this.state);
 
       //var result = await create(this.state.especie);
 
-     // console.log(result);
+      console.log(individuo);
       //alert("Cadastrado com Sucesso!");
     }
   }
