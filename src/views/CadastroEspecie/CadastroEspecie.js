@@ -203,7 +203,7 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 0) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step - 1 }, () => this.renderAuthentication());
+      this.setState({ step: step - 1 });
     }
   }
 
