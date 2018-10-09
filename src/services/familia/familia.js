@@ -1,17 +1,15 @@
 import axios from "axios";
-import * as crypto from "crypto-js";
 import { api } from "configs/";
 import { HTTPStatusCodes } from "configs/constants";
-//import * as querystring from 'querystring'
 
-export const create = async especie => {
+export const create = async familia => {
   const params = {
-    ...especie
+    ...familia
   };
   console.log(params);
   const response = await axios({
     method: "post",
-    url: `${api}/especies`,
+    url: `${api}/familias`,
     data: params,
     timeout: 5000,
     headers: {
@@ -36,7 +34,7 @@ export const create = async especie => {
 export const read = async id => {
   const response = await axios({
     method: "get",
-    url: `${api}/especies/${id}`,
+    url: `${api}/familias/${id}`,
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",
@@ -44,11 +42,9 @@ export const read = async id => {
     }
   });
 
-  console.log(response)
-
   if (response) {
     const api_response = response.data;
-    return api_response;
+    return api_response.data;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",
@@ -57,15 +53,15 @@ export const read = async id => {
   }
 };
 
-export const update = async especie => {
+export const update = async familia => {
   const params = {
-    ...especie
+    ...familia
   };
 
   console.log(params);
   const response = await axios({
     method: "put",
-    url: `${api}/especies`,
+    url: `${api}/familias`,
     data: params,
     timeout: 5000,
     headers: {
@@ -90,18 +86,17 @@ export const update = async especie => {
 export const listAll = async () => {
   const response = await axios({
     method: "get",
-    url: `${api}/especies/`,
+    url: `${api}/familias/`,
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
   });
-  console.log(response)
 
   if (response) {
     const api_response = response.data;
-    return api_response.data;
+    return api_response;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",
