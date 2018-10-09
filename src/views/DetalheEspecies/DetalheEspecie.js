@@ -5,21 +5,20 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
-import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
-import ImageForm from "components/CadastroEspecie/ImageForm.js";
-import map from "./map.png";
 import nativa from "./nativa.png";
+import exotica from "./exotica.png";
 import { read } from "services/especies/especies";
+import Avatar from '@material-ui/core/Avatar';
+import icone from '../../components/DetalhesEspecieForm/icone.png';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 function TabContainer(props) {
     return (
@@ -81,7 +80,7 @@ class DetalheEspecie extends Page {
             floracao: '',
             folhagem: '',
             origem: '',
-            nome_popular: '',
+            nome_popular: [],
             potencialarq: '',
             potencialpaisag: '',
             porte: '',
@@ -100,53 +99,49 @@ class DetalheEspecie extends Page {
     
     componentDidMount(){
         this.criaEspecie();
-        
     }
-    criaEspecie(){
-        var result =  read(this.props.id_especie);
+     criaEspecie = async() =>{
+        var result = await read(1);
+
         this.setState({especie : result});
         var especie = this.state.especie;
+        
         var nomeCien = especie["nome_cientifico"]
-        this.setState({nome_cientifico : nomeCien})
-        var nomePop = especie["nome_popular"]
-        this.setState({nome_popular : nomePop})
+        var nomePop = especie["nome_popular"] ? especie["nome_popular"] : []
         var nomeFam = especie["nome_familia"]
-        this.setState({nome_familia : nomeFam})
         var flor = especie["floracao"]
-        this.setState({floracao : flor})
         var folha = especie["folhagem"]
-        this.setState({nome_cientifico : nomeCien})
         var ori = especie["origem"]
-        this.setState({origem : ori})
         var potenArq = especie["potencialarq"]
-        this.setState({potencialarq : potenArq})
         var pontenPaisag = especie["pontencialpaisag"]
-        this.setState({potencialpaisag : pontenPaisag})
         var port = especie["porte"]
-        this.setState({porte : port})
         var gen = especie["genero"]
-        this.setState({genero : gen})
         var popu = especie["populacao"]
-        this.setState({populacao : popu})
         var fot = especie["foto"]
-        this.setState({foto : fot})
         var desen = especie["desenho"]
-        this.setState({desenho : desen})
         var qtdIndivi = especie["qtd_individuos"]
-        this.setState({qtd_individuos : qtdIndivi})
+
+        this.setState({nome_cientifico : nomeCien, nome_popular : nomePop, nome_familia : nomeFam, floracao : flor, folhagem : nomeCien, origem : ori, potencialarq : potenArq,
+            potencialpaisag : pontenPaisag, porte : port, genero : gen, populacao : popu, foto : fot, desenho : desen, qtd_individuos : qtdIndivi})
         console.log(result);
     }
     handleChange = (event, value) => {
         this.setState({ value });
     };
+    authenticated = () => {
+        return(
+            this.unauthenticated()
+        );
+    }
     unauthenticated = () => {
         const { value } = this.state;
         const { classes } = this.props;
         return (
             <Grid container spacing={24}>
+
                 <main className={classes.layout}>
-                    <Paper className={classes.paper}>
                         <div className={classes.root}>
+                        <h1></h1>
                             <Grid item xs={12}>
                                 <AppBar position="static">
                                     <Tabs value={value} onChange={this.handleChange}>
@@ -159,14 +154,15 @@ class DetalheEspecie extends Page {
 
                             <Grid item xs={12}>
                                 {value === 0 && <TabContainer><Typography variant="display1" align="center">
-                                    {this.state.nome_cientifico}
+                                    <i>Araucaria angustifolia</i>
               </Typography>
 
-                                    <Grid item xs={24} sm={12}>
+                                    <Grid item xs={12} sm={12}>
                                         <ImagemReferencia  foto={this.state.foto} desenho={this.state.desenho}/>
 
                                     </Grid>
                                     <Grid item xs={12}>
+                                    <br/>
                                         {
                                             (this.state.origem === "Nativa")
                                                 ?
@@ -177,24 +173,54 @@ class DetalheEspecie extends Page {
                                                     height="59" width="100"
                                                 />
                                                 :
-                                                ""
+                                                <img
+                                                    className={classes.img}
+                                                    src={exotica}
+                                                    alt="exotica"
+                                                    height="59" width="100"
+                                                />
                                         }
                                     </Grid>
                                     <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
 
                                 </TabContainer>}
-                                {value === 1 && <TabContainer><b>Potencial Arquitetônico:</b> {this.state.potencialarq}<br /> <b>Potencial Paisagístico:</b> {this.state.potencialpaisag}</TabContainer>}
-                                {value === 2 && <TabContainer><img
-                                    className={classes.img}
-                                    src={map}
-                                    alt="map"
-                                    height="300" width="600"
-                                /></TabContainer>}
+                                {value === 1 && <TabContainer>
+                                    <List>
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="icon"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>Potencial Arquitetônico:</b> {this.state.potencialarq} </Typography></ListItemText>
+                    </ListItem>
+                    <li>
+                        <Divider inset />
+                    </li>
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="icon"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap> <b>Descrição Geral:</b> {this.state.potencialpaisag}</Typography></ListItemText>
+                    </ListItem>
+                   
+                </List>                                
+                                </TabContainer>}
+                                {value === 2 && <TabContainer>
+                                </TabContainer>}
 
 
                             </Grid>
                         </div>
-                    </Paper>
+                 
                 </main>
             </Grid>
         );

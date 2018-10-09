@@ -17,6 +17,7 @@ import * as colors from "@material-ui/core/colors/";
 
 // Context Import
 import AppProvider from "./components/Context/AppProvider";
+import ErrorHandler from "./components/ErrorHandler/ErrorHandler";
 
 const theme = createMuiTheme({
   palette: {
@@ -37,10 +38,12 @@ ReactDOM.render(
     {/* Adicionando o provedor de contexto na volta de todo app, 
     para termos acesso ao contexto em todas páginas */}
     <AppProvider>
-      <CssBaseline />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ErrorHandler>
+        <CssBaseline />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ErrorHandler>
     </AppProvider>
   </MuiThemeProvider>,
   document.getElementById("root")
