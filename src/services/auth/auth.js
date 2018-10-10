@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as crypto from "crypto-js";
-import { api } from "../../configs/config";
+import { api_url } from "../../configs/config";
 import { HTTPStatusCodes } from "configs/constants";
 //import * as querystring from 'querystring'
 
@@ -13,7 +13,7 @@ export const login = async (username, password, encrypt_password) => {
 
   const response = await axios({
     method: "post",
-    url: `${api}/login`,
+    url: `${api_url}/login`,
     data: params,
     timeout: 5000,
     headers: {
@@ -51,7 +51,7 @@ export const validToken = async () => {
 
   const response = await axios({
     method: "get",
-    url: `${api}/login/token`,
+    url: `${api_url}/login/token`,
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",
