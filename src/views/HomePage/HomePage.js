@@ -114,7 +114,7 @@ class HomePage extends Page {
                     variant="contained"
                     size="large"
                     color="primary"
-                    onClick={() => this.redirect("/listagemEspecie")}
+                    onClick={() => this.redirect("/especies/listas")}
                     className={classes.button}
                   >
                     Listagem de Especie
@@ -125,7 +125,7 @@ class HomePage extends Page {
                     size="large"
                     color="primary"
                     onClick={() =>
-                      this.redirect("/cadastroEspecie/cadastroEspecie")
+                      this.redirect("/especies/cadastro")
                     }
                     className={classes.button}
                   >
@@ -136,7 +136,7 @@ class HomePage extends Page {
                     variant="contained"
                     size="large"
                     color="primary"
-                    onClick={() => this.redirect("/")}
+                    onClick={() => this.redirect("/familia/cadastro")}
                     className={classes.button}
                   >
                     Cadastro de Famílias
