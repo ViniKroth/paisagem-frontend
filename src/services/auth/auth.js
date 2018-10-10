@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as crypto from "crypto-js";
-import { api } from "configs/";
+import { api } from "../../configs/config";
 import { HTTPStatusCodes } from "configs/constants";
 //import * as querystring from 'querystring'
 
