@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -57,18 +56,30 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
-      especie: {nomePopular: [{ nome: '' }],
-    
-      image : {},
-    
-    },
-               
+      especie: {
+        nomePopular: [
+          {
+            nome: ""
+          }
+        ],
+        image: {
+          outono: false,
+          primavera: false,
+          inverno: false,
+          verao: false
+        },
+        floracao: {
+          outono: false,
+          primavera: false,
+          inverno: false,
+          verao: false
+        },
+        frutificacao: {}
+      }
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
-
-
 
   getStep(step) {
     switch (step) {
@@ -77,35 +88,32 @@ class CadastroEspecie extends Page {
           <DadosBasicosForm
             key="Dados"
             onSubmit={this.goToNext}
+            // Begin Dados básicos
             nomeCientifico={this.state.especie.nome_cientifico}
-            nomePopular={this.state.especie.nome_popular}
+            nomePopular={this.state.especie.nomePopular}
             familia={this.state.especie.familia}
-            outono={this.state.especie.FloracaoOutono}
-            verao={this.state.especie.FloracaoVerao}
-            inverno={this.state.especie.FloracaoInverno}
-            primavera={this.state.especie.FloracaoPrimavera}
-            nomePopular = {this.state.especie.nomePopular}
-            onChangenomeCientifico={this.handleChange("nome_cientifico")}
-            onChangenomePopular={this.handleChange("nome_popular")}
-            onChangeFamilia={this.handleChange("familia")}
-            onChangeFolhagem={this.handleChange("folhagem")}
-            onChangeOrigem={this.handleChange("origem")}
-            onChangePorte={this.handleChange("porte")}
-            onChangeOutono={this.handleChangeFloracao("FloracaoOutono")}
-            onChangeVerao={this.handleChangeFloracao("FloracaoVerao")}
-            onChangeInverno={this.handleChangeFloracao("FloracaoInverno")}
-            onChangePrimavera={this.handleChangeFloracao("FloracaoPrimavera")}
-            onChangeFrutificacaoOutono={this.handleChangeFrutificacao("FrutificacaoOutono")}
-            onChangeFrutificacaoVerao={this.handleChangeFrutificacao("FrutificacaoVerao")}
-            onChangeFrutificacaoInverno={this.handleChangeFrutificacao("FrutificacaoInverno")}
-            onChangeFrutificacaoPrimavera={this.handleChangeFrutificacao("FrutificacaoPrimavera")}
-            onChangeFrutificacao={this.handleChange("tipoFruto")}
-            onChangeClassificacao={this.handleChange("classificacao")}
+            origem={this.state.especie.origem}
+            porte={this.state.especie.porte}
+            classificacao={this.state.especie.classificacao}
+            folhagem={this.state.especie.folhagem}
+            tipoFruto={this.state.especie.tipoFruto}
+            // Begin dados Floração
+            floracaoOutono={this.state.especie.floracao.outono}
+            floracaoVerao={this.state.especie.floracao.verao}
+            floracaoInverno={this.state.especie.floracao.inverno}
+            floracaoPrimavera={this.state.especie.floracao.primavera}
+            // Begin dados Frutificação
+            frutificacaoOutono={this.state.especie.frutificacao.outono}
+            frutificacaoVerao={this.state.especie.frutificacao.verao}
+            frutificacaoInverno={this.state.especie.frutificacao.inverno}
+            frutificacaoPrimavera={this.state.especie.frutificacao.primavera}
+            // Begin Handlers
+            onChange={this.handleChange}
+            onChangeFloracao={this.handleChangeFloracao}
+            onChangeFrutificacao={this.handleChangeFrutificacao}
             handleNomePopularChange={this.handleNomePopularChange}
             handleAddNomePopular={this.handleAddNomePopular}
             handleRemoveNomePopular={this.handleRemoveNomePopular}
-
-            
           />
         );
       case 1:
@@ -126,7 +134,6 @@ class CadastroEspecie extends Page {
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
-
           />
         );
       case 3: {
@@ -139,17 +146,8 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step + 1 }
-        //, () => this.renderAuthentication()
-      );
+      this.setState({ step: step + 1 });
     } else {
-      var especie = Object.assign({}, this.state.especie);
-
-      delete especie.FloracaoVerao;
-      delete especie.FloracaoOutono;
-      delete especie.FloracaoInverno;
-      delete especie.FloracaoPrimavera;
-
       var result = await create(this.state.especie);
 
       console.log(result);
@@ -159,109 +157,113 @@ class CadastroEspecie extends Page {
 
   handleChangeFrutificacao = name => event => {
     var especie = this.state.especie;
-    event.target.checked
-      ? undefined
-      : name == "FrutificacaoOutono"
-        ? "outono"
-        : name == "FrutificacaoVerao"
-          ? "verao"
-          : name == "FrutificacaoInverno"
-            ? "inverno"
-            : name == "FrutificacaoPrimavera"
-              ? "primavera"
-              : undefined;
 
-    //TODO - Remover isso e usar a string acima para ver quem esta marcado
-    especie[name] = event.target.checked;
+    especie.frutificacao[name] = event.target.checked;
 
-    //this.setState({ especie }, () => this.renderAuthentication());
-    this.setState({ [name]: event.target.checked });
+    this.setState({
+      especie
+    });
   };
 
   handleChangeFloracao = name => event => {
     var especie = this.state.especie;
-    event.target.checked
-      ? undefined
-      : name == "FloracaoOutono"
-        ? "outono"
-        : name == "FloracaoVerao"
-          ? "verao"
-          : name == "FloracaoInverno"
-            ? "inverno"
-            : name == "FloracaoPrimavera"
-              ? "primavera"
-              : undefined;
 
-    //TODO - Remover isso e usar a string acima para ver quem esta marcado
-    especie[name] = event.target.checked;
+    especie.floracao[name] = event.target.checked;
 
-    //this.setState({ especie }, () => this.renderAuthentication());
-    this.setState({ [name]: event.target.checked });
+    this.setState({
+      especie
+    });
   };
 
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step - 1 });
+      this.setState({
+        step: step - 1
+      });
     }
   }
 
   handleChange = campo => event => {
     var especie = this.state.especie;
     especie[campo] = event.target.value;
-    return this.setState({ especie });
+    return this.setState({
+      especie
+    });
   };
-
 
   handleChangeImage = imgState => {
-    console.log(1,imgState)
     var especie = this.state.especie;
     especie["image"] = imgState;
-    return this.setState({ especie });
+    return this.setState({
+      especie
+    });
   };
 
-//Nomes populares
-  handleNomePopularChange = (idx) => (evt) => {
+  //Nomes populares
+  handleNomePopularChange = idx => evt => {
+
     var especie = this.state.especie;
-    const nomesPopulares = this.state.especie.nomePopular.map((nomePop, sidx) => {
-      if (idx !== sidx) return nomePop;
-      return { ...nomePop, nome: evt.target.value };
-    });
+    const nomesPopulares = this.state.especie.nomePopular.map(
+      (nomePop, sidx) => {
+        if (idx !== sidx) return nomePop;
+        return {
+          nome: evt.target.value
+        };
+      }
+    );
+    console.log(nomesPopulares)
     especie["nomePopular"] = nomesPopulares;
-    this.setState({ especie });
-  }
-  
+    this.setState({
+      especie
+    });
+  };
+
   handleAddNomePopular = () => {
     var especie = this.state.especie;
-    especie["nomePopular"] = this.state.especie.nomePopular.concat([{ nome: '' }]) ;
-    this.setState({ especie });
+    especie["nomePopular"] = this.state.especie.nomePopular.concat([
+      {
+        nome: ""
+      }
+    ]);
+    this.setState({
+      especie
+    });
     console.log(this.state);
-  }
-  
-  handleRemoveNomePopular = (idx) => () => {
+  };
+
+  handleRemoveNomePopular = idx => () => {
     var especie = this.state.especie;
-    especie["nomePopular"] =this.state.especie.nomePopular.filter((s, sidx) => idx !== sidx);
-    this.setState({ especie  });
+    especie["nomePopular"] = this.state.especie.nomePopular.filter(
+      (s, sidx) => idx !== sidx
+    );
+    this.setState({
+      especie
+    });
+  };
+
+  ///
+  //Função acionada quando clicado no upload
+  handleSubmitImage(e) {
+    e.preventDefault();
+    //Aqui vai ser feito o upload para a api e depois inserido no banco
+    this.setState({
+      qntImagensError: false
+    });
+    var imageUploadAtual = this.state.imageUpload; //Pega o status atual
+    imageUploadAtual.push(this.state.file); //Na parte do file tanto faz usar o stateAtual ou o this.state
+
+    this.setState(
+      {
+        imageUpload: imageUploadAtual
+      },
+      () => {
+        console.log(this.state.imageUpload);
+        console.log("UPLOAD", this.state.file);
+      }
+    );
   }
-
-///
- //Função acionada quando clicado no upload
- handleSubmitImage(e) {
-  e.preventDefault();
-  //Aqui vai ser feito o upload para a api e depois inserido no banco
-  this.setState({qntImagensError : false})
-      var imageUploadAtual = this.state.imageUpload //Pega o status atual
-      imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-      this.setState({ imageUpload: imageUploadAtual }, () => {
-          console.log(this.state.imageUpload)
-          console.log('UPLOAD', this.state.file);
-      });
- 
-}
-
-
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
@@ -276,7 +278,7 @@ class CadastroEspecie extends Page {
           <Stepper activeStep={this.state.step} className={classes.stepper}>
             {steps.map(label => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel> {label} </StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -286,9 +288,5 @@ class CadastroEspecie extends Page {
     );
   };
 }
-
-CadastroEspecie.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
+CadastroEspecie.propTypes = { classes: PropTypes.object.isRequired };
 export default withStyles(styles)(CadastroEspecie);
