@@ -190,7 +190,11 @@ class CadastroIndividuo extends Page {
       });
  
 }
-
+authenticated = () => {
+  return (
+      this.unauthenticated()
+  );
+}
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   unauthenticated = () => {
     const { classes } = this.props;
