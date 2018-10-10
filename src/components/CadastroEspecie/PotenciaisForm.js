@@ -38,10 +38,10 @@ class PotenciaisForm extends React.Component {
               <TextField
                 id="potencialPaisag"
                 name="potencialPaisag"
-                multiline
                 label="Potencial Paisagístico"
                 helperText="Descreva o potencial paisagístico desta espécie"
                 onChange={this.props.onChangePotencialPaisag}
+                multiline
                 fullWidth
               />
             </Grid>

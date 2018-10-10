@@ -7,8 +7,8 @@ import HomePage from "views/HomePage/HomePage";
 import Page from "views/Page/Page";
 import BlankPage from "views/BlankPage/BlankPage";
 import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js';
-import CadastroFamilia from 'views/CadastroFamilia/CadastroFamilia.js';
-import CadastroIndividuo from 'views/CadastroIndividuo/CadastroIndividuo.js';
+import CadastroFamilia from 'views/CadastroFamilia/CadastroFamilia.js'
+import CadastroIndividuo from 'views/CadastroIndividuo/CadastroIndividuo.js'
 
 // Users
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
@@ -46,4 +46,5 @@ export default () => {
       </Switch>
     </main>
   );
+
 };
