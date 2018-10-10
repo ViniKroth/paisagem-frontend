@@ -71,7 +71,7 @@ const styles = theme => ({
 
 
 class DetalheEspecie extends Page {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             value: 0,
@@ -96,40 +96,42 @@ class DetalheEspecie extends Page {
             especie: {}
         };
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         this.criaEspecie();
     }
-     criaEspecie = async() =>{
+    criaEspecie = async () => {
         var result = await read(this.props.match.params.id);
 
-        this.setState({especie : result});
+        this.setState({ especie: result });
         var especie = this.state.especie;
-        
+
         var nomeCien = especie["nome_cientifico"]
         var nomePop = especie["nome_popular"] ? especie["nome_popular"] : []
         var nomeFam = especie["nome_familia"]
         var flor = especie["floracao"]
         var folha = especie["folhagem"]
         var ori = especie["origem"]
-        var potenArq = especie["potencialarq"]
-        var pontenPaisag = especie["pontencialpaisag"]
+        var potenArq = especie["descricao"]
+        var pontenPaisag = especie["potencialpaisag"]
         var port = especie["porte"]
         var gen = especie["genero"]
         var popu = especie["populacao"]
         var fot = especie["foto"]
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
-
-        this.setState({nome_cientifico : nomeCien, nome_popular : nomePop, nome_familia : nomeFam, floracao : flor, folhagem : folha, origem : ori, potencialarq : potenArq,
-            potencialpaisag : pontenPaisag, porte : port, genero : gen, populacao : popu, foto : fot, desenho : desen, qtd_individuos : qtdIndivi})
+        console.log(pontenPaisag)
+        this.setState({
+            nome_cientifico: nomeCien, nome_popular: nomePop, nome_familia: nomeFam, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
+            potencialpaisag: pontenPaisag, porte: port, genero: gen, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
+        })
         console.log(result);
     }
     handleChange = (event, value) => {
         this.setState({ value });
     };
     authenticated = () => {
-        return(
+        return (
             this.unauthenticated()
         );
     }
@@ -140,87 +142,87 @@ class DetalheEspecie extends Page {
             <Grid container spacing={24}>
 
                 <main className={classes.layout}>
-                        <div className={classes.root}>
+                    <div className={classes.root}>
                         <h1></h1>
-                            <Grid item xs={12}>
-                                <AppBar position="static">
-                                    <Tabs value={value} onChange={this.handleChange}>
-                                        <Tab label="Detalhes Espécie" />
-                                        <Tab label="Potenciais" />
-                                        <Tab label="Indivíduos" href="#tabs" />
-                                    </Tabs>
-                                </AppBar>
-                            </Grid>
+                        <Grid item xs={12}>
+                            <AppBar position="static">
+                                <Tabs value={value} onChange={this.handleChange}>
+                                    <Tab label="Detalhes Espécie" />
+                                    <Tab label="Potenciais" />
+                                    <Tab label="Indivíduos" href="#tabs" />
+                                </Tabs>
+                            </AppBar>
+                        </Grid>
 
-                            <Grid item xs={12}>
-                                {value === 0 && <TabContainer><Typography variant="display1" align="center">
-                                    <i>Araucaria angustifolia</i>
-              </Typography>
+                        <Grid item xs={12}>
+                            {value === 0 && <TabContainer><Typography variant="display1" align="center">
+                                <i>{this.state.nome_cientifico}</i>
+                            </Typography>
 
-                                    <Grid item xs={12} sm={12}>
-                                        <ImagemReferencia  foto={this.state.foto} desenho={this.state.desenho}/>
+                                <Grid item xs={12} sm={12}>
+                                    <ImagemReferencia foto={this.state.foto} desenho={this.state.desenho} />
 
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                    <br/>
-                                        {
-                                            (this.state.origem === "Nativa")
-                                                ?
-                                                <img
-                                                    className={classes.img}
-                                                    src={nativa}
-                                                    alt="nativa"
-                                                    height="59" width="100"
-                                                />
-                                                :
-                                                <img
-                                                    className={classes.img}
-                                                    src={exotica}
-                                                    alt="exotica"
-                                                    height="59" width="100"
-                                                />
-                                        }
-                                    </Grid>
-                                    <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <br />
+                                    {
+                                        (this.state.origem === "Nativa")
+                                            ?
+                                            <img
+                                                className={classes.img}
+                                                src={nativa}
+                                                alt="nativa"
+                                                height="59" width="100"
+                                            />
+                                            :
+                                            <img
+                                                className={classes.img}
+                                                src={exotica}
+                                                alt="exotica"
+                                                height="59" width="100"
+                                            />
+                                    }
+                                </Grid>
+                                <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
 
-                                </TabContainer>}
-                                {value === 1 && <TabContainer>
-                                    <List>
-                    <ListItem>
-                        <Avatar>
-                            <img
-                                className={classes.img}
-                                src={icone}
-                                alt="icon"
-                                height="30" width="30"
-                            />
-                        </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Potencial Arquitetônico:</b> {this.state.potencialarq} </Typography></ListItemText>
-                    </ListItem>
-                    <li>
-                        <Divider inset />
-                    </li>
-                    <ListItem>
-                        <Avatar>
-                            <img
-                                className={classes.img}
-                                src={icone}
-                                alt="icon"
-                                height="30" width="30"
-                            />
-                        </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Descrição Geral:</b> {this.state.potencialpaisag}</Typography></ListItemText>
-                    </ListItem>
-                   
-                </List>                                
-                                </TabContainer>}
-                                {value === 2 && <TabContainer>
-                                </TabContainer>}
+                            </TabContainer>}
+                            {value === 1 && <TabContainer>
+                                <List>
+                                    <ListItem>
+                                        <Avatar>
+                                            <img
+                                                className={classes.img}
+                                                src={icone}
+                                                alt="icon"
+                                                height="30" width="30"
+                                            />
+                                        </Avatar>
+                                        <ListItemText ><Typography > <b>Potencial Arquitetônico:</b> {this.state.potencialarq} </Typography></ListItemText>
+                                    </ListItem>
+                                    <li>
+                                        <Divider inset />
+                                    </li>
+                                    <ListItem>
+                                        <Avatar>
+                                            <img
+                                                className={classes.img}
+                                                src={icone}
+                                                alt="icon"
+                                                height="30" width="30"
+                                            />
+                                        </Avatar>
+                                        <ListItemText ><Typography > <b>Descrição Geral:</b> {this.state.potencialpaisag}</Typography></ListItemText>
+                                    </ListItem>
+
+                                </List>
+                            </TabContainer>}
+                            {value === 2 && <TabContainer>
+                            </TabContainer>}
 
 
-                            </Grid>
-                        </div>
-                 
+                        </Grid>
+                    </div>
+
                 </main>
             </Grid>
         );

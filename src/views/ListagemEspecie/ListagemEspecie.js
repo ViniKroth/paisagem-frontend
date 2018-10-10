@@ -291,18 +291,7 @@ class ListagemEspecie extends Page {
                 ))}
               </Grid>
               <div className={classes.heroButtons}>
-                <Grid container spacing={24} justify="center">
-                  <Grid item>
-                    <Button variant="contained" color="primary">
-                      Main call to action
-                  </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="outlined" color="primary">
-                      Secondary action
-                  </Button>
-                  </Grid>
-                </Grid>
+                
               </div>
             </div>
           </Paper>
