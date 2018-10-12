@@ -216,7 +216,7 @@ class HomePage extends Page {
                     variant="contained"
                     size="large"
                     color="primary"
-                    onClick={() => this.redirect("/listagemEspecie")}
+                    onClick={() => this.redirect("/especies/listas")}//correct
                     className={classes.button}
                   >
                     Listagem de Especie
