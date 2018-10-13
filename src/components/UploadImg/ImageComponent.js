@@ -38,26 +38,22 @@ class ImageComponent extends React.Component {
             imageUpload: [],
             tipoImg: "imagem" , //tipo da imagem atual
         };
+        this._handleSubmit = this._handleSubmit.bind(this);
     }
-    //Função acionada quando clicado no upload
+    
     _handleSubmit(e) {
         e.preventDefault();
-        //Aqui vai ser feito o upload para a api e depois inserido no banco
+       
         this.setState({qntImagensError : false})
-        //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
-        // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
-       
-            var imageUploadAtual = this.state.imageUpload //Pega o status atual
-            this.state.file.tipo = this.state.tipoImg //pega o tipo de imagem do componente switch
-            imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-            this.setState({ imageUpload: imageUploadAtual }, () => {
-                //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
-                //console.log(this.state.imageUpload)
-                console.log('UPLOAD', this.state.file);
-            });
-            this.props.handleChangeImage(this.state);
-       
+            var imageUploadAtual = this.state; 
+           
+            let Image = new FormData();          
+            Image.append('file', this.state.tipoImg);
+            Image.append('imagem', this.state.file);
+            Image.append('filename', "aa");
+            imageUploadAtual["imageUpload"] = Image;
+            //imageUploadAtual.push(Image);
+            this.setState({ imageUploadAtual },this.props.handleChangeImage(this.state.imageUpload));       
     }
 
     _handleImageChange(e) {

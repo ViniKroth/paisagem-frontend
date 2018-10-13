@@ -62,19 +62,17 @@ class CadastroEspecie extends Page {
             nome: ""
           }
         ],
-        image: {
-          outono: false,
-          primavera: false,
-          inverno: false,
-          verao: false
-        },
+        image: null,
         floracao: {
           outono: false,
           primavera: false,
           inverno: false,
           verao: false
         },
-        frutificacao: {}
+        frutificacao: {    outono: false,
+          primavera: false,
+          inverno: false,
+          verao: false}
       }
     };
     this.goToNext = this.goToNext.bind(this);
@@ -145,12 +143,23 @@ class CadastroEspecie extends Page {
   async goToNext() {
     const { step } = this.state;
     if (step !== 2) {
-      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      
       this.setState({ step: step + 1 });
-    } else {
-      var result = await create(this.state.especie);
+    } else {console.log("final" ,this.state.especie);
+      var result = await create(this.state.especie); //salva dados da especie
 
-      console.log(result);
+      fetch('http://localhost:4000/upload', {
+      method: 'POST',
+      body: this.state.especie.image,
+        }).then((response) => {
+          response.json().then((body) => {
+            this.setState({ imageURL: `http://localhost:8000/${body.imagem}` });
+          });
+    });
+
+     // await uploadImage(this.state.especie.image); //salva imagens da especie
+
+      //console.log(this.state.especie);
       //alert("Cadastrado com Sucesso!");
     }
   }
@@ -178,7 +187,7 @@ class CadastroEspecie extends Page {
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
-      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      
       this.setState({
         step: step - 1
       });
@@ -196,9 +205,7 @@ class CadastroEspecie extends Page {
   handleChangeImage = imgState => {
     var especie = this.state.especie;
     especie["image"] = imgState;
-    return this.setState({
-      especie
-    });
+    this.setState({especie}, () => { console.log("ASDASDASDADS",this.state.especie.image) });
   };
 
   //Nomes populares
@@ -243,27 +250,6 @@ class CadastroEspecie extends Page {
     });
   };
 
-  ///
-  //Função acionada quando clicado no upload
-  handleSubmitImage(e) {
-    e.preventDefault();
-    //Aqui vai ser feito o upload para a api e depois inserido no banco
-    this.setState({
-      qntImagensError: false
-    });
-    var imageUploadAtual = this.state.imageUpload; //Pega o status atual
-    imageUploadAtual.push(this.state.file); //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-    this.setState(
-      {
-        imageUpload: imageUploadAtual
-      },
-      () => {
-        console.log(this.state.imageUpload);
-        console.log("UPLOAD", this.state.file);
-      }
-    );
-  }
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
