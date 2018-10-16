@@ -63,7 +63,7 @@ class CadastroEspecie extends Page {
             nome: ""
           }
         ],
-        image: null,
+        image: [],
         floracao: {
           outono: false,
           primavera: false,
@@ -149,7 +149,12 @@ class CadastroEspecie extends Page {
     } else {//console.log("final" ,this.state.especie);
       
     
-    await upload(this.state.especie.image.imageUpload);
+
+
+    var result = await upload(this.state.especie.image[0]);
+    var result = await upload(this.state.especie.image[1]);
+    
+    console.log("resposta up", this.state.especie.image[0].tipo);
     
     //var result = await create(this.state.especie); //salva dados da especie
 
@@ -201,8 +206,8 @@ class CadastroEspecie extends Page {
 
   handleChangeImage = imgState => {
     var especie = this.state.especie;
-    especie["image"] = imgState;
-    this.setState({especie}, () => { console.log("ASDASDASDADS",this.state.especie.image.imageUpload) });
+    especie["image"].push(imgState);
+    this.setState({especie});
   };
 
   //Nomes populares

@@ -16,6 +16,9 @@ import Switch from '@material-ui/core/Switch';
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+const generateKey = (pre) => {
+    return `${ pre }_${ new Date().getTime() }`;
+}
 
 const styles = theme => ({
     buttons: {
@@ -48,13 +51,13 @@ class ImageComponent extends React.Component {
             var imageUploadAtual = this.state; 
            
             let Image = new FormData();          
-            Image.append('file', this.state.tipoImg);
+            Image.append('tipo', this.state.tipoImg);
             Image.append('imagem', this.state.file);
             Image.append('filename', "aa");
             imageUploadAtual["imageUpload"] = Image;
             //imageUploadAtual.push(Image);
             this.setState({ imageUploadAtual },
-                this.props.handleChangeImage(imageUploadAtual)
+                this.props.handleChangeImage(Image)
                 //console.log("ESTADO UPLOAD",imageUploadAtual)
             );       
     }

@@ -6,13 +6,21 @@ import { HTTPStatusCodes } from "configs/constants";
 
 export const upload = async image => {
 
-
-fetch(`${api}/upload`, {
+  
+const path = api + "/upload/" + image.get("imagem").name;
+  fetch(`${api}/upload`, {
     method: 'POST',
     body: image,
-      }).then((response) => {
-        response.json().then((body) => {
-          return({ imageURL: `${api}/public/${body.imagem}` });
-        });
-  });
+  }).then((response) => {
+
+      
+    response.json().then((body) => {
+      
+     
+    });
+});
+
+
+
+return(path);
 }
