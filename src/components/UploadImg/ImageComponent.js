@@ -53,7 +53,10 @@ class ImageComponent extends React.Component {
             Image.append('filename', "aa");
             imageUploadAtual["imageUpload"] = Image;
             //imageUploadAtual.push(Image);
-            this.setState({ imageUploadAtual },this.props.handleChangeImage(this.state.imageUpload));       
+            this.setState({ imageUploadAtual },
+                this.props.handleChangeImage(imageUploadAtual)
+                //console.log("ESTADO UPLOAD",imageUploadAtual)
+            );       
     }
 
     _handleImageChange(e) {

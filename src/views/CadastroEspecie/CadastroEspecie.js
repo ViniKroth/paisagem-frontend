@@ -14,6 +14,7 @@ import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
 
 import { create } from "services/especies/especies";
+import { upload } from "services/uploadImg/uploadImagem";
 
 const styles = theme => ({
   layout: {
@@ -145,17 +146,13 @@ class CadastroEspecie extends Page {
     if (step !== 2) {
       
       this.setState({ step: step + 1 });
-    } else {console.log("final" ,this.state.especie);
-      var result = await create(this.state.especie); //salva dados da especie
+    } else {//console.log("final" ,this.state.especie);
+      
+    
+    await upload(this.state.especie.image.imageUpload);
+    
+    //var result = await create(this.state.especie); //salva dados da especie
 
-      fetch('http://localhost:4000/upload', {
-      method: 'POST',
-      body: this.state.especie.image,
-        }).then((response) => {
-          response.json().then((body) => {
-            this.setState({ imageURL: `http://localhost:8000/${body.imagem}` });
-          });
-    });
 
      // await uploadImage(this.state.especie.image); //salva imagens da especie
 
@@ -205,7 +202,7 @@ class CadastroEspecie extends Page {
   handleChangeImage = imgState => {
     var especie = this.state.especie;
     especie["image"] = imgState;
-    this.setState({especie}, () => { console.log("ASDASDASDADS",this.state.especie.image) });
+    this.setState({especie}, () => { console.log("ASDASDASDADS",this.state.especie.image.imageUpload) });
   };
 
   //Nomes populares
