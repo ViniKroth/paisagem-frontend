@@ -277,12 +277,12 @@ class ListagemEspecie extends Page {
                             />
                         }
                         <Typography>
-                          <p>
+                       
                             <b> Nomes Populares:</b> {card.nome_popular.map((nome) => <Chip label={nome} className={classes.chip} />)}
-                          </p>
-                          <p>
-                            <b>Porte:</b>  {card.porte}
-                          </p>
+                         
+                        </Typography>
+                        <Typography>
+                        <b>Porte:</b>  {card.porte}
                         </Typography>
                       </CardContent>
                       </CardActionArea>
