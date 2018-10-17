@@ -214,6 +214,16 @@ class HomePage extends Page {
                     variant="contained"
                     size="large"
                     color="primary"
+                    onClick={() => this.redirect("/users/edit")}
+                    className={classes.button}
+                  >
+                    Cadastro
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
                     onClick={() => this.redirect("/listagemEspecie")}
                     className={classes.button}
                   >

@@ -116,7 +116,7 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step + 1 }, () => this.renderAuthentication());
+      this.setState({ step: step + 1 });
     } else {
       var especie = Object.assign({}, this.state.especie);
 
@@ -168,7 +168,7 @@ class CadastroEspecie extends Page {
   };
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
-  authenticated = () => {
+  unauthenticated = () => {
     const { classes } = this.props;
 
     return (

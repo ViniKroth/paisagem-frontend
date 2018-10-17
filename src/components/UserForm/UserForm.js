@@ -10,6 +10,43 @@ import { create } from "services/user/user";
 
 import { withRouter } from "react-router-dom";
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
+  input: {
+    display: "none"
+  },
+  logo: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
+    }
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 12,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 8,
+      marginBottom: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 8
+    }
+  },
+
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 2 * 2)]: {
+      width: 800,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+
+  typography: {}
+});
+
 const initialState = {
   name: "",
   email: "",
@@ -80,10 +117,7 @@ class UserForm extends React.Component {
       email,
       username,
       password,
-      type,
-      status,
-      matricula,
-      gitlab
+      tipo
     } = this.state;
     const { isLoading, errors } = this.state;
 
@@ -148,49 +182,14 @@ class UserForm extends React.Component {
             type="password"
           />
           <br />
-
-          {/* not needed */}
-          {/* Tipo */}
+          {/* Tipo de Usuario*/}
           <TextField
             className="input"
-            name="type"
+            name="tipo"
             label="Tipo"
             onChange={this.onChange}
-            value={type}
-            error={errors.type}
-          />
-          <br />
-
-          {/* Status */}
-          <TextField
-            className="input"
-            name="status"
-            label="Status"
-            onChange={this.onChange}
-            value={status}
-            error={errors.status}
-          />
-          <br />
-
-          {/* Matricula */}
-          <TextField
-            className="input"
-            name="matricula"
-            label="Matricula"
-            onChange={this.onChange}
-            value={matricula}
-            error={errors.matricula}
-          />
-          <br />
-
-          {/* Gitlab */}
-          <TextField
-            className="input"
-            name="gitlab"
-            label="Gitlab"
-            onChange={this.onChange}
-            value={gitlab}
-            error={errors.gitlab}
+            value={tipo}
+            error={errors.tipo}
           />
           <br />
 
