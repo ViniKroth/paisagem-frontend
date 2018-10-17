@@ -7,8 +7,9 @@ import { HTTPStatusCodes } from "configs/constants";
 export const upload = async image => {
 
   
-const path = api + "/upload/" + image.get("imagem").name;
-  fetch(`${api}/upload`, {
+const path = api + "/upload/" + image.get("nome") + ".jpg";
+console.log(path);  
+fetch(`${api}/upload`, {
     method: 'POST',
     body: image,
   }).then((response) => {

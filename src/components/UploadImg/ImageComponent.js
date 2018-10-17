@@ -12,9 +12,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Switch from '@material-ui/core/Switch';
-
+import md5 from 'md5';
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
+
 
 const generateKey = (pre) => {
     return `${ pre }_${ new Date().getTime() }`;
@@ -37,7 +40,7 @@ class ImageComponent extends React.Component {
         this.state = {
             file: {},
             imagePreviewUrl: '',
-            qntImagensError: false,
+            //qntImagensError: false,
             imageUpload: [],
             tipoImg: "imagem" , //tipo da imagem atual
         };
@@ -47,13 +50,14 @@ class ImageComponent extends React.Component {
     _handleSubmit(e) {
         e.preventDefault();
        
-        this.setState({qntImagensError : false})
+            var md5 = require('md5');
             var imageUploadAtual = this.state; 
            
             let Image = new FormData();          
             Image.append('tipo', this.state.tipoImg);
             Image.append('imagem', this.state.file);
-            Image.append('filename', "aa");
+            Image.append('nome', md5(this.state.file));
+           
             imageUploadAtual["imageUpload"] = Image;
             //imageUploadAtual.push(Image);
             this.setState({ imageUploadAtual },
