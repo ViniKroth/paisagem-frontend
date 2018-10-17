@@ -124,9 +124,7 @@ class HomePage extends Page {
                     variant="contained"
                     size="large"
                     color="primary"
-                    onClick={() =>
-                      this.redirect("/especies/cadastro")
-                    }
+                    onClick={() => this.redirect("/especies/cadastro")}
                     className={classes.button}
                   >
                     Cadastro de Espécies
