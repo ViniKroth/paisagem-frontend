@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo_ages.svg";
 import "./styles.css";
 import { withRouter } from "react-router-dom";
+import ShutDown from "@material-ui/icons/PowerSettingsNew";
 // import {show_stringify} from 'helpers/json'
 
 // Biblioteca de Componentes
@@ -12,6 +13,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 // Importando o Contexto de autenticação, não tratamos mais com os services.
 import LoginContext from "../Context/LoginContext/LoginContext";
@@ -34,7 +37,8 @@ class Header extends React.Component {
     super(props);
     this.state = {
       display: null,
-      render: null
+      render: null,
+      anchorEl: null
     };
     //console.log('Show Header?', props.display)
   }
@@ -51,6 +55,16 @@ class Header extends React.Component {
     history.push(path);
   };
 
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = path => {
+    this.setState({ anchorEl: null }, () => {
+      if (path) this.redirect(path);
+    });
+  };
+
   renderLogin = () => {
     return (
       <Button
@@ -60,7 +74,8 @@ class Header extends React.Component {
           this.redirect("/login");
         }}
       >
-        Logar-se
+        <ShutDown />
+        {/*Logar-se*/}
       </Button>
     );
   };
@@ -76,13 +91,17 @@ class Header extends React.Component {
           this.redirect("/");
         }}
       >
-        Deslogar
+        <ShutDown />
+        {/*Deslogar*/}
       </Button>
     );
   };
 
   render() {
     const { display, classes } = this.props;
+    const { anchorEl } = this.state;
+    let open = Boolean(anchorEl);
+
     if (display) {
       return (
         /* Chamando o Consumidor do Contexto de autencicação, para ter acesso ao state dele (pela variavel value) */
@@ -98,9 +117,37 @@ class Header extends React.Component {
                       className={classes.menuButton}
                       color="inherit"
                       aria-label="Menu"
+                      onClick={this.handleMenu}
                     >
                       <MenuIcon />
                     </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem
+                        onClick={() => this.handleClose("especies/listas")}
+                      >
+                        Listar Especie
+                      </MenuItem>
+                      {isAuthenticated() && (
+                        <MenuItem
+                          onClick={() => this.handleClose("especies/cadastro")}
+                        >
+                          Cadastrar Especie
+                        </MenuItem>
+                      )}
+                    </Menu>
                     <img
                       className={classes.menuButton + " App-logo"}
                       src={logo}
@@ -114,7 +161,15 @@ class Header extends React.Component {
                       color="inherit"
                       className={classes.flex}
                     >
-                      Paisagem
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="primary"
+                        onClick={() => this.redirect("/")}
+                        className={classes.button}
+                      >
+                        Paisagem
+                      </Button>
                     </Typography>
                     {/* Verificando se o usuário está logado, mais pratico que o método de usar um render no state. */}
                     {isAuthenticated()

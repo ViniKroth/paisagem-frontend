@@ -48,34 +48,45 @@ class ImageForm extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.onSubmit();
+    
   }
 
   handleBack(evt) {
     evt.preventDefault();
     this.props.onBack();
   }
+
+
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        
         <Typography variant="title" gutterBottom>
-          Imagens
-        </Typography>
-        <form onSubmit={this.handleSubmit}>
-          <Grid container spacing={24}>
-            <Grid item xs={6}>
-              <React.Fragment>
-                <ImageComponent quantidadeImagens={2} />
-             </React.Fragment>
-            </Grid>
-          </Grid>
+            Imagens
+          </Typography>
+     
+     
+            <form onSubmit={this.handleSubmit}>
+            <Grid container spacing={24}>
+               
+              
+               
+                  <ImageComponent 
+                    handleChangeImage = {this.props.handleChangeImage}
+                    qntImagensError= {this.props.qntImagensError}
+                  
+                  />
+                  
+              
+              
+            
           <Grid container spacing={24}>
             <Grid item xs={6}>
               <Button
                 id="back"
                 onClick={e => this.handleBack(e)}
                 variant="contained"
-                color=""
                 className={classes.button}
               >
                 VOLTAR
@@ -92,9 +103,13 @@ class ImageForm extends React.Component {
                 SAlVAR
               </Button>
             </Grid>
-          </Grid>
+            </Grid>
+            </Grid>
         </form>
+        
       </React.Fragment>
+      
+      
     );
   }
 }

@@ -44,9 +44,11 @@ export const read = async id => {
     }
   });
 
+  console.log(response)
+
   if (response) {
     const api_response = response.data;
-    return api_response.data;
+    return api_response;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",
@@ -95,10 +97,11 @@ export const listAll = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
   });
+  console.log(response)
 
   if (response) {
     const api_response = response.data;
-    return api_response;
+    return api_response.data;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",

@@ -8,6 +8,7 @@ import ViewWrapper from "../helpers/ViewWrapper";
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
+import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
 
 // Views
 // Implementado um Wrapper que substitui o import normal para adicionar loader e outras funcionalidades.
@@ -16,7 +17,9 @@ const Page = ViewWrapper("Page/Page");
 const HomePage = ViewWrapper("HomePage/HomePage");
 const LoginPage = ViewWrapper("LoginPage/LoginPage");
 const BlankPage = ViewWrapper("BlankPage/BlankPage");
+const DetalheEspecie = ViewWrapper("DetalheEspecie/DetalheEspecie");
 const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
+const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
 
 export default () => (
   <main>
@@ -27,12 +30,24 @@ export default () => (
 
       {/* User Container */}
       <Route path="/users/list" component={UserListPage} />
-      <Route path="/users/details/:id" component={UserDetailsPage} />
       <Route path="/users/edit" component={UserEditPage} />
       <Route path="/users/edit/:id" component={UserEditPage} />
+      <Route path="/users/details/:id" component={UserDetailsPage} />
       {/* End of User Container */}
 
-      <Route path="/cadastroEspecie" component={CadastroEspecie} />
+      {/* Especie Container */}
+      <Route path="/especies/listas" component={ListagemEspecie} />
+      <Route path="/especies/cadastro" component={CadastroEspecie} />
+      <Route path="/especies/detalhe/:id" component={DetalheEspecie} />
+      {/* End of Especie Container */}
+
+      {/* Familia Container */}
+      <Route path="/familia/cadastro" component={CadastroFamilia} />
+      {/* End of Familia Container */}
+
+      {/* Individuo Container */}
+      <Route path="/individuos/cadastro" component={CadastroIndividuo} />
+      {/* End of Individuo Container */}
 
       {/* 404 - Page not Found */}
       <Route component={BlankPage} />
