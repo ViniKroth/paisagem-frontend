@@ -30,13 +30,20 @@ const ViewWrapper = path =>
             return (
               <LoginContext.Consumer>
                 {LoginValue => {
-                  const { setLoaded, isLoaded, headerVisible } = appState;
+                  const {
+                    setLoaded,
+                    isLoaded,
+                    headerVisible,
+                    setSnackbar
+                  } = appState;
+
                   const { isAuthenticated, userData } = LoginValue;
 
                   return (
                     <Component
                       isAuthenticated={isAuthenticated}
                       headerVisible={headerVisible}
+                      setSnackbar={setSnackbar}
                       setLoaded={setLoaded}
                       isLoaded={isLoaded}
                       userData={userData}

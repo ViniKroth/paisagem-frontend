@@ -27,6 +27,10 @@ class Page extends React.Component {
     this.props.setLoaded(loaded);
   };
 
+  setSnackbar = ({ message = "", variant = "info" }) => {
+    this.props.setSnackbar({ message, variant });
+  };
+
   isAuthenticated = () => {
     return this.props.isAuthenticated();
   };
