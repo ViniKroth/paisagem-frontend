@@ -20,6 +20,8 @@ const BlankPage = ViewWrapper("BlankPage/BlankPage");
 const DetalheEspecie = ViewWrapper("DetalheEspecie/DetalheEspecie");
 const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
 const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
+const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
+const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
 
 export default () => (
   <main>
