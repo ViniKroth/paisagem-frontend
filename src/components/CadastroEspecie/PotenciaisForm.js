@@ -40,7 +40,9 @@ class PotenciaisForm extends React.Component {
                 name="potencialPaisag"
                 label="Potencial Paisagístico"
                 helperText="Descreva o potencial paisagístico desta espécie"
-                onChange={this.props.onChangePotencialPaisag}
+                value={this.props.potencialpaisag}
+                onChange={this.props.onChange("potencialpaisag")}
+                //onChange={this.props.onChangePotencialPaisag}
                 multiline
                 fullWidth
               />
@@ -50,9 +52,11 @@ class PotenciaisForm extends React.Component {
                 id="descricao"
                 name="descricao"
                 multiline
+                value={this.props.descricao}
                 label="Descrição geral da espécie"
                 helperText="Forneça uma breve descrição geral da  espécie"
-                onChange={this.props.onChangeDescricao}
+                onChange={this.props.onChange("descricao")}
+                //onChange={this.props.onChangeDescricao}
                 fullWidth
               />
             </Grid>
