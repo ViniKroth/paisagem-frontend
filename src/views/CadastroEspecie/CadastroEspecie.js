@@ -137,7 +137,7 @@ class CadastroEspecie extends Page {
   }
   notify = (n,desc) => {
     switch(n){
-      case 1 : toast.success("Familia Cadastrada com Sucesso.");
+      case 1 : toast.success("Especie Cadastrada com Sucesso.");
       break;
       case 2 : toast.error("Um ou mais campos não estão preenchidos.");
       break;
@@ -153,34 +153,37 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      this.setState({ step: step + 1 });
+      if(this.state.especie.nome_cientifico==null){
+        this.notify(2);
+      }
+      else{this.setState({ step: step + 1 });}
     } else {
       var result = await create(this.state.especie);
-
+      this.notify(1);
       console.log(result);
       //alert("Cadastrado com Sucesso!");
     }
   }
 
-  handleChangeFrutificacao = name => event => {
-    var especie = this.state.especie;
+  // handleChangeFrutificacao = name => event => {
+  //   var especie = this.state.especie;
 
-    especie.frutificacao[name] = event.target.checked;
+  //   especie.frutificacao[name] = event.target.checked;
 
-    this.setState({
-      especie
-    });
-  };
+  //   this.setState({
+  //     especie
+  //   });
+  // };
 
-  handleChangeFloracao = name => event => {
-    var especie = this.state.especie;
+  // handleChangeFloracao = name => event => {
+  //   var especie = this.state.especie;
 
-    especie.floracao[name] = event.target.checked;
+  //   especie.floracao[name] = event.target.checked;
 
-    this.setState({
-      especie
-    });
-  };
+  //   this.setState({
+  //     especie
+  //   });
+  // };
 
   goToBack() {
     const { step } = this.state;
