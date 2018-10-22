@@ -226,9 +226,6 @@ class DadosBasicosForm extends React.Component {
               </TextField>
             </Grid>
 
-
-
-
             <Grid item xs={6}>
               <TextField
                 id="folhagem"
@@ -264,8 +261,59 @@ class DadosBasicosForm extends React.Component {
                 ))}
               </TextField>
             </Grid>
-          </Grid>
 
+            <Grid item xs={6}>
+              <TextField
+                id="diametroCopa"
+                name="diametroCopa"
+                label="Diâmetro Copa"
+                value={this.props.diametroCopa}
+                onChange={this.props.onChange("diametroCopa")}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <TextField
+                id="alturaEspecie"
+                name="alturaEspecie"
+                label="Altura Espécie"
+                value={this.props.alturaEspecie}
+                onChange={this.props.onChange("alturaEspecie")}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={1} sm={6}>
+
+              {this.props.nomePopular.map((nomesPopulares, idx) => {
+                console.log(nomesPopulares)
+                return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
+                  <TextField
+                    placeholder={`Nome Popular (${idx + 1}) `}
+                    value={nomesPopulares.nome}
+                    onChange={this.props.handleNomePopularChange(idx)}
+                  />
+                  <IconButton
+
+                    onClick={this.props.handleRemoveNomePopular(idx)}
+                    className={classes.RemoveNome}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </div>
+              })}
+              <Button
+                onClick={this.props.handleAddNomePopular}
+                variant="contained"
+                className={classes.AddNome}
+
+              >
+                Adicionar Nome Popular
+              </Button>
+
+            </Grid>
+          </Grid>
 
           <Grid container spacing={24}>
             <Grid item xs={6}>
@@ -365,7 +413,7 @@ class DadosBasicosForm extends React.Component {
             </Grid>
           </Grid>
 
-          <Grid container spacing={24}>
+          {/* <Grid container spacing={24}>
             <Grid item xs={1} sm={6}>
 
               {this.props.nomePopular.map((nomesPopulares, idx) => {
@@ -396,7 +444,7 @@ class DadosBasicosForm extends React.Component {
 
             </Grid>
 
-          </Grid>
+          </Grid> */}
 
           <Grid container spacing={24}>
 
