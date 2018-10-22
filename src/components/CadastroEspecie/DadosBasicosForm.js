@@ -123,12 +123,7 @@ class DadosBasicosForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  state = {
-    outono: false,
-    primavera: false,
-    verao: false,
-    inverno: false,
-  };
+  
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -146,6 +141,10 @@ class DadosBasicosForm extends React.Component {
         <Typography variant="title" gutterBottom>
           Dados Básicos
         </Typography>
+        <Typography variant="caption" gutterBottom>
+            Uma espécie precisa de alguns dados básicos para ser cadastrada, descreva-os aqui!
+      </Typography>
+     
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
             <Grid item xs={6}>

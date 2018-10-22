@@ -18,11 +18,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 
-
-const generateKey = (pre) => {
-    return `${ pre }_${ new Date().getTime() }`;
-}
-
 const styles = theme => ({
     buttons: {
         display: "flex",
@@ -53,19 +48,33 @@ class ImageComponent extends React.Component {
             var md5 = require('md5');
             var imageUploadAtual = this.state; 
            
-            let Image = new FormData();          
+            var Image = new FormData();          
             Image.append('tipo', this.state.tipoImg);
             Image.append('imagem', this.state.file);
-            Image.append('nome', md5(this.state.file));
-           
-            //imageUploadAtual["imageUpload"] = Image;
-            //imageUploadAtual.push(Image);
+            Image.append('nome', md5(this.state.imagePreviewUrl));
+            imageUploadAtual.imageUpload.push(Image);
+            
             this.setState({ imageUploadAtual },
-                this.props.handleChangeImage(Image)
+                this.props.handleChangeImage(Image),
+                this.checkEnviar()
                 //console.log("ESTADO UPLOAD",imageUploadAtual)
             );       
     }
-
+    checkEnviar(){
+        var imagem=0;
+        var desenho=0;
+        for(var i=0;i< this.state.imageUpload.length; i++){
+            var tipo = this.state.imageUpload[i].get("tipo");
+            if(tipo == "imagem" ){ imagem = imagem +1}else{ desenho = desenho +1};
+        }
+           
+        if(imagem == 1 && desenho == 1){
+            console.log(imagem);
+            this.props.changeblocksave(false);
+        }else{
+            this.props.changeblocksave(true);
+        }
+    }
     _handleImageChange(e) {
         e.preventDefault();
 

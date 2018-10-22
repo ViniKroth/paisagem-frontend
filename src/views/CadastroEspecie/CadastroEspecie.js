@@ -58,22 +58,23 @@ class CadastroEspecie extends Page {
     this.state = {
       step: 0,
       especie: {
-        desenho : null,
-        imagem : null,
+        desenho : "" ,//path do desenho
+        imagem : "",//path da imagem
         nomePopular: [
           {
             nome: ""
           }
         ],
-        desenho: null,
-        imagem:null,
+        desenho: null,//File desenho
+        imagem:null,//File imagem
         floracao: {
           outono: false,
           primavera: false,
           inverno: false,
           verao: false
         },
-        frutificacao: {    outono: false,
+        frutificacao: {    
+          outono: false,
           primavera: false,
           inverno: false,
           verao: false}
@@ -154,20 +155,17 @@ class CadastroEspecie extends Page {
     var especie = this.state.especie;
     especie["desenho"] = await upload(this.state.desenho);
     especie["imagem"] = await upload(this.state.imagem);
-
-    this.setState({especie},console.log("resposta up", this.state));
+    
+    
+    this.setState({especie},console.log("SEND TO API:", this.state.especie));
     
     
     
     
     
     //var result = await create(this.state.especie); //salva dados da especie
-
-
-     // await uploadImage(this.state.especie.image); //salva imagens da especie
-
-      //console.log(this.state.especie);
-      //alert("Cadastrado com Sucesso!");
+    //console.log(this.state.especie);
+    alert("Cadastrado com Sucesso!");
     }
   }
 
@@ -210,16 +208,15 @@ class CadastroEspecie extends Page {
   };
 
   handleChangeImage = imgState => {
-    var especie = this.state.especie;
+    var state = this.state;
 
-    if( imgState.tipo == "imagem"){
-      especie["imagem"] =imgState;
+    if( imgState.get("tipo") == "imagem"){
+      state["imagem"] =imgState;
     }else{
-      especie["desenho"] =imgState;
+      state["desenho"] =imgState;
     }
     
-    
-    this.setState({especie});
+    this.setState({state});
   };
 
   //Nomes populares

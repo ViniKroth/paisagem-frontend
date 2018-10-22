@@ -32,6 +32,10 @@ class PotenciaisForm extends React.Component {
         <Typography variant="title" gutterBottom>
           Potenciais
         </Typography>
+        <Typography variant="caption" gutterBottom>
+          Se existir, você pode descrever os principais pontos arquitetônicos da espécie.
+        </Typography>
+     
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
             <Grid item xs={12}>
