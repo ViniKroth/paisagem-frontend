@@ -51,6 +51,25 @@ const origem = [
   }
 ];
 
+const porte =[
+  {
+    value: "",
+    label: "Porte da Espécie"
+  },
+  {
+    value: "pequena",
+    label: "Pequena"
+  },
+  {
+    value: "media",
+    label: "Média"
+  },
+  {
+    value: "grande",
+    label: "Grande"
+  }
+];
+
 const frutificacao = [
   {
     value: "",
@@ -201,13 +220,21 @@ class DadosBasicosForm extends React.Component {
             <Grid item xs={6}>
               <TextField
                 id="porte"
-                name="porte"
-                label="Porte"
                 value={this.props.porte}
-                onChange={this.props.onChange("porte")}
+                select
                 fullWidth
-              />
+                onChange={this.props.onChange("porte")}
+                SelectProps={{ native: true }}
+                margin="normal"
+                >
+                {porte.map(option => (
+                  <option key={option.value} value={option.value}>
+                  {option.label}
+                  </option>
+                ))}
+                </TextField>
             </Grid>
+
             <Grid item xs={6}>
               <TextField
                 id="classificacao"
@@ -363,7 +390,6 @@ class DadosBasicosForm extends React.Component {
                 </FormGroup>
               </FormControl>
             </Grid>
-
             <Grid item xs={6}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Floração da Espécie</FormLabel>
