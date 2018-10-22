@@ -49,15 +49,16 @@ class ImageComponent extends React.Component {
             var imageUploadAtual = this.state; 
            
             var Image = new FormData();          
-            Image.append('tipo', this.state.tipoImg);
-            Image.append('imagem', this.state.file);
-            Image.append('nome', md5(this.state.imagePreviewUrl));
+            Image.append('tipo', this.state.tipoImg); // tipo da imagem
+            Image.append('imagem', this.state.file); // arquivo em si
+            Image.append('nomeImagem', this.state.file.name); //nome do arquivo
+            Image.append('nome', md5(this.state.imagePreviewUrl)); //nome a ser salvo no banco
             imageUploadAtual.imageUpload.push(Image);
             
             this.setState({ imageUploadAtual },
                 this.props.handleChangeImage(Image),
                 this.checkEnviar()
-                //console.log("ESTADO UPLOAD",imageUploadAtual)
+               
             );       
     }
     checkEnviar(){
@@ -100,14 +101,18 @@ class ImageComponent extends React.Component {
         document.getElementById('imgTable').deleteRow(i);
 
         for (var j = 0; j < this.state.imageUpload.length; j++) {
-            if (this.state.imageUpload[j] === row.state.file) {
+            if (this.state.imageUpload[j].get("imagem") === row.state.file) {
                 var list = this.state.imageUpload.splice(j, 1);
                 this.setState({ imageUpload: list })
-                //console.log('AQUI', this.state.imageUpload)
             }
         }
 
     }
+
+    deleteRow(btn) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      }
     handleChangeTipoImg = name => event => {
         if(event.target.checked){
             this.setState({ [name]: "desenho" });
@@ -132,13 +137,13 @@ class ImageComponent extends React.Component {
             [].concat(this.state.imageUpload).map((dado, i) => {
                 return <TableRow key={i}>
                     <TableCell>
-                        {dado.name}
+                        {dado.get("nomeImagem")}
                     </TableCell>
                     <TableCell>
-                        {dado.tipo}
+                        {dado.get("tipo")}
                     </TableCell>
                     <TableCell>
-                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={(e) => this._handleDelete(this)}>
+                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={this.deleteRow(this)}>
                             <DeleteIcon />
                         </IconButton>
                     </TableCell>
