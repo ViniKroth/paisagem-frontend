@@ -87,6 +87,8 @@ class CadastroEspecie extends Page {
             classificacao={this.state.especie.classificacao}
             folhagem={this.state.especie.folhagem}
             tipoFruto={this.state.especie.tipoFruto}
+            diametroCopa={this.state.especie.diametroCopa}
+            alturaEspecie={this.state.especie.alturaEspecie}
             // Begin dados Floração
             floracaoOutono={this.state.especie.FloracaoOutono}
             floracaoVerao={this.state.especie.FloracaoVerao}
