@@ -3,12 +3,22 @@ import "./styles.css";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
+import { withStyles } from "@material-ui/core/styles";
+import green from '@material-ui/core/colors/green';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import PropTypes from 'prop-types';
+import FormLabel from '@material-ui/core/FormLabel';
 // import {show_stringify} from 'helpers/json'
 
 import { create } from "services/user/user";
 
 import { withRouter } from "react-router-dom";
+import Typography from "@material-ui/core/Typography/Typography";
+import Paper from "@material-ui/core/Paper/Paper";
 
 const styles = theme => ({
   button: {
@@ -53,10 +63,7 @@ const initialState = {
   username: "",
   password: "",
 
-  type: "Aluno",
-  status: "Ativo",
-  matricula: "",
-  gitlab: "",
+  tipo: "Aluno",
 
   isLoading: false,
   errors: {}
@@ -77,6 +84,10 @@ class UserForm extends React.Component {
       this.setState(initialState);
     }, 500);
   }
+
+    handleChange = event => {
+        this.setState({ value: event.target.value });
+    };
 
   onSubmit(e) {
     e.preventDefault();
@@ -117,14 +128,19 @@ class UserForm extends React.Component {
       email,
       username,
       password,
-      tipo
+      passwordc
     } = this.state;
     const { isLoading, errors } = this.state;
+    const { classes } = this.props;
 
     return (
+        <main className={classes.layout}>
       <div className="container" autoComplete="off">
+          <Paper className={classes.paper}>
         <form onSubmit={this.onSubmit}>
-          <h1>Cadastro de Usuário</h1>
+            <Typography variant="display2" gutterBottom color="primary">
+                Cadastro de Usuário
+            </Typography>
           {/* Nome */}
           <TextField
             className="input"
@@ -151,7 +167,7 @@ class UserForm extends React.Component {
           <TextField
             className="input"
             name="username"
-            label="Login"
+            label="Usuário"
             onChange={this.onChange}
             value={username}
             error={errors.username}
@@ -175,32 +191,47 @@ class UserForm extends React.Component {
           <TextField
             className="input"
             name="password"
-            label="Senha"
+            label="Confirmar senha"
             onChange={this.onChange}
-            value={password}
-            error={errors.password}
+            value={passwordc}
+            error={errors.passwordc}
             type="password"
-          />
-          <br />
-          {/* Tipo de Usuario*/}
-          <TextField
-            className="input"
-            name="tipo"
-            label="Tipo"
-            onChange={this.onChange}
-            value={tipo}
-            error={errors.tipo}
+
           />
           <br />
 
-          <Button className="submitBtn" type="submit" disabled={isLoading}>
+          {/* Tipo de Usuario*/}
+            <FormControl component="fieldset" className={classes.formControl}>
+
+                <RadioGroup
+                    aria-label="Gender"
+                    name="gender1"
+                    className={classes.group}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                >
+                    <FormControlLabel value="adm" control={<Radio color="primary"/>}  label="Administrador" />
+                    <FormControlLabel value="especialista" control={<Radio color="primary" />} label="Especialista" />
+
+                </RadioGroup>
+            </FormControl>
+
+
+
+            <br/>
+          <Button className={classes.button} color="primary"  variant="contained" type="submit" disabled={isLoading}>
             Cadastrar
           </Button>
         </form>
         {/* {show_stringify(this.state)} */}
+          </Paper>
       </div>
+        </main>
     );
   }
 }
 
-export default withRouter(UserForm);
+UserForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+export default withRouter(withStyles(styles)(UserForm));
