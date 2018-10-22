@@ -153,7 +153,9 @@ class CadastroEspecie extends Page {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      if(this.state.especie.nome_cientifico==null){
+      if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico=='' ||
+      this.state.especie.origem==null || this.state.especie.origem=='' ||
+      this.state.especie.familia==null || this.state.especie.origem==''){
         this.notify(2);
       }
       else{this.setState({ step: step + 1 });}
