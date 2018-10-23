@@ -11,7 +11,7 @@ import Page from "views/Page/Page.js";
 
 import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
 import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
-
+import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.js"
 
 const styles = theme => ({
   layout: {
@@ -47,7 +47,7 @@ const styles = theme => ({
   }
 });
 
-const steps = ["Localização",  "Imagens"];
+const steps = ["Localização", "Espécie" , "Imagens"];
 const refs = {};
 class CadastroIndividuo extends Page {
   constructor(props) {
@@ -124,24 +124,28 @@ class CadastroIndividuo extends Page {
       );      
       case 1:
       return (
-       <ImgForm
-            onBack={this.goToBack}
-            onSubmit={this.goToNext}
-            handleChangeImage={this.handleChangeImage}
+       <SelecionaEspecie
+       onSubmit={this.goToNext}
+       />
 
-          />
       );
-        
-      case 2: {
-       
-      }
+    
+      case 2: 
+        return (
+          <ImgForm
+               onBack={this.goToBack}
+               onSubmit={this.goToNext}
+               handleChangeImage={this.handleChangeImage}
+   
+             />
+        );  
     }
   }
 
 
   async goToNext() {
     const { step } = this.state;
-    if (step !== 1) {
+    if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }
         //, () => this.renderAuthentication()
