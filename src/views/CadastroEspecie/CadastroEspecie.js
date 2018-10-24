@@ -12,7 +12,7 @@ import Page from "views/Page/Page.js";
 import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
-
+import { ToastContainer, toast } from 'react-toastify';
 import { create } from "services/especies/especies";
 import { upload } from "services/uploadImg/uploadImagem";
 
@@ -66,7 +66,7 @@ class CadastroEspecie extends Page {
           }
         ],
         desenho: null,//File desenho
-        imagem:null,//File imagem
+        foto:null,//File imagem
         floracao: {
           outono: false,
           primavera: false,
@@ -154,7 +154,7 @@ class CadastroEspecie extends Page {
       
     var especie = this.state.especie;
     especie["desenho"] = await upload(this.state.desenho);
-    especie["imagem"] = await upload(this.state.imagem);
+    especie["foto"] = await upload(this.state.imagem);
     
     
     this.setState({especie},console.log("SEND TO API:", this.state.especie));
@@ -163,9 +163,10 @@ class CadastroEspecie extends Page {
     
     
     
-    //var result = await create(this.state.especie); //salva dados da especie
+    var result = await create(this.state.especie); //salva dados da especie
+    toast.success("Espécie Cadastrada com Sucesso.")
     //console.log(this.state.especie);
-    alert("Cadastrado com Sucesso!");
+    //alert("Cadastrado com Sucesso!");
     }
   }
 
@@ -281,6 +282,19 @@ class CadastroEspecie extends Page {
           </Stepper>
           {this.getStep(this.state.step)}
         </Paper>
+        <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
       </main>
     );
   };

@@ -16,7 +16,7 @@ import md5 from 'md5';
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
+import { ToastContainer, toast } from 'react-toastify';
 
 const styles = theme => ({
     buttons: {
@@ -57,8 +57,7 @@ class ImageComponent extends React.Component {
             
             this.setState({ imageUploadAtual },
                 this.props.handleChangeImage(Image),
-                this.checkEnviar()
-               
+                this.checkEnviar()  
             );       
     }
     checkEnviar(){
@@ -72,8 +71,16 @@ class ImageComponent extends React.Component {
         if(imagem == 1 && desenho == 1){
             console.log(imagem);
             this.props.changeblocksave(false);
+            toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
         }else{
             this.props.changeblocksave(true);
+
+            if(imagem > 1 || desenho > 1){
+                toast.error("Adicione apenas uma imagem e um desenho.");
+            }else{
+
+            }
+            
         }
     }
     _handleImageChange(e) {
@@ -109,10 +116,7 @@ class ImageComponent extends React.Component {
 
     }
 
-    deleteRow(btn) {
-        var row = btn.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-      }
+
     handleChangeTipoImg = name => event => {
         if(event.target.checked){
             this.setState({ [name]: "desenho" });
@@ -143,7 +147,7 @@ class ImageComponent extends React.Component {
                         {dado.get("tipo")}
                     </TableCell>
                     <TableCell>
-                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={this.deleteRow(this)}>
+                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={(e) => this._handleDelete(this)}>
                             <DeleteIcon />
                         </IconButton>
                     </TableCell>
@@ -220,6 +224,19 @@ class ImageComponent extends React.Component {
                 }
 
             </div>
+            <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
             </Grid>
             </Grid>
             
