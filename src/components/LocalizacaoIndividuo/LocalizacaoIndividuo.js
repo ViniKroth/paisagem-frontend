@@ -65,7 +65,7 @@ class LocalizacaoIndividuo extends Component {
                 fullWidth
                 //color="primary"
               >
-                OK, PROXIMO
+                OK, PRÓXIMO
               </Button>
             </Grid>
           </Grid>

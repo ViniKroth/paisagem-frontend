@@ -54,73 +54,75 @@ const styles = theme => ({
 
 class SelecionaEspecie extends Component {
   constructor(props) {
-    super(props); 
-    this.state        
+    super(props);
+    this.state
   }
-    //Alterando para Authenticated pra manter o padrão do resto do sistema.
-    
-    handleSubmit(evt) {
-      evt.preventDefault();
-      this.props.onSubmit();
-    }
+  //Alterando para Authenticated pra manter o padrão do resto do sistema.
 
-    selecionaEspecie = async () => {
-      var result = await listAll();
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.onSubmit();
+  }
+
+  selecionaEspecie = async () => {
+    var result = await listAll();
     var especies = [];
 
-    if(result && result.length > 0){
-      result.map(e =>{
+    if (result && result.length > 0) {
+      result.map(e => {
         var id = e["id_especie"]
         var nomeCien = e["nome_cientifico"]
-        
+
 
         var especie = {
           id,
           nome_cientifico: nomeCien
         }
-      
+
         especies.push(especie)
       })
     }
-    this.setState({especies})
+    this.setState({ especies })
 
-      console.log(result);
+    console.log(result);
   }
 
-    componentDidMount(){
-      this.selecionaEspecie();
-    }
+  componentDidMount() {
+    this.selecionaEspecie();
+  }
 
-    render(){
-      const { classes } = this.props;
-  
-      return (
-        <main className={classes.layout}>
+  onBack() {
+    const { step } = this.state;
+    if (step !== 0) {
+      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      this.setState({ step: step - 1 });
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <main className={classes.layout}>
+
         <FormControl className={classes.formControl}>
           <InputLabel shrink htmlFor="age-native-label-placeholder">
-            Seleciona Espécie
-          </InputLabel>
-        <NativeSelect
-            value={"Seleciona Espécie"}
-            input={<Input name="Seleciona Espécie" id="age-native-label-placeholder" />}
+            Selecione a Espécie
+            </InputLabel>
+          <NativeSelect
+            value={"Selecione Espécie"}
+            input={<Input name="Selecione Espécie" id="age-native-label-placeholder" />}
           >
-        
+
           </NativeSelect>
         </FormControl>
-         <Button
-                id="next"
-                onClick={e => this.handleSubmit(e)}
-                variant="contained"
-                fullWidth
-                //color="primary"
-              >
-                OK, PROXIMO
-              </Button>
-        </main>
-      );
-    };
-  }
-  
+
+      
+      </main>
+    );
+  };
+}
+
 
 SelecionaEspecie.propTypes = {
   classes: PropTypes.object.isRequired

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "@material-ui/core/Button";
 
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
@@ -47,7 +48,7 @@ const styles = theme => ({
   }
 });
 
-const steps = ["Localização", "Espécie" , "Imagens"];
+const steps = ["Localização", "Espécie", "Imagens"];
 const refs = {};
 class CadastroIndividuo extends Page {
   constructor(props) {
@@ -61,16 +62,16 @@ class CadastroIndividuo extends Page {
       imageUpload: [],
       comentario: null,
       step: 0,
-    }    
+    }
     this.goToNext = this.goToNext.bind(this);
-    this.goToBack = this.goToBack.bind(this);         
+    this.goToBack = this.goToBack.bind(this);
   }
 
   showCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
-          
+
           console.log(position.coords);
           this.setState(prevState => ({
             localizacao: {
@@ -79,15 +80,15 @@ class CadastroIndividuo extends Page {
               lng: position.coords.longitude
             },
             isMarkerShown: true
-            
+
 
           }))
         }
-      ),  {maximumAge:Infinity, timeout:5000, enableHighAccuracy:true}
+      ), { maximumAge: Infinity, timeout: 5000, enableHighAccuracy: true }
     } else {
       error => console.log(error)
     }
-    
+
   }
   componentDidMount() {
     this.showCurrentLocation();
@@ -95,50 +96,70 @@ class CadastroIndividuo extends Page {
 
   onMarkerMounted = ref => {
     refs.marker = ref;
-   
-}
 
-   onPositionChanged= () => {
+  }
+
+  onPositionChanged = () => {
     const position = refs.marker.getPosition();
-    var newcurrentLatLng= {
-        lat: position.lat(),
-        lng: position.lng()
-      }
-       this.setState({localizacao:newcurrentLatLng},console.log(this.state))
-      }
+    var newcurrentLatLng = {
+      lat: position.lat(),
+      lng: position.lng()
+    }
+    this.setState({ localizacao: newcurrentLatLng }, console.log(this.state))
+  }
 
   getStep(step) {
     switch (step) {
       case 0:
-      return (
-        <LocalizacaoIndividuo
-        
-        onSubmit={this.goToNext}
-        isMarkerShown={this.state.isMarkerShown}
-        currentLocation={this.state.localizacao}
-        onPositionChanged={this.onPositionChanged}
-        onMarkerMounted={this.onMarkerMounted}
-        onChangeDescLocal = {this.handleChange} 
-        
-        />
-      );      
-      case 1:
-      return (
-       <SelecionaEspecie
-       onSubmit={this.goToNext}
-       />
+        return (
+          <LocalizacaoIndividuo
 
-      );
-    
-      case 2: 
+            onSubmit={this.goToNext}
+            isMarkerShown={this.state.isMarkerShown}
+            currentLocation={this.state.localizacao}
+            onPositionChanged={this.onPositionChanged}
+            onMarkerMounted={this.onMarkerMounted}
+            onChangeDescLocal={this.handleChange}
+
+          />
+        );
+      case 1:
+        const { classes } = this.props;
+        return (
+          <div>
+            <SelecionaEspecie
+              onSubmit={this.goToNext}
+            />
+            <Button
+              id="next"
+              onClick={() => this.goToNext()}
+              variant="contained"
+              fullWidth
+            //color="primary"
+            >
+              OK, PRÓXIMO
+              </Button>
+            <Button
+              id="back"
+              onClick={e => this.goToBack(e)}
+              variant="contained"
+              className={classes.button}
+              fullWidth
+            >
+              VOLTAR
+                </Button>
+          </div>
+        );
+
+      case 2:
         return (
           <ImgForm
-               onBack={this.goToBack}
-               onSubmit={this.goToNext}
-               handleChangeImage={this.handleChangeImage}
-   
-             />
-        );  
+            onBack={this.goToBack}
+            onSubmit={this.goToNext}
+            handleChangeImage={this.handleChangeImage}
+
+          />
+        );
     }
   }
 
@@ -160,7 +181,7 @@ class CadastroIndividuo extends Page {
     }
   }
 
-  
+
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
@@ -170,35 +191,35 @@ class CadastroIndividuo extends Page {
   }
 
   handleChange = event => {
-    return this.setState({ [event.target.name]:event.target.value });
+    return this.setState({ [event.target.name]: event.target.value });
   };
 
   handleChangeImage = imgState => {
     //console.log(1,imgState)
     var imageUploadAtual = this.state.imageUpload;
     imageUploadAtual.push(imgState);
-    return this.setState({ imageUpload : imageUploadAtual }, console.log(this.state));
+    return this.setState({ imageUpload: imageUploadAtual }, console.log(this.state));
   };
 
 
 
- handleSubmitImage(e) {
-  e.preventDefault();
-  
-  this.setState({qntImagensError : false})
-      var imageUploadAtual = this.state.imageUpload 
-      imageUploadAtual.push(this.state.file) 
-      this.setState({ imageUpload: imageUploadAtual }, () => {
-          //console.log(this.state.imageUpload)
-          console.log('UPLOAD', this.state.file);
-      });
- 
-}
-authenticated = () => {
-  return (
+  handleSubmitImage(e) {
+    e.preventDefault();
+
+    this.setState({ qntImagensError: false })
+    var imageUploadAtual = this.state.imageUpload
+    imageUploadAtual.push(this.state.file)
+    this.setState({ imageUpload: imageUploadAtual }, () => {
+      //console.log(this.state.imageUpload)
+      console.log('UPLOAD', this.state.file);
+    });
+
+  }
+  authenticated = () => {
+    return (
       this.unauthenticated()
-  );
-}
+    );
+  }
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   unauthenticated = () => {
     const { classes } = this.props;
@@ -217,8 +238,8 @@ authenticated = () => {
             ))}
           </Stepper>
           {this.getStep(this.state.step)}
-          
-          
+
+
         </Paper>
       </main>
     );
