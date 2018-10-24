@@ -26,6 +26,7 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import ImagemPadrao from "./placeholder-image.png";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   layout: {
@@ -131,8 +132,8 @@ class ListaComImagem extends Page {
         {this.props.especies.map(card => (
           <Grid item key={card.id} sm={6} md={4} lg={3}>
             <Card className={classes.card}>
+            <Link to={`/especies/detalhe/${card.id}`} >
               <CardActionArea
-                onClick={() => this.redirect(`/especies/detalhe/${card.id}`)}
               >
                 {card.foto !== null ? (
                   <CardMedia
@@ -193,6 +194,7 @@ class ListaComImagem extends Page {
                   </Typography>
                 </CardContent>
               </CardActionArea>
+              </Link>
             </Card>
           </Grid>
         ))}

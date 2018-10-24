@@ -22,6 +22,7 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import ListaComImagem from "../../components/ListagemEspecie/ListaComImagem";
+import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem"
 
 const styles = theme => ({
   layout: {
@@ -242,7 +243,7 @@ class ListagemEspecie extends Page {
               {this.state.comFoto ? (
                 <ListaComImagem especies={this.state.especies} />
               ) : (
-                ""
+                <ListaSImagem especies={this.state.especies} />
               )}
 
               <div className={classes.heroButtons} />
