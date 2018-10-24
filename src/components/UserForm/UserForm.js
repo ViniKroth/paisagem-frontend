@@ -9,6 +9,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {ToastContainer, toast} from 'react-toastify';
 import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -63,7 +64,7 @@ const initialState = {
   username: "",
   password: "",
 
-  tipo: "Aluno",
+  tipo: "Administrador",
 
   isLoading: false,
   errors: {}
@@ -86,34 +87,45 @@ class UserForm extends React.Component {
   }
 
     handleChange = event => {
-        this.setState({ value: event.target.value });
+        this.setState({ value: event.target.value,
+                        ["cargo"] : event.target.value
+        },console.log(this.state));
+        
     };
 
+    
+
   onSubmit(e) {
-    e.preventDefault();
-    this.setState({
-      isLoading: true
-    });
 
-    let user = { ...this.state };
-    delete user.isLoading;
-    delete user.errors;
-
-    console.log(user);
-    create(user, (error, data) => {
-      if (error) {
-        this.setState({ errors: {} });
-        console.error(`Error creating user: ${JSON.stringify(error)}`);
-        console.log({ [error.statusDesc.path]: true });
-        return false;
-      } else {
-        console.log(`Created user succesfully: ${JSON.stringify(data)}`);
-        return true;
-      }
-    });
-    this.setState({
-      isLoading: false
-    });
+    if (this.state.senha == this.state.senhaconf ){
+      e.preventDefault();
+      this.setState({
+        isLoading: true
+      });
+  
+      let user = { ...this.state };
+      delete user.isLoading;
+      delete user.errors;
+  
+      console.log(user);
+      create(user, (error, data) => {
+        if (error) {
+          this.setState({ errors: {} });
+          console.error(`Error creating user: ${JSON.stringify(error)}`);
+          console.log({ [error.statusDesc.path]: true });
+          return false;
+        } else {
+          console.log(`Created user succesfully: ${JSON.stringify(data)}`);
+          return true;
+        }
+      });
+      this.setState({
+        isLoading: false
+      });
+    }else {
+      toast.error("Senhas não conferem")
+    }
+   
   }
 
   onChange(e) {
@@ -144,11 +156,11 @@ class UserForm extends React.Component {
           {/* Nome */}
           <TextField
             className="input"
-            name="name"
+            name="nome"
             label="Nome"
             onChange={this.onChange}
-            error={errors.name}
-            value={name}
+            error={errors.nome}
+            
           />
           <br />
 
@@ -178,11 +190,10 @@ class UserForm extends React.Component {
           {/* Senha */}
           <TextField
             className="input"
-            name="password"
+            name="senha"
             label="Senha"
             onChange={this.onChange}
-            value={password}
-            error={errors.password}
+            error={errors.senha}
             type="password"
           />
           <br />
@@ -190,7 +201,7 @@ class UserForm extends React.Component {
           {/* Senha */}
           <TextField
             className="input"
-            name="password"
+            name="senhaconf"
             label="Confirmar senha"
             onChange={this.onChange}
             value={passwordc}
@@ -205,12 +216,12 @@ class UserForm extends React.Component {
 
                 <RadioGroup
                     aria-label="Gender"
-                    name="gender1"
+                    name="cargo"
                     className={classes.group}
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    <FormControlLabel value="adm" control={<Radio color="primary"/>}  label="Administrador" />
+                    <FormControlLabel value="administrador" control={<Radio color="primary"/>}  label="Administrador" />
                     <FormControlLabel value="especialista" control={<Radio color="primary" />} label="Especialista" />
 
                 </RadioGroup>
@@ -219,11 +230,24 @@ class UserForm extends React.Component {
 
 
             <br/>
-          <Button className={classes.button} color="primary"  variant="contained" type="submit" disabled={isLoading}>
+          <Button className={classes.button} color="primary"  variant="contained" type="submit" disabled={isLoading} onSubmit={this.onSubmit}>
             Cadastrar
           </Button>
         </form>
         {/* {show_stringify(this.state)} */}
+        <ToastContainer
+                 position="top-right"
+                 autoClose={2000}
+                 hideProgressBar={false}
+                 newestOnTop={false}
+                 closeOnClick
+                 rtl={true}
+                 pauseOnVisibilityChange
+                 draggable
+                 pauseOnHover
+                 />
+                 {/* Same as */}
+             <ToastContainer />
           </Paper>
       </div>
         </main>
