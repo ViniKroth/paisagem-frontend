@@ -13,6 +13,7 @@ import Page from "views/Page/Page.js";
 import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
 import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
 import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.js"
+import { Grid } from "@material-ui/core";
 
 const styles = theme => ({
   layout: {
@@ -126,19 +127,24 @@ class CadastroIndividuo extends Page {
       case 1:
         const { classes } = this.props;
         return (
+          <Grid item xs={12} sm={12}>
           <div>
             <SelecionaEspecie
               onSubmit={this.goToNext}
             />
+            
             <Button
+            
               id="next"
               onClick={() => this.goToNext()}
               variant="contained"
               fullWidth
             //color="primary"
             >
+            
+            
               OK, PRÓXIMO
-              </Button>
+            </Button>
             <Button
               id="back"
               onClick={e => this.goToBack(e)}
@@ -149,6 +155,7 @@ class CadastroIndividuo extends Page {
               VOLTAR
                 </Button>
           </div>
+          </Grid>
         );
 
       case 2:
@@ -238,8 +245,6 @@ class CadastroIndividuo extends Page {
             ))}
           </Stepper>
           {this.getStep(this.state.step)}
-
-
         </Paper>
       </main>
     );

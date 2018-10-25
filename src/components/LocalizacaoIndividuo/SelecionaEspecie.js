@@ -104,7 +104,6 @@ class SelecionaEspecie extends Component {
 
     return (
       <main className={classes.layout}>
-
         <FormControl className={classes.formControl}>
           <InputLabel shrink htmlFor="age-native-label-placeholder">
             Selecione a Espécie
@@ -113,11 +112,9 @@ class SelecionaEspecie extends Component {
             value={"Selecione Espécie"}
             input={<Input name="Selecione Espécie" id="age-native-label-placeholder" />}
           >
-
+          {this.selecionaEspecie}
           </NativeSelect>
         </FormControl>
-
-      
       </main>
     );
   };
