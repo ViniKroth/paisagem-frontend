@@ -143,23 +143,41 @@ class DadosBasicosForm extends React.Component {
   }
 
   state = {
-    outono: false,
-    primavera: false,
-    verao: false,
-    inverno: false,
-  };
+    nomeCientificoIsEmpty: false,
+    familiaIsEmpty: false,
+    origemIsEmpty: false,
+    check: false,
+    change: false
+  }
 
   handleSubmit(evt) {
+    this.state.check=true;
+    this.checkAllInputs(false);
     evt.preventDefault();
     this.props.onSubmit();
   }
+renderCont=0;
 
+  checkAllInputs(b){
+    if(this.state.check){
 
+      if(this.props.nomeCientifico == '' || this.props.nomeCientifico==null || this.props.nomeCientifico == undefined){
+      
+      if(b==false){this.setState({nomeCientificoIsEmpty: true});}
+      else{this.state.nomeCientificoIsEmpty=true;}
+      }
+      else{
+        if(b==false ){this.setState({nomeCientificoIsEmpty: false});}
+        else{this.state.nomeCientificoIsEmpty=false;}
+      }
+    }
+
+  }
 
 
   render() {
     const { classes } = this.props;
-    //const { outono, verao, primavera, inverno } = this.state;
+
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -171,6 +189,8 @@ class DadosBasicosForm extends React.Component {
               <TextField
                 id="nomeCientifico"
                 required
+                check={this.checkAllInputs(true)}
+                error={this.state.nomeCientificoIsEmpty}   
                 name="nomeCientifico"
                 label="Nome Científico"
                 // TODO: Arrumar inconsistencia com os nome (usar ou "nomeCientifico" ou "nome_cientifico")
@@ -188,6 +208,7 @@ class DadosBasicosForm extends React.Component {
                 value={this.props.familia}
                 select
                 fullWidth
+                error={this.state.familiaIsEmpty}
                 onChange={this.props.onChange("familia")}
                 SelectProps={{ native: true }}
                 margin="normal"

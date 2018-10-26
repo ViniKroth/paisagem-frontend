@@ -59,6 +59,7 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
+      nome_cientifico: "",
       especie: {
         nomePopular: [
           {
@@ -79,6 +80,7 @@ class CadastroEspecie extends Page {
             key="Dados"
             onSubmit={this.goToNext}
             // Begin Dados básicos
+            step={this.state.step}
             nomeCientifico={this.state.especie.nome_cientifico}
             nomePopular={this.state.especie.nomePopular}
             familia={this.state.especie.familia}
@@ -135,6 +137,7 @@ class CadastroEspecie extends Page {
       case 3: {
         console.log(this.state);
       }
+      default : console.log("Step extrapolado")
     }
   }
   notify = (n,desc) => {
@@ -151,16 +154,23 @@ class CadastroEspecie extends Page {
     }
   };
 
+  
   async goToNext() {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico=='' ||
-      this.state.especie.origem==null || this.state.especie.origem=='' ||
-      this.state.especie.familia==null || this.state.especie.origem==''){
+      if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico==''){
         this.notify(2);
+        if(this.state.especie.origem==null || this.state.especie.origem==''){
+          this.notify(2);
+          if(this.state.especie.familia==null || this.state.especie.familia==''){
+            this.notify(2);
+          }
+        }
       }
-      else{this.setState({ step: step + 1 });}
+      else{
+        this.setState({ step: step + 1 });
+      }
     } else {
       var result = await create(this.state.especie);
       this.notify(1);
