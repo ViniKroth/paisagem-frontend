@@ -39,7 +39,7 @@ const styles = theme => ({
 const origem = [
   {
     value: "",
-    label: "Origem da Espécie"
+    label: "Origem da Espécie *"
   },
   {
     value: "nativa",
@@ -119,7 +119,7 @@ const folhagem = [
 const familia = [
   {
     value: "",
-    label: "Família"
+    label: "Família *"
   },
   {
     value: "Acanthaceae‎",
@@ -143,9 +143,10 @@ class DadosBasicosForm extends React.Component {
   }
 
   state = {
-    nomeCientificoIsEmpty: false,
-    familiaIsEmpty: false,
+    nomeCientificoIsEmpty: false, //Status do campo nomeCientifico
+    familiaIsEmpty: false, //Status do campo
     origemIsEmpty: false,
+    isEmpty: false,
     check: false,
     change: false
   }
@@ -154,30 +155,73 @@ class DadosBasicosForm extends React.Component {
     this.state.check=true;
     this.checkAllInputs(false);
     evt.preventDefault();
-    this.props.onSubmit();
+    this.props.onSubmit(this.state.isEmpty);
   }
-renderCont=0;
 
+completeField=0;
   checkAllInputs(b){
+    this.completeField=0;
     if(this.state.check){
-
+      //nomeCientifico
       if(this.props.nomeCientifico == '' || this.props.nomeCientifico==null || this.props.nomeCientifico == undefined){
-      
-      if(b==false){this.setState({nomeCientificoIsEmpty: true});}
-      else{this.state.nomeCientificoIsEmpty=true;}
+        this.state.isEmpty=true;
+        if(b==false){this.setState({nomeCientificoIsEmpty: true});}
+        else{this.state.nomeCientificoIsEmpty=true;}
       }
       else{
-        if(b==false ){this.setState({nomeCientificoIsEmpty: false});}
-        else{this.state.nomeCientificoIsEmpty=false;}
+        this.completeField++;
+          if(b==false ){this.setState({nomeCientificoIsEmpty: false});}
+          else{this.state.nomeCientificoIsEmpty=false;}
+      }
+      //familia
+      if(this.props.familia == '' || this.props.familia==null || this.props.familia == undefined){
+        this.state.isEmpty=true;
+        if(b==false){this.setState({familiaIsEmpty: true});}
+        else{this.state.familiaIsEmpty=true;}
+        }
+      else{
+        this.completeField++;
+          if(b==false ){this.setState({familiaIsEmpty: false});}
+          else{this.state.familiaIsEmpty=false;}
+      }
+      //origem
+      if(this.props.origem == '' || this.props.origem==null || this.props.origem == undefined){
+        this.state.isEmpty=true;
+        if(b==false){this.setState({origemIsEmpty: true});}
+        else{this.state.origemIsEmpty=true;}
+      }
+      else{
+        this.completeField++;
+          if(b==false ){this.setState({origemIsEmpty: false});}
+          else{this.state.origemIsEmpty=false;}
+      }
+      //checa se todos estão completos
+      if(this.completeField==3){
+        this.state.isEmpty=false;
       }
     }
-
   }
 
+  // nomesPopularesRender(nomesPopulares, idx){
+  //   return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
+  //   <TextField
+  //     placeholder={`Nome Popular (${idx + 1}) `}
+  //     value={nomesPopulares.nome}
+  //     onChange={this.props.handleNomePopularChange(idx)}
+  //   />
+  //   <IconButton
+
+  //     onClick={this.props.handleRemoveNomePopular(idx)}
+  //     className={classes.RemoveNome}
+  //   >
+  //     <ClearIcon />
+  //   </IconButton>
+  // </div>
+  // }
 
   render() {
     const { classes } = this.props;
-
+    this.checkAllInputs(true);
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -189,7 +233,7 @@ renderCont=0;
               <TextField
                 id="nomeCientifico"
                 required
-                check={this.checkAllInputs(true)}
+                //check={}
                 error={this.state.nomeCientificoIsEmpty}   
                 name="nomeCientifico"
                 label="Nome Científico"
@@ -208,6 +252,7 @@ renderCont=0;
                 value={this.props.familia}
                 select
                 fullWidth
+                required
                 error={this.state.familiaIsEmpty}
                 onChange={this.props.onChange("familia")}
                 SelectProps={{ native: true }}
@@ -226,6 +271,8 @@ renderCont=0;
                 value={this.props.origem}
                 select
                 fullWidth
+                required
+                error={this.state.origemIsEmpty}
                 onChange={this.props.onChange("origem")}
                 SelectProps={{ native: true }}
                 margin="normal"
@@ -334,7 +381,7 @@ renderCont=0;
 
             <Grid item xs={1} sm={6}>
 
-              {this.props.nomePopular.map((nomesPopulares, idx) => {
+              {this.props.nomePopular.map((nomesPopulares, idx)  => {
                 console.log(nomesPopulares)
                 return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
                   <TextField

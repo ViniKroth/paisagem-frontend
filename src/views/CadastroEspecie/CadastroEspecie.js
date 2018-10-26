@@ -154,21 +154,23 @@ class CadastroEspecie extends Page {
     }
   };
 
-  
-  async goToNext() {
+  //isEmpty = false;
+  async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico==''){
+      // if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico==''){
+      //   ;
+      // }
+      // if(this.state.especie.origem==null || this.state.especie.origem==''){
+      //   ;
+      // }
+      // if(this.state.especie.familia==null || this.state.especie.familia==''){
+      //   ;
+      // }
+      if(isEmpty){
         this.notify(2);
-        if(this.state.especie.origem==null || this.state.especie.origem==''){
-          this.notify(2);
-          if(this.state.especie.familia==null || this.state.especie.familia==''){
-            this.notify(2);
-          }
-        }
-      }
-      else{
+      }else{
         this.setState({ step: step + 1 });
       }
     } else {
