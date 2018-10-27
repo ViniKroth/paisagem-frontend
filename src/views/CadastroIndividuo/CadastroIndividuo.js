@@ -133,30 +133,32 @@ class CadastroIndividuo extends Page {
             <SelecionaEspecie
               onSubmit={this.goToNext}
             />
+            <Grid item xs={12}>
+              <Grid container spacing={8}>
+                <Grid item xs={6} >
+                  <Button
+                    id="back"
+                    onClick={() => this.goToBack()}
+                    variant="contained"
 
-            <Grid item xs={6}>
-              <Button
-                id="back"
-                onClick={() => this.goToBack()}
-                variant="contained"
-
-              //color="primary"
-              >
-                Voltar
+                  //color="primary"
+                  >
+                    Voltar
             </Button>
-            </Grid>
+                </Grid>
 
-            <Grid item xs={6}>
-              <Button
-                id="next"
-                onClick={() => this.goToNext()}
-                variant="contained"
+                <Grid item xs={6}>
+                  <Button
+                    id="next"
+                    onClick={() => this.goToNext()}
+                    variant="contained"
 
-                color="primary"
-              >
-                Próximo
+                    color="primary"
+                  >
+                    Próximo
             </Button>
-
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         );

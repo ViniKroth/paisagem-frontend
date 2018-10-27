@@ -21,7 +21,7 @@ import { Grid } from "@material-ui/core";
 
 const styles = theme => ({
   layout: {
-    width: "auto",
+    width: "100%",
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(900 + theme.spacing.unit * 2 * 2)]: {
@@ -50,7 +50,8 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
-  }
+  },
+  formControl:{ width: "100%"}
 });
 
 class SelecionaEspecie extends Component {
@@ -105,7 +106,7 @@ class SelecionaEspecie extends Component {
 
     return (
       <main className={classes.layout}>
-        <div  style={{justify : 'center'}}>
+        <div style={{ justify: 'center' }}>
           <FormControl className={classes.formControl}
             margin="normal"
             fullWidth="true">
@@ -120,7 +121,7 @@ class SelecionaEspecie extends Component {
               {this.selecionaEspecie}
             </NativeSelect>
           </FormControl>
-          </div>
+        </div>
       </main>
     );
   };
