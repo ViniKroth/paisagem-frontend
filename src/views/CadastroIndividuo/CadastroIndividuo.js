@@ -15,6 +15,8 @@ import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
 import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.js"
 import { Grid } from "@material-ui/core";
 
+import img from "./plantas.jpg"
+
 const styles = theme => ({
   layout: {
     width: "auto",
@@ -131,30 +133,30 @@ class CadastroIndividuo extends Page {
             <SelecionaEspecie
               onSubmit={this.goToNext}
             />
-            
+
             <Grid item xs={6}>
               <Button
                 id="back"
                 onClick={() => this.goToBack()}
                 variant="contained"
-                
-                //color="primary"
+
+              //color="primary"
               >
                 Voltar
             </Button>
             </Grid>
 
             <Grid item xs={6}>
-            <Button
+              <Button
                 id="next"
                 onClick={() => this.goToNext()}
                 variant="contained"
-                
+
                 color="primary"
               >
                 Próximo
             </Button>
-             
+
             </Grid>
           </Grid>
         );
@@ -224,7 +226,9 @@ class CadastroIndividuo extends Page {
 
   }
   authenticated = () => {
+
     return (
+
       this.unauthenticated()
     );
   }
@@ -233,6 +237,15 @@ class CadastroIndividuo extends Page {
     const { classes } = this.props;
 
     return (
+      <div
+        style={{
+          height: "109vh",
+          backgroundImage: `url(${img})`,
+          paddingTop: "2%",  
+          
+        }}
+      >
+      
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography variant="display1" align="center">
@@ -248,6 +261,7 @@ class CadastroIndividuo extends Page {
           {this.getStep(this.state.step)}
         </Paper>
       </main>
+      </div>
     );
   };
 }
