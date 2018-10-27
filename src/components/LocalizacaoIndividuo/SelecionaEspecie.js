@@ -17,6 +17,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { listAll } from "services/especies/especies";
+import { Grid } from "@material-ui/core";
 
 const styles = theme => ({
   layout: {
@@ -104,17 +105,22 @@ class SelecionaEspecie extends Component {
 
     return (
       <main className={classes.layout}>
-        <FormControl className={classes.formControl}>
-          <InputLabel shrink htmlFor="age-native-label-placeholder">
-            Selecione a Espécie
-            </InputLabel>
-          <NativeSelect
-            value={"Selecione Espécie"}
-            input={<Input name="Selecione Espécie" id="age-native-label-placeholder" />}
-          >
-          {this.selecionaEspecie}
-          </NativeSelect>
-        </FormControl>
+        <div  style={{justify : 'center'}}>
+          <FormControl className={classes.formControl}
+            margin="normal"
+            fullWidth="true">
+            <InputLabel variant="standard" htmlFor="age-native-label-placeholder"
+            >
+              Selecione a Espécie
+          </InputLabel>
+            <NativeSelect
+              value={"Selecione Espécie"}
+              input={<Input name="Selecione Espécie" id="age-native-label-placeholder" />}
+            >
+              {this.selecionaEspecie}
+            </NativeSelect>
+          </FormControl>
+          </div>
       </main>
     );
   };

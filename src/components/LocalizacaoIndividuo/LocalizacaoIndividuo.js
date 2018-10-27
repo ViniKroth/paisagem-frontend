@@ -63,7 +63,7 @@ class LocalizacaoIndividuo extends Component {
                 onClick={e => this.handleSubmit(e)}
                 variant="contained"
                 fullWidth
-                //color="primary"
+                color="primary"
               >
                 OK, PRÓXIMO
               </Button>

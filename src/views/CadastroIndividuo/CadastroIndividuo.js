@@ -127,34 +127,35 @@ class CadastroIndividuo extends Page {
       case 1:
         const { classes } = this.props;
         return (
-          <Grid item xs={12} sm={12}>
-          <div>
+          <Grid container className={classes.root} spacing={24}>
             <SelecionaEspecie
               onSubmit={this.goToNext}
             />
             
-            <Button
-            
-              id="next"
-              onClick={() => this.goToNext()}
-              variant="contained"
-              fullWidth
-            //color="primary"
-            >
-            
-            
-              OK, PRÓXIMO
+            <Grid item xs={6}>
+              <Button
+                id="back"
+                onClick={() => this.goToBack()}
+                variant="contained"
+                
+                //color="primary"
+              >
+                Voltar
             </Button>
+            </Grid>
+
+            <Grid item xs={6}>
             <Button
-              id="back"
-              onClick={e => this.goToBack(e)}
-              variant="contained"
-              className={classes.button}
-              fullWidth
-            >
-              VOLTAR
-                </Button>
-          </div>
+                id="next"
+                onClick={() => this.goToNext()}
+                variant="contained"
+                
+                color="primary"
+              >
+                Próximo
+            </Button>
+             
+            </Grid>
           </Grid>
         );
 
