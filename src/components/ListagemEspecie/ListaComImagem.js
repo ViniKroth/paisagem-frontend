@@ -126,6 +126,7 @@ const styles = theme => ({
 class ListaComImagem extends Page {
   render() {
     const { classes } = this.props;
+    console.log(this.props.especies)
 
     return (
       <Grid container spacing={24}>
@@ -154,7 +155,7 @@ class ListaComImagem extends Page {
                   <Typography gutterBottom variant="headline" component="h2">
                     <i>{card.nome_cientifico}</i>
                   </Typography>
-                  {card.origem == "Nativa" ? (
+                  {card.origem == "nativa" ? (
                     <img
                       className={classes.img}
                       src={nativa}
@@ -167,7 +168,7 @@ class ListaComImagem extends Page {
                       title={card.origem}
                     />
                   )}
-                  {card.folhagem == "Perene" ? ( // verifica se é perene ou caduca
+                  {card.folhagem == "perene" ? ( // verifica se é perene ou caduca
                     <img
                       className={classes.img}
                       src={perene}
@@ -186,7 +187,9 @@ class ListaComImagem extends Page {
                   <Typography>
                     <b> Nomes Populares:</b>{" "}
                     {card.nome_popular.map(nome => (
-                      <Chip label={nome} className={classes.chip} />
+
+                      <Chip label={nome["nome"]} className={classes.chip} />
+                      
                     ))}
                   </Typography>
                   <Typography>

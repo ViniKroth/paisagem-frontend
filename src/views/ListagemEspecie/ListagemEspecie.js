@@ -20,6 +20,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
+import { read } from "../../services/nomesPopulares/nomesPopulares";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import ListaComImagem from "../../components/ListagemEspecie/ListaComImagem";
 import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem"
@@ -138,6 +139,7 @@ class ListagemEspecie extends Page {
       comFoto: true
     };
   }
+
   componentDidMount() {
     this.listaEspecie();
   }
@@ -150,12 +152,12 @@ class ListagemEspecie extends Page {
   listaEspecie = async () => {
     var result = await listAll();
     var especies = [];
-
     if (result && result.length > 0) {
-      result.map(e => {
+      result.map(async e => {
         var id = e["id_especie"];
         var nomeCien = e["nome_cientifico"];
-        var nomePop = e["nome_popular"] ? e["nome_popular"] : [];
+        var nomesPopulares = await read(id);
+        var nomePop = nomesPopulares;
         var nomeFam = e["nome_familia"];
         var folha = e["folhagem"];
         var ori = e["origem"];
@@ -172,11 +174,9 @@ class ListagemEspecie extends Page {
           porte: port,
           foto: fot
         };
-
-        especies.push(especie);
+        this.setState({especies: [...this.state.especies, especie]});
       });
     }
-    this.setState({ especies });
   };
 
   authenticated = () => {
@@ -186,7 +186,6 @@ class ListagemEspecie extends Page {
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   unauthenticated = () => {
     const { classes } = this.props;
-
     return (
       <React.Fragment>
         <main className={classes.layout}>
@@ -243,8 +242,8 @@ class ListagemEspecie extends Page {
               {this.state.comFoto ? (
                 <ListaComImagem especies={this.state.especies} />
               ) : (
-                <ListaSImagem especies={this.state.especies} />
-              )}
+                  <ListaSImagem especies={this.state.especies} />
+                )}
 
               <div className={classes.heroButtons} />
             </div>
