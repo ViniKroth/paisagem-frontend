@@ -15,7 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 
-
+import AppContext from "./../Context/AppContext"
 
 const styles = theme => ({
     buttons: {
@@ -24,7 +24,7 @@ const styles = theme => ({
     },
     button: {
         marginTop: theme.spacing.unit * 3,
-        marginBottom : theme.spacing.unit * 3
+        marginBottom: theme.spacing.unit * 3
     }
 });
 
@@ -42,21 +42,21 @@ class ImgForm extends React.Component {
     _handleSubmit(e) {
         e.preventDefault();
         //Aqui vai ser feito o upload para a api e depois inserido no banco
-        this.setState({qntImagensError : false})
+        this.setState({ qntImagensError: false })
         //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
         // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
-       
-            var imageUploadAtual = this.state.imageUpload //Pega o status atual
-            this.state.file.tipo = this.state.tipoImg //pega o tipo de imagem do componente switch
-            imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
 
-            this.setState({ imageUpload: imageUploadAtual }, () => {
-                //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
-                //console.log(this.state.imageUpload)
-                //console.log('UPLOAD', this.state.file);
-            });
-            this.props.handleChangeImage(this.state);
-            
+        var imageUploadAtual = this.state.imageUpload //Pega o status atual
+        this.state.file.tipo = this.state.tipoImg //pega o tipo de imagem do componente switch
+        imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
+
+        this.setState({ imageUpload: imageUploadAtual }, () => {
+            //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
+            //console.log(this.state.imageUpload)
+            //console.log('UPLOAD', this.state.file);
+        });
+        this.props.handleChangeImage(this.state);
+
     }
 
     _handleImageChange(e) {
@@ -93,24 +93,24 @@ class ImgForm extends React.Component {
 
     }
     handleChangeTipoImg = name => event => {
-        if(event.target.checked){
+        if (event.target.checked) {
             this.setState({ [name]: "desenho" });
-        }else {
+        } else {
             this.setState({ [name]: "imagem" });
         }
-        
-      };
+
+    };
 
     render() {
-        
+
         const { classes } = this.props;
         let { imagePreviewUrl } = this.state;
         let imagePreview = null;
         if (imagePreviewUrl) {
             imagePreview = (
-                
-            <img src={imagePreviewUrl} height="290" width="490" />
-        );
+
+                <img src={imagePreviewUrl} height="290" width="490" />
+            );
         } else {
             imagePreview = (<Typography variant="caption" gutterBottom>
                 Selecione uma Imagem para Visualização
@@ -122,120 +122,130 @@ class ImgForm extends React.Component {
                     <TableCell>
                         {dado.name}
                     </TableCell>
-                    
+
                     <TableCell>
                         <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={(e) => this._handleDelete(this)}>
                             <DeleteIcon />
                         </IconButton>
                     </TableCell>
-                  
+
                 </TableRow>;
             })
         )
 
         return (
-            <React.Fragment>
-            <Grid container spacing={24}>
-                <Grid item xs={12}>
-                    <Typography variant="subheading" gutterBottom>
-                            Imagens
-                    </Typography>
-                </Grid>
-             <Grid item xs={12}>
-            
-                <div className="previewComponent">
-                    <form 
-                    //onSubmit={(e) => this._handleSubmit(e)}
-                    >
-                    <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="caption" gutterBottom>
-                                Selecione uma imagem e clique em enviar. Lembre que você pode adicionar uma descrição para cada imagem!
-                            </Typography>
-                            
-                                <input className="fileInput"
-                                    type="file"
-                                    onChange={(e) => this._handleImageChange(e)} />         
-                            
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="DescricaoImg"
-                                    name="DescricaoImg"
-                                    label="Descrição da Imagem"
-                                    
-                                    //onChange={}
-                                    
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Button id="submitBtn"
-                                    variant="contained"
-                                    color="primary"
-                                    
-                                        className={classes.button}
-                                        onClick={(e) => this._handleSubmit(e)}
-                                        >
-                                        ENVIAR
-                                    </Button>
-                                    </Grid>
-                                      
-                                    <Grid item xs={12}>   
-                                        <div className="imgPreview" >
-                                                        
-                                            {imagePreview}
-                                        </div>
-                                
-                            </Grid>
-                    </Grid>
-                </form>
-                
+            <AppContext.Consumer>
                 {
-                    this.state.imageUpload.length === 0
-                        ?
-                        ""
-                        :
-                        <Table className={classes.table} id="imgTable">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Imagem</TableCell> 
-                                    
-                                    <TableCell>Deletar</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>{lista}</TableBody>
-                        </Table>
+                    value => {
+                        const { setSnackbar } = value;
+                        return (
 
-                }
 
-            </div>
-            </Grid>
-            </Grid>
-                <Grid container spacing={24}>
-                    <Grid item xs={6}>
-                        <Button
-                            id="back"
-                            onClick={e => this.props.onBack(e)}
-                            variant="contained"
-                            className={classes.button}
-                        >
-                            VOLTAR
+
+                            <React.Fragment>
+                                <Grid container spacing={24}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="subheading" gutterBottom>
+                                            Imagens
+                    </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+
+                                        <div className="previewComponent">
+                                            <form
+                                            //onSubmit={(e) => this._handleSubmit(e)}
+                                            >
+                                                <Grid container spacing={24}>
+                                                    <Grid item xs={12}>
+                                                        <Typography variant="caption" gutterBottom>
+                                                            Selecione uma imagem e clique em enviar. Lembre que você pode adicionar uma descrição para cada imagem!
+                            </Typography>
+
+                                                        <input className="fileInput"
+                                                            type="file"
+                                                            onChange={(e) => this._handleImageChange(e)} />
+
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField
+                                                            id="DescricaoImg"
+                                                            name="DescricaoImg"
+                                                            label="Descrição da Imagem"
+
+                                                        //onChange={}
+
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button id="submitBtn"
+                                                            variant="contained"
+                                                            color="primary"
+
+                                                            className={classes.button}
+                                                            onClick={(e) => this._handleSubmit(e)}
+                                                        >
+                                                            ENVIAR
+                                    </Button>
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
+                                                        <div className="imgPreview" >
+
+                                                            {imagePreview}
+                                                        </div>
+
+                                                    </Grid>
+                                                </Grid>
+                                            </form>
+
+                                            {
+                                                this.state.imageUpload.length === 0
+                                                    ?
+                                                    ""
+                                                    :
+                                                    <Table className={classes.table} id="imgTable">
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell>Imagem</TableCell>
+
+                                                                <TableCell>Deletar</TableCell>
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>{lista}</TableBody>
+                                                    </Table>
+
+                                            }
+
+                                        </div>
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={24}>
+                                    <Grid item xs={6}>
+                                        <Button
+                                            id="back"
+                                            onClick={e => this.props.onBack(e)}
+                                            variant="contained"
+                                            className={classes.button}
+                                        >
+                                            VOLTAR
                         </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Button
-                            id="next"
-                           // onClick={e => this.props.handleSubmit(e)}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                            SAlVAR
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Button
+                                            id="next"
+                                            onClick={e => this.props.onSubmit(e, setSnackbar)}
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.button}
+                                        >
+                                            SALVAR
                         </Button>
-                    </Grid>
-                </Grid>
-            </React.Fragment>
-            
+                                    </Grid>
+                                </Grid>
+                            </React.Fragment>
+                        );
+                    }
+                }</AppContext.Consumer>
         )
     }
 }

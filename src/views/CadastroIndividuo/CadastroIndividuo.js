@@ -174,7 +174,7 @@ class CadastroIndividuo extends Page {
   }
 
 
-  async goToNext() {
+  async goToNext(e, setSnackbar) {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
@@ -188,7 +188,14 @@ class CadastroIndividuo extends Page {
 
       console.log(individuo);
       //alert("Cadastrado com Sucesso!");
+      if (setSnackbar)
+        setSnackbar({
+          variant: "success",
+          message: "Indivíduo salvo com sucesso"
+        })
+      this.setState({ step: 0 })
     }
+
   }
 
 
@@ -241,26 +248,26 @@ class CadastroIndividuo extends Page {
         style={{
           height: "109vh",
           backgroundImage: `url(${img})`,
-          paddingTop: "2%",  
-          
+          paddingTop: "2%",
+
         }}
       >
-      
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography variant="display1" align="center">
-            Cadastro de Individuo
+
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Typography variant="display1" align="center">
+              Cadastro de Individuo
           </Typography>
-          <Stepper activeStep={this.state.step} className={classes.stepper}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          {this.getStep(this.state.step)}
-        </Paper>
-      </main>
+            <Stepper activeStep={this.state.step} className={classes.stepper}>
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            {this.getStep(this.state.step)}
+          </Paper>
+        </main>
       </div>
     );
   };
