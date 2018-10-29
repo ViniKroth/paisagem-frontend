@@ -51,7 +51,6 @@ class UserForm extends React.Component {
     delete user.isLoading;
     delete user.errors;
 
-    console.log(user);
     create(user, (error, data) => {
       if (error) {
         this.setState({ errors: {} });

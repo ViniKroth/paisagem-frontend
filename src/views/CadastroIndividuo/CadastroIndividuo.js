@@ -74,8 +74,7 @@ class CadastroIndividuo extends Page {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
-
-          console.log(position.coords);
+          
           this.setState(prevState => ({
             localizacao: {
               ...prevState.currentLatLng,
@@ -104,12 +103,12 @@ class CadastroIndividuo extends Page {
 
   onPositionChanged = () => {
     const position = refs.marker.getPosition();
-    var newcurrentLatLng = {
-      lat: position.lat(),
-      lng: position.lng()
-    }
-    this.setState({ localizacao: newcurrentLatLng }, console.log(this.state))
-  }
+    var newcurrentLatLng= {
+        lat: position.lat(),
+        lng: position.lng()
+      }
+       this.setState({localizacao:newcurrentLatLng})
+      }
 
   getStep(step) {
     switch (step) {
@@ -188,7 +187,6 @@ class CadastroIndividuo extends Page {
 
       //var result = await create(this.state.especie);
 
-      console.log(individuo);
       //alert("Cadastrado com Sucesso!");
       if (setSnackbar)
         setSnackbar({
@@ -217,27 +215,22 @@ class CadastroIndividuo extends Page {
     //console.log(1,imgState)
     var imageUploadAtual = this.state.imageUpload;
     imageUploadAtual.push(imgState);
-    return this.setState({ imageUpload: imageUploadAtual }, console.log(this.state));
+    return this.setState({ imageUpload : imageUploadAtual });
   };
 
 
 
-  handleSubmitImage(e) {
-    e.preventDefault();
-
-    this.setState({ qntImagensError: false })
-    var imageUploadAtual = this.state.imageUpload
-    imageUploadAtual.push(this.state.file)
-    this.setState({ imageUpload: imageUploadAtual }, () => {
-      //console.log(this.state.imageUpload)
-      console.log('UPLOAD', this.state.file);
-    });
-
-  }
-  authenticated = () => {
-
-    return (
-
+ handleSubmitImage(e) {
+  e.preventDefault();
+  
+  this.setState({qntImagensError : false})
+      var imageUploadAtual = this.state.imageUpload 
+      imageUploadAtual.push(this.state.file) 
+      this.setState({ imageUpload: imageUploadAtual });
+ 
+}
+authenticated = () => {
+  return (
       this.unauthenticated()
     );
   }
