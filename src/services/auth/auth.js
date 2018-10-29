@@ -42,7 +42,6 @@ export const login = async (username, password, encrypt_password) => {
 };
 
 export const logout = () => {
-  console.log("Deslogado...");
   localStorage.removeItem("token");
 };
 
