@@ -6,7 +6,6 @@ export const create = async familia => {
   const params = {
     ...familia
   };
-  console.log(params);
   const response = await axios({
     method: "post",
     url: `${api}/familias`,
@@ -58,7 +57,6 @@ export const update = async familia => {
     ...familia
   };
 
-  console.log(params);
   const response = await axios({
     method: "put",
     url: `${api}/familias`,

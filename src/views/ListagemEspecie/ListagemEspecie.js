@@ -167,6 +167,7 @@ class ListagemEspecie extends Page {
         }
 
         especies.push(especie)
+        console.log(especie, "CHAMA")
       })
     }
     this.setState({especies})

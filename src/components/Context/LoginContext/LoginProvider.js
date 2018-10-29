@@ -81,14 +81,28 @@ class LoginProvider extends Component {
         token: result.data.token,
         userData: result.data.userData
       });
+      this.props.setSnackbar({
+        message: "Login efetuado com sucesso!",
+        variant: "success"
+      });
       return result;
     } else {
+      this.props.setSnackbar({
+        message: "Ocorreu um erro ao logar!",
+        variant: "error"
+      });
       return result.error;
     }
   };
 
   logout = () => {
-    this.setState({ token: null, userData: null }, logout());
+    this.setState({ token: null, userData: null }, () => {
+      this.props.setSnackbar({
+        message: "Logout efetuado com sucesso!",
+        variant: "success"
+      });
+      logout();
+    });
   };
 }
 

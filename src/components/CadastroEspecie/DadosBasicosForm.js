@@ -42,11 +42,11 @@ const origem = [
     label: "Origem da Espécie"
   },
   {
-    value: "n",
+    value: "nativa",
     label: "Nativa do Rio Grande do Sul"
   },
   {
-    value: "e",
+    value: "exotica",
     label: "Exótica"
   }
 ];
@@ -89,11 +89,11 @@ const folhagem = [
     label: "Tipo de Folhagem"
   },
   {
-    value: "c",
+    value: "caduca",
     label: "Caduca"
   },
   {
-    value: "p",
+    value: "perene",
     label: "Perene"
   }
 ];
@@ -123,12 +123,7 @@ class DadosBasicosForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  state = {
-    outono: false,
-    primavera: false,
-    verao: false,
-    inverno: false,
-  };
+  
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -146,6 +141,10 @@ class DadosBasicosForm extends React.Component {
         <Typography variant="title" gutterBottom>
           Dados Básicos
         </Typography>
+        <Typography variant="caption" gutterBottom>
+            Uma espécie precisa de alguns dados básicos para ser cadastrada, descreva-os aqui!
+      </Typography>
+     
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
             <Grid item xs={6}>
@@ -156,7 +155,7 @@ class DadosBasicosForm extends React.Component {
                 label="Nome Científico"
                 // TODO: Arrumar inconsistencia com os nome (usar ou "nomeCientifico" ou "nome_cientifico")
                 value={this.props.nomeCientifico}
-                onChange={() => this.props.onChange("nome_cientifico")}
+                onChange={this.props.onChange("nome_cientifico")}
                 fullWidth
               />
             </Grid>
@@ -169,7 +168,7 @@ class DadosBasicosForm extends React.Component {
                 value={this.props.familia}
                 select
                 fullWidth
-                onChange={() => this.props.onChange("familia")}
+                onChange={this.props.onChange("familia")}
                 SelectProps={{ native: true }}
                 margin="normal"
               >
@@ -186,7 +185,7 @@ class DadosBasicosForm extends React.Component {
                 value={this.props.origem}
                 select
                 fullWidth
-                onChange={() => this.props.onChange("origem")}
+                onChange={this.props.onChange("origem")}
                 SelectProps={{ native: true }}
                 margin="normal"
               >
@@ -204,7 +203,7 @@ class DadosBasicosForm extends React.Component {
                 name="porte"
                 label="Porte"
                 value={this.props.porte}
-                onChange={() => this.props.onChange("porte")}
+                onChange={this.props.onChange("porte")}
                 fullWidth
               />
             </Grid>
@@ -213,7 +212,7 @@ class DadosBasicosForm extends React.Component {
                 id="classificacao"
                 select
                 value={this.props.classificacao}
-                onChange={() => this.props.onChange("classificacao")}
+                onChange={this.props.onChange("classificacao")}
                 fullWidth
                 SelectProps={{ native: true }}
                 margin="normal"
@@ -233,7 +232,7 @@ class DadosBasicosForm extends React.Component {
               <TextField
                 id="folhagem"
                 select
-                onChange={() => this.props.onChange("folhagem")}
+                onChange={this.props.onChange("folhagem")}
                 fullWidth
                 value={this.props.folhagem}
                 SelectProps={{ native: true }}
@@ -251,8 +250,9 @@ class DadosBasicosForm extends React.Component {
               <TextField
                 id="tipoFruto"
                 select
-                onChange={() => this.props.onChange("tipoFruto")}
+                onChange={this.props.onChange("tipoFruto")}
                 fullWidth
+                value={this.props.tipoFruto}
                 SelectProps={{ native: true }}
                 margin="normal"
               >
@@ -274,9 +274,9 @@ class DadosBasicosForm extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        value="outono"
+                        value="1"
                         checked={this.props.frutificacaoOutono}
-                        onChange={this.props.onChangeFrutificacao("outono")}
+                        onChange={this.props.onChange("FrutificacaoOutono")}
                       />
                     }
                     label="Outono"
@@ -284,9 +284,9 @@ class DadosBasicosForm extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        value="verao"
+                        value="1"
                         checked={this.props.frutificacaoVerao}
-                        onChange={this.props.onChangeFrutificacao("verao")}
+                        onChange={this.props.onChange("FrutificacaoVerao")}
                       />
                     }
                     label="Verão"
@@ -294,9 +294,9 @@ class DadosBasicosForm extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        value="inverno"
+                        value="1"
                         checked={this.props.frutificacaoInverno}
-                        onChange={this.props.onChangeFrutificacao("inverno")}
+                        onChange={this.props.onChange("FrutificacaoInverno")}
                       />
                     }
                     label="Inverno"
@@ -305,8 +305,8 @@ class DadosBasicosForm extends React.Component {
                     control={
                       <Checkbox
                         checked={this.props.frutificacaoPrimavera}
-                        onChange={this.props.onChangeFrutificacao("primavera")}
-                        value="primavera"
+                        onChange={this.props.onChange("FrutificacaoPrimavera")}
+                        value="1"
                       />
                     }
                     label="Primavera"
@@ -323,8 +323,8 @@ class DadosBasicosForm extends React.Component {
                     control={
                       <Checkbox
                         checked={this.props.floracaoOutono}
-                        value="outono"
-                        onChange={this.props.onChangeFloracao("outono")}
+                        value="1"
+                        onChange={this.props.onChange("FloracaoOutono")}
                       />
                     }
                     label="Outono"
@@ -333,8 +333,8 @@ class DadosBasicosForm extends React.Component {
                     control={
                       <Checkbox
                         checked={this.props.floracaoVerao}
-                        value="verao"
-                        onChange={this.props.onChangeFloracao("verao")}
+                        value="1"
+                        onChange={this.props.onChange("FloracaoVerao")}
                       />
                     }
                     label="Verão"
@@ -343,8 +343,8 @@ class DadosBasicosForm extends React.Component {
                     control={
                       <Checkbox
                         checked={this.props.floracaoInverno}
-                        onChange={this.props.onChangeFloracao("inverno")}
-                        value="inverno"
+                        onChange={this.props.onChange("FloracaoInverno")}
+                        value="1"
                       />
                     }
                     label="Inverno"
@@ -353,8 +353,8 @@ class DadosBasicosForm extends React.Component {
                     control={
                       <Checkbox
                         checked={this.props.floracaoPrimavera}
-                        onChange={this.props.onChangeFloracao("primavera")}
-                        value="primavera"
+                        onChange={this.props.onChange("FloracaoPrimavera")}
+                        value="1"
                       />
                     }
                     label="Primavera"
@@ -368,8 +368,7 @@ class DadosBasicosForm extends React.Component {
             <Grid item xs={1} sm={6}>
 
               {this.props.nomePopular.map((nomesPopulares, idx) => {
-                console.log(nomesPopulares)
-                return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
+                return <div className="nomesPopulares" key={idx}>
                   <TextField
                     placeholder={`Nome Popular (${idx + 1}) `}
                     value={nomesPopulares.nome}
