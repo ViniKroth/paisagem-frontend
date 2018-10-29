@@ -39,7 +39,7 @@ const styles = theme => ({
 const origem = [
   {
     value: "",
-    label: "Origem da Espécie"
+    label: "Origem da Espécie *"
   },
   {
     value: "nativa",
@@ -92,13 +92,33 @@ const classificacao = [
     label: "Classificação/extrato"
   },
   {
-    value: "arvore",
-    label: "Árvore"
+    value: "Arborea-arvore",
+    label: "Arbórea - Árvore"
   },
   {
-    value: "arbusto",
-    label: "Arbusto"
-  }
+    value: "Arborea-Palmeira",
+    label: "Arborea - Palmeira"
+  },
+  {
+    value: "Arborea-Conifera",
+    label: "Arbórea - Conifera"
+  },
+  {
+    value: "trepadeira",
+    label: "Trepadeira"
+  },
+  {
+    value: "herbacea",
+    label: "Herbácea"
+  },
+  {
+    value: "herbacea-forracao",
+    label: "Herbácea - Forracao"
+  },
+  {
+    value: "herbacea-pisovegetal",
+    label: "Herbácea - Piso Vegetal"
+  },
 ];
 
 
@@ -119,7 +139,7 @@ const folhagem = [
 const familia = [
   {
     value: "",
-    label: "Família"
+    label: "Família *"
   },
   {
     value: "Acanthaceae‎",
@@ -143,38 +163,87 @@ class DadosBasicosForm extends React.Component {
   }
 
   state = {
-    outono: false,
-    primavera: false,
-    verao: false,
-    inverno: false,
-    frutificacao: false,
-    floracao: false
-  };
+    nomeCientificoIsEmpty: false, //Status do campo nomeCientifico
+    familiaIsEmpty: false, //Status do campo
+    origemIsEmpty: false,
+    isEmpty: false,
+    check: false,
+    change: false
+  }
 
   handleSubmit(evt) {
+    this.state.check=true;
+    this.checkAllInputs(false);
     evt.preventDefault();
-    this.props.onSubmit();
+    this.props.onSubmit(this.state.isEmpty);
   }
 
-  handleFrutificacao = () =>{
-    this.setState(state => {
-      return{
-        frutificacao: !state.frutificacao
+completeField=0;
+  checkAllInputs(b){
+    this.completeField=0;
+    if(this.state.check){
+      //nomeCientifico
+      if(this.props.nomeCientifico == '' || this.props.nomeCientifico==null || this.props.nomeCientifico == undefined){
+        this.state.isEmpty=true;
+        if(b==false){this.setState({nomeCientificoIsEmpty: true});}
+        else{this.state.nomeCientificoIsEmpty=true;}
       }
-    })
+      else{
+        this.completeField++;
+          if(b==false ){this.setState({nomeCientificoIsEmpty: false});}
+          else{this.state.nomeCientificoIsEmpty=false;}
+      }
+      //familia
+      if(this.props.familia == '' || this.props.familia==null || this.props.familia == undefined){
+        console.log(this.props.familia);
+        console.log(this.props.familiaList);
+        this.state.isEmpty=true;
+        if(b==false){this.setState({familiaIsEmpty: true});}
+        else{this.state.familiaIsEmpty=true;}
+        }
+      else{
+        this.completeField++;
+          if(b==false ){this.setState({familiaIsEmpty: false});}
+          else{this.state.familiaIsEmpty=false;}
+      }
+      //origem
+      if(this.props.origem == '' || this.props.origem==null || this.props.origem == undefined){
+        this.state.isEmpty=true;
+        if(b==false){this.setState({origemIsEmpty: true});}
+        else{this.state.origemIsEmpty=true;}
+      }
+      else{
+        this.completeField++;
+          if(b==false ){this.setState({origemIsEmpty: false});}
+          else{this.state.origemIsEmpty=false;}
+      }
+      //checa se todos estão completos
+      if(this.completeField==3){
+        this.state.isEmpty=false;
+      }
+    }
   }
 
-  handleFloracao = () =>{
-    this.setState(state => {
-      return{
-        floracao: !state.floracao
-      }
-    })
-  }
+  // nomesPopularesRender(nomesPopulares, idx){
+  //   return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
+  //   <TextField
+  //     placeholder={`Nome Popular (${idx + 1}) `}
+  //     value={nomesPopulares.nome}
+  //     onChange={this.props.handleNomePopularChange(idx)}
+  //   />
+  //   <IconButton
+
+  //     onClick={this.props.handleRemoveNomePopular(idx)}
+  //     className={classes.RemoveNome}
+  //   >
+  //     <ClearIcon />
+  //   </IconButton>
+  // </div>
+  // }
 
   render() {
     const { classes } = this.props;
-    //const { outono, verao, primavera, inverno } = this.state;
+    this.checkAllInputs(true);
     return (
       <React.Fragment>
         <Typography variant="title" gutterBottom>
@@ -186,6 +255,8 @@ class DadosBasicosForm extends React.Component {
               <TextField
                 id="nomeCientifico"
                 required
+                //check={}
+                error={this.state.nomeCientificoIsEmpty}   
                 name="nomeCientifico"
                 label="Nome Científico"
                 // TODO: Arrumar inconsistencia com os nome (usar ou "nomeCientifico" ou "nome_cientifico")
@@ -195,17 +266,21 @@ class DadosBasicosForm extends React.Component {
               />
             </Grid>
 
+
+
             <Grid item xs={6}>
               <TextField
                 id="Familia"
                 value={this.props.familia}
                 select
                 fullWidth
-                onChange={this.props.onChange("familia")}
+                required
+                error={this.state.familiaIsEmpty}
+                onChange={this.props.onChange("id_familia")}
                 SelectProps={{ native: true }}
                 margin="normal"
               >
-                {familia.map(option => (
+                {this.props.familiaList.map(option => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -218,6 +293,8 @@ class DadosBasicosForm extends React.Component {
                 value={this.props.origem}
                 select
                 fullWidth
+                required
+                error={this.state.origemIsEmpty}
                 onChange={this.props.onChange("origem")}
                 SelectProps={{ native: true }}
                 margin="normal"
@@ -326,7 +403,7 @@ class DadosBasicosForm extends React.Component {
 
             <Grid item xs={1} sm={6}>
 
-              {this.props.nomePopular.map((nomesPopulares, idx) => {
+              {this.props.nomePopular.map((nomesPopulares, idx)  => {
                 console.log(nomesPopulares)
                 return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
                   <TextField
@@ -356,19 +433,7 @@ class DadosBasicosForm extends React.Component {
           </Grid>
 
           <Grid container spacing={24}>
-          <Grid item xs={24} >
-          <Button
-                onClick={this.handleFrutificacao}
-                variant="contained"
-                className={classes.AddNome}
-              >{
-              this.state.frutificacao ?
-            "Remover Frutificação" : "Frutificação da Espécie"}
-              </Button>
-              </Grid> 
-
-                          {
-this.state.frutificacao && <Grid item xs={24}>
+            <Grid item xs={6}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Frutificação da espécie</FormLabel>
                 <FormGroup>
@@ -415,23 +480,7 @@ this.state.frutificacao && <Grid item xs={24}>
                 </FormGroup>
               </FormControl>
             </Grid>
-            }
-            </Grid>
-
-            <Grid container spacing={24}>
-              <Grid item xs={24} >           
-            <Button
-                onClick={this.handleFloracao}
-                variant="contained"
-                className={classes.AddNome}
-              >{
-                this.state.floracao ?
-                "Remover Floração" : "Floração da Espécie"}
-              </Button>
-              </Grid> 
-              
-            {
-this.state.floracao && <Grid item xs={24}>
+            <Grid item xs={6}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Floração da Espécie</FormLabel>
                 <FormGroup>
@@ -478,7 +527,6 @@ this.state.floracao && <Grid item xs={24}>
                 </FormGroup>
               </FormControl>
             </Grid>
-            }
           </Grid>
 
           {/* <Grid container spacing={24}>
