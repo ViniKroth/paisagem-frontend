@@ -71,7 +71,6 @@ class CadastroIndividuo extends Page {
       navigator.geolocation.getCurrentPosition(
         position => {
           
-          console.log(position.coords);
           this.setState(prevState => ({
             localizacao: {
               ...prevState.currentLatLng,
@@ -104,7 +103,7 @@ class CadastroIndividuo extends Page {
         lat: position.lat(),
         lng: position.lng()
       }
-       this.setState({localizacao:newcurrentLatLng},console.log(this.state))
+       this.setState({localizacao:newcurrentLatLng})
       }
 
   getStep(step) {
@@ -151,7 +150,6 @@ class CadastroIndividuo extends Page {
 
       //var result = await create(this.state.especie);
 
-      console.log(individuo);
       //alert("Cadastrado com Sucesso!");
     }
   }
@@ -173,7 +171,7 @@ class CadastroIndividuo extends Page {
     //console.log(1,imgState)
     var imageUploadAtual = this.state.imageUpload;
     imageUploadAtual.push(imgState);
-    return this.setState({ imageUpload : imageUploadAtual }, console.log(this.state));
+    return this.setState({ imageUpload : imageUploadAtual });
   };
 
 
@@ -184,10 +182,7 @@ class CadastroIndividuo extends Page {
   this.setState({qntImagensError : false})
       var imageUploadAtual = this.state.imageUpload 
       imageUploadAtual.push(this.state.file) 
-      this.setState({ imageUpload: imageUploadAtual }, () => {
-          //console.log(this.state.imageUpload)
-          console.log('UPLOAD', this.state.file);
-      });
+      this.setState({ imageUpload: imageUploadAtual });
  
 }
 authenticated = () => {

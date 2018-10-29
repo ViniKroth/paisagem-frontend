@@ -117,7 +117,7 @@ class CadastroFamilia extends Page {
             onChangeNome={this.handleChange("nome")}
             onChangeDescricao={this.handleChange("descricao")}
           />
-                        <ToastContainer
+                <ToastContainer
                   position="top-right"
                   autoClose={2000}
                   hideProgressBar={false}

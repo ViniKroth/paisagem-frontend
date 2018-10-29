@@ -123,12 +123,7 @@ class DadosBasicosForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  state = {
-    outono: false,
-    primavera: false,
-    verao: false,
-    inverno: false,
-  };
+  
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -146,6 +141,10 @@ class DadosBasicosForm extends React.Component {
         <Typography variant="title" gutterBottom>
           Dados Básicos
         </Typography>
+        <Typography variant="caption" gutterBottom>
+            Uma espécie precisa de alguns dados básicos para ser cadastrada, descreva-os aqui!
+      </Typography>
+     
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
             <Grid item xs={6}>
@@ -369,8 +368,7 @@ class DadosBasicosForm extends React.Component {
             <Grid item xs={1} sm={6}>
 
               {this.props.nomePopular.map((nomesPopulares, idx) => {
-                console.log(nomesPopulares)
-                return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
+                return <div className="nomesPopulares" key={idx}>
                   <TextField
                     placeholder={`Nome Popular (${idx + 1}) `}
                     value={nomesPopulares.nome}

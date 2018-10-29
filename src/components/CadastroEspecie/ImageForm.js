@@ -42,12 +42,26 @@ const styles = theme => ({
 class ImageForm extends React.Component {
   constructor() {
     super();
+    this.state = {
+      blocksave:true
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.onSubmit();
+    
+  }
+  changeblocksave = bool => {
+    var newState = this.state;
+    newState.blocksave = bool;
+    
+    this.setState(
+      newState
+    );
+
     
   }
 
@@ -65,6 +79,9 @@ class ImageForm extends React.Component {
         <Typography variant="title" gutterBottom>
             Imagens
           </Typography>
+          <Typography variant="caption" gutterBottom>
+            Selecione duas imagens para sua espécie, uma fotografia e um desenho representativo.
+          </Typography>
      
      
             <form onSubmit={this.handleSubmit}>
@@ -74,8 +91,7 @@ class ImageForm extends React.Component {
                
                   <ImageComponent 
                     handleChangeImage = {this.props.handleChangeImage}
-                    qntImagensError= {this.props.qntImagensError}
-                  
+                    changeblocksave= {this.changeblocksave}
                   />
                   
               
@@ -98,6 +114,7 @@ class ImageForm extends React.Component {
                 onClick={e => this.handleSubmit(e)}
                 variant="contained"
                 color="primary"
+                disabled = {this.state.blocksave}
                 className={classes.button}
               >
                 SAlVAR

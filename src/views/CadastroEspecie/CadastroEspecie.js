@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { create } from "services/especies/especies";
+import { upload } from "services/uploadImg/uploadImagem";
 
 const styles = theme => ({
   layout: {
@@ -60,6 +61,8 @@ class CadastroEspecie extends Page {
     this.state = {
       step: 0,
       especie: {
+        desenho : "" ,//path do desenho
+        imagem : "",//path da imagem
         nomePopular: [
           {
             nome: ""
@@ -99,12 +102,7 @@ class CadastroEspecie extends Page {
             frutificacaoPrimavera={this.state.especie.FrutificacaoPrimavera}
             // Begin Handlers
             onChange={this.handleChange}
-            //onChangeFloracao={this.handleChangeFloracao}
-            //onChangeFrutificacao={this.handleChangeFrutificacao}
-            // onChangeFrutificacaoOutono={this.handleChange("FrutificacaoOutono")}
-            // onChangeFrutificacaoVerao={this.handleChange("FrutificacaoVerao")}
-            // onChangeFrutificacaoInverno={this.handleChange("FrutificacaoInverno")}
-            // onChangeFrutificacaoPrimavera={this.handleChange("FrutificacaoPrimavera")}
+            
             handleNomePopularChange={this.handleNomePopularChange}
             handleAddNomePopular={this.handleAddNomePopular}
             handleRemoveNomePopular={this.handleRemoveNomePopular}
@@ -131,7 +129,6 @@ class CadastroEspecie extends Page {
           />
         );
       case 3: {
-        console.log(this.state);
       }
     }
   }
@@ -160,7 +157,6 @@ class CadastroEspecie extends Page {
     } else {
       var result = await create(this.state.especie);
       this.notify(1);
-      console.log(result);
       //alert("Cadastrado com Sucesso!");
     }
   }
@@ -188,7 +184,7 @@ class CadastroEspecie extends Page {
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
-      //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
+      
       this.setState({
         step: step - 1
       });
@@ -204,11 +200,15 @@ class CadastroEspecie extends Page {
   };
 
   handleChangeImage = imgState => {
-    var especie = this.state.especie;
-    especie["image"] = imgState;
-    return this.setState({
-      especie
-    });
+    var state = this.state;
+
+    if( imgState.get("tipo") == "imagem"){
+      state["imagem"] =imgState;
+    }else{
+      state["desenho"] =imgState;
+    }
+    
+    this.setState({state});
   };
 
   //Nomes populares
@@ -223,7 +223,6 @@ class CadastroEspecie extends Page {
         };
       }
     );
-    console.log(nomesPopulares)
     especie["nomePopular"] = nomesPopulares;
     this.setState({
       especie
@@ -240,7 +239,6 @@ class CadastroEspecie extends Page {
     this.setState({
       especie
     });
-    console.log(this.state);
   };
 
   handleRemoveNomePopular = idx => () => {
@@ -253,27 +251,6 @@ class CadastroEspecie extends Page {
     });
   };
 
-  ///
-  //Função acionada quando clicado no upload
-  handleSubmitImage(e) {
-    e.preventDefault();
-    //Aqui vai ser feito o upload para a api e depois inserido no banco
-    this.setState({
-      qntImagensError: false
-    });
-    var imageUploadAtual = this.state.imageUpload; //Pega o status atual
-    imageUploadAtual.push(this.state.file); //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-    this.setState(
-      {
-        imageUpload: imageUploadAtual
-      },
-      () => {
-        console.log(this.state.imageUpload);
-        console.log("UPLOAD", this.state.file);
-      }
-    );
-  }
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
@@ -307,6 +284,19 @@ class CadastroEspecie extends Page {
                   {/* Same as */}
               <ToastContainer />
         </Paper>
+        <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
       </main>
     );
   };
