@@ -110,6 +110,8 @@ class CadastroEspecie extends Page {
             handleNomePopularChange={this.handleNomePopularChange}
             handleAddNomePopular={this.handleAddNomePopular}
             handleRemoveNomePopular={this.handleRemoveNomePopular}
+            handleFrutificacao={this.handleFrutificacao}
+            handleFloracao={this.handleFloracao}
           />
         );
       case 1:
