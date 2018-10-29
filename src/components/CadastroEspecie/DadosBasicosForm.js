@@ -175,6 +175,8 @@ completeField=0;
       }
       //familia
       if(this.props.familia == '' || this.props.familia==null || this.props.familia == undefined){
+        console.log(this.props.familia);
+        console.log(this.props.familiaList);
         this.state.isEmpty=true;
         if(b==false){this.setState({familiaIsEmpty: true});}
         else{this.state.familiaIsEmpty=true;}
@@ -254,11 +256,11 @@ completeField=0;
                 fullWidth
                 required
                 error={this.state.familiaIsEmpty}
-                onChange={this.props.onChange("familia")}
+                onChange={this.props.onChange("id_familia")}
                 SelectProps={{ native: true }}
                 margin="normal"
               >
-                {familia.map(option => (
+                {this.props.familiaList.map(option => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
