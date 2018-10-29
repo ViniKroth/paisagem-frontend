@@ -92,13 +92,33 @@ const classificacao = [
     label: "Classificação/extrato"
   },
   {
-    value: "arvore",
-    label: "Árvore"
+    value: "Arborea-arvore",
+    label: "Arbórea - Árvore"
   },
   {
-    value: "arbusto",
-    label: "Arbusto"
-  }
+    value: "Arborea-Palmeira",
+    label: "Arborea - Palmeira"
+  },
+  {
+    value: "Arborea-Conifera",
+    label: "Arbórea - Conifera"
+  },
+  {
+    value: "trepadeira",
+    label: "Trepadeira"
+  },
+  {
+    value: "herbacea",
+    label: "Herbácea"
+  },
+  {
+    value: "herbacea-forracao",
+    label: "Herbácea - Forracao"
+  },
+  {
+    value: "herbacea-pisovegetal",
+    label: "Herbácea - Piso Vegetal"
+  },
 ];
 
 
