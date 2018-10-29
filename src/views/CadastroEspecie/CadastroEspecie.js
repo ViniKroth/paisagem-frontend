@@ -16,7 +16,11 @@ import ImageForm from "components/CadastroEspecie/ImageForm.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { listAll } from '../../services/familia/familia';
+
 import { create } from "services/especies/especies";
+
+
 
 const styles = theme => ({
   layout: {
@@ -59,6 +63,8 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
+      familias: [],
+      nome_cientifico: "",
       especie: {
         nomePopular: [
           {
@@ -66,10 +72,40 @@ class CadastroEspecie extends Page {
           }
         ],
       }
+
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
+
+  componentDidMount() {
+    this.fillFamilias();
+}
+
+fillFamilias = async () => {
+  var result = await listAll();
+  result = result.data;
+  var familias = [{value: -1, label: "Selecione a Familia *"}];
+
+  if(result && result.length > 0){
+    result.map(e =>{
+      var value = e["id_familia"]
+      var label = e["nome"]
+
+
+      var familia = {
+        value,
+        label
+      }
+
+      familias.push(familia);
+    })
+
+  }
+  //console.log(familias);
+  //console.log(this.state.familias);
+  this.setState({familias});
+}
 
   getStep(step) {
     switch (step) {
@@ -79,9 +115,11 @@ class CadastroEspecie extends Page {
             key="Dados"
             onSubmit={this.goToNext}
             // Begin Dados básicos
+            familiaList={this.state.familias}
+            step={this.state.step}
             nomeCientifico={this.state.especie.nome_cientifico}
             nomePopular={this.state.especie.nomePopular}
-            familia={this.state.especie.familia}
+            familia={this.state.especie.id_familia}
             origem={this.state.especie.origem}
             porte={this.state.especie.porte}
             classificacao={this.state.especie.classificacao}
@@ -137,6 +175,7 @@ class CadastroEspecie extends Page {
       case 3: {
         console.log(this.state);
       }
+      default : console.log("Step extrapolado")
     }
   }
   notify = (n,desc) => {
@@ -153,43 +192,22 @@ class CadastroEspecie extends Page {
     }
   };
 
-  async goToNext() {
+  //isEmpty = false;
+  async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      if(this.state.especie.nome_cientifico==null || this.state.especie.nome_cientifico=='' ||
-      this.state.especie.origem==null || this.state.especie.origem=='' ||
-      this.state.especie.familia==null || this.state.especie.origem==''){
+      if(isEmpty){
         this.notify(2);
+      }else{
+        this.setState({ step: step + 1 });
       }
-      else{this.setState({ step: step + 1 });}
     } else {
       var result = await create(this.state.especie);
       this.notify(1);
       console.log(result);
-      //alert("Cadastrado com Sucesso!");
     }
   }
-
-  // handleChangeFrutificacao = name => event => {
-  //   var especie = this.state.especie;
-
-  //   especie.frutificacao[name] = event.target.checked;
-
-  //   this.setState({
-  //     especie
-  //   });
-  // };
-
-  // handleChangeFloracao = name => event => {
-  //   var especie = this.state.especie;
-
-  //   especie.floracao[name] = event.target.checked;
-
-  //   this.setState({
-  //     especie
-  //   });
-  // };
 
   goToBack() {
     const { step } = this.state;

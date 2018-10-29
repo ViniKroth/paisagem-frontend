@@ -195,8 +195,6 @@ class DadosBasicosForm extends React.Component {
               />
             </Grid>
 
-
-
             <Grid item xs={6}>
               <TextField
                 id="Familia"
