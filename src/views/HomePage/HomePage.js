@@ -140,6 +140,15 @@ class HomePage extends Page {
                   >
                     Cadastro de Famílias
                   </Button>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/users/edit")}
+                    className={classes.button}
+                  >
+                    Cadastro de Usuário
+                  </Button>
                 </div>
               </Paper>
             </Grid>
@@ -210,15 +219,7 @@ class HomePage extends Page {
                     login
                   </Button>
 
-                  <Button
-                    variant="contained"
-                    size="large"
-                    color="primary"
-                    onClick={() => this.redirect("/users/edit")}
-                    className={classes.button}
-                  >
-                    Cadastro
-                  </Button>
+                
 
                   <Button
                     variant="contained"
@@ -229,6 +230,8 @@ class HomePage extends Page {
                   >
                     Listagem de Especie
                   </Button>
+
+                 
                 </div>
               </Paper>
             </Grid>

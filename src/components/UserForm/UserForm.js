@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles.css";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -10,6 +9,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -54,8 +54,10 @@ const styles = theme => ({
       marginRight: "auto"
     }
   },
+  toast: {
 
-  typography: {}
+  }
+
 });
 
 const initialState = {
@@ -96,9 +98,8 @@ class UserForm extends React.Component {
     
 
   onSubmit(e) {
-
+    e.preventDefault();
     if (this.state.senha == this.state.senhaconf ){
-      e.preventDefault();
       this.setState({
         isLoading: true
       });
@@ -107,7 +108,8 @@ class UserForm extends React.Component {
       delete user.isLoading;
       delete user.errors;
   
-      console.log(user);
+      console.log("Caiu");
+      toast.success("Usuário Cadastrado")
       create(user, (error, data) => {
         if (error) {
           this.setState({ errors: {} });
@@ -116,6 +118,7 @@ class UserForm extends React.Component {
           return false;
         } else {
           console.log(`Created user succesfully: ${JSON.stringify(data)}`);
+          
           return true;
         }
       });
@@ -123,6 +126,9 @@ class UserForm extends React.Component {
         isLoading: false
       });
     }else {
+      
+
+      console.log("Nao caiu");
       toast.error("Senhas não conferem")
     }
    
@@ -149,7 +155,7 @@ class UserForm extends React.Component {
         <main className={classes.layout}>
       <div className="container" autoComplete="off">
           <Paper className={classes.paper}>
-        <form onSubmit={this.onSubmit}>
+        <form >
             <Typography variant="display2" gutterBottom color="primary">
                 Cadastro de Usuário
             </Typography>
@@ -230,7 +236,7 @@ class UserForm extends React.Component {
 
 
             <br/>
-          <Button className={classes.button} color="primary"  variant="contained" type="submit" disabled={isLoading} onSubmit={this.onSubmit}>
+          <Button className={classes.button} color="primary"  variant="contained" type="submit" disabled={isLoading} onClick={this.onSubmit}>
             Cadastrar
           </Button>
         </form>
