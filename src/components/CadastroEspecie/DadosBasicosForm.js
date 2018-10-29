@@ -168,7 +168,10 @@ class DadosBasicosForm extends React.Component {
     origemIsEmpty: false,
     isEmpty: false,
     check: false,
-    change: false
+    change: false,
+    frutificacao: false,
+    floracao: false
+
   }
 
   handleSubmit(evt) {
@@ -176,6 +179,22 @@ class DadosBasicosForm extends React.Component {
     this.checkAllInputs(false);
     evt.preventDefault();
     this.props.onSubmit(this.state.isEmpty);
+  }
+
+  handleFrutificacao = () =>{
+    this.setState(state => {
+      return{
+        frutificacao: !state.frutificacao
+      }
+    })
+  }
+
+  handleFloracao = () =>{
+    this.setState(state => {
+      return{
+        floracao: !state.floracao
+      }
+    })
   }
 
 completeField=0;
@@ -432,8 +451,20 @@ completeField=0;
             </Grid>
           </Grid>
 
-          <Grid container spacing={24}>
-            <Grid item xs={6}>
+                    <Grid container spacing={24}>
+          <Grid item xs={24} >
+          <Button
+                onClick={this.handleFrutificacao}
+                variant="contained"
+                className={classes.AddNome}
+              >{
+              this.state.frutificacao ?
+            "Remover Frutificação" : "Frutificação da Espécie"}
+              </Button>
+              </Grid> 
+
+                          {
+this.state.frutificacao && <Grid item xs={24}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Frutificação da espécie</FormLabel>
                 <FormGroup>
@@ -480,7 +511,23 @@ completeField=0;
                 </FormGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            }
+            </Grid>
+
+            <Grid container spacing={24}>
+              <Grid item xs={24} >           
+            <Button
+                onClick={this.handleFloracao}
+                variant="contained"
+                className={classes.AddNome}
+              >{
+                this.state.floracao ?
+                "Remover Floração" : "Floração da Espécie"}
+              </Button>
+              </Grid> 
+              
+            {
+this.state.floracao && <Grid item xs={24}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Selecione o período de Floração da Espécie</FormLabel>
                 <FormGroup>
@@ -527,6 +574,7 @@ completeField=0;
                 </FormGroup>
               </FormControl>
             </Grid>
+            }
           </Grid>
 
           {/* <Grid container spacing={24}>
