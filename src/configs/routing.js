@@ -1,49 +1,57 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-// Views
-import LoginPage from "views/LoginPage/LoginPage";
-import HomePage from "views/HomePage/HomePage";
-import Page from "views/Page/Page";
-import BlankPage from "views/BlankPage/BlankPage";
-import CadastroEspecie from 'views/CadastroEspecie/CadastroEspecie.js';
-import CadastroFamilia from 'views/CadastroFamilia/CadastroFamilia.js'
-import CadastroIndividuo from 'views/CadastroIndividuo/CadastroIndividuo.js'
+// Wrapper para as páginas
+import ViewWrapper from "../helpers/ViewWrapper";
 
 // Users
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
 
-import DetalheEspecie from "../views/DetalheEspecies/DetalheEspecie";
-import ListagemEspecie from "../views/ListagemEspecie/ListagemEspecie.js";
+// Views
+// Implementado um Wrapper que substitui o import normal para adicionar loader e outras funcionalidades.
+// Ver o arquivo src/helpers/ViewWrapper.js
+const Page = ViewWrapper("Page/Page");
+const HomePage = ViewWrapper("HomePage/HomePage");
+const LoginPage = ViewWrapper("LoginPage/LoginPage");
+const BlankPage = ViewWrapper("BlankPage/BlankPage");
+const DetalheEspecie = ViewWrapper("DetalheEspecie/DetalheEspecie");
+const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
+const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
+const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
+const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
 
-export default () => {
-  return (
-    <main>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/protected" component={Page} />
-        <Route path="/image" component={ImagemReferencia} />
+export default () => (
+  <main>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/protected" component={Page} />
 
-        {/* User Container */}
-        <Route path="/users/list" component={UserListPage} />
-        <Route path="/users/details/:id" component={UserDetailsPage} />
-        <Route path="/users/edit" component={UserEditPage} />
-        <Route path="/users/edit/:id" component={UserEditPage} />
-        {/* End of User Container */}
-        <Route path="/especies/detalhe/:id" component={DetalheEspecie} />
-        <Route path='/especies/cadastro' component={CadastroEspecie} />
-        <Route path='/especies/listas' component={ListagemEspecie} />
+      {/* User Container */}
+      <Route path="/users/list" component={UserListPage} />
+      <Route path="/users/edit" component={UserEditPage} />
+      <Route path="/users/edit/:id" component={UserEditPage} />
+      <Route path="/users/details/:id" component={UserDetailsPage} />
+      {/* End of User Container */}
 
-        <Route path='/familia/cadastro' component={CadastroFamilia} />
-        <Route path='/individuos/cadastro' component={CadastroIndividuo} />
+      {/* Especie Container */}
+      <Route path="/especies/listas" component={ListagemEspecie} />
+      <Route path="/especies/cadastro" component={CadastroEspecie} />
+      <Route path="/especies/detalhe/:id" component={DetalheEspecie} />
+      {/* End of Especie Container */}
 
-        {/* 404 - Page not Found */}
-        <Route component={BlankPage} />
-      </Switch>
-    </main>
-  );
+      {/* Familia Container */}
+      <Route path="/familia/cadastro" component={CadastroFamilia} />
+      {/* End of Familia Container */}
 
-};
+      {/* Individuo Container */}
+      <Route path="/individuos/cadastro" component={CadastroIndividuo} />
+      {/* End of Individuo Container */}
+
+      {/* 404 - Page not Found */}
+      <Route component={BlankPage} />
+    </Switch>
+  </main>
+);
