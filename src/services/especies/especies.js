@@ -8,7 +8,7 @@ export const create = async especie => {
   const params = {
     ...especie
   };
-  console.log(params);
+  
   const response = await axios({
     method: "post",
     url: `${api}/especies`,
@@ -33,6 +33,9 @@ export const create = async especie => {
   }
 };
 
+
+
+
 export const read = async id => {
   const response = await axios({
     method: "get",
@@ -44,7 +47,6 @@ export const read = async id => {
     }
   });
 
-  console.log(response)
 
   if (response) {
     const api_response = response.data;
@@ -62,7 +64,6 @@ export const update = async especie => {
     ...especie
   };
 
-  console.log(params);
   const response = await axios({
     method: "put",
     url: `${api}/especies`,
@@ -97,7 +98,6 @@ export const listAll = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
   });
-  console.log(response)
 
   if (response) {
     const api_response = response.data;
