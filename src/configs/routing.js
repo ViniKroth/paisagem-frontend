@@ -8,7 +8,6 @@ import ViewWrapper from "../helpers/ViewWrapper";
 import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
 import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
-import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
 
 // Views
 // Implementado um Wrapper que substitui o import normal para adicionar loader e outras funcionalidades.
