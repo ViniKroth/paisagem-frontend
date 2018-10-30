@@ -213,7 +213,7 @@ completeField=0;
           else{this.state.nomeCientificoIsEmpty=false;}
       }
       //familia
-      if(this.props.familia == '' || this.props.familia==null || this.props.familia == undefined){
+      if(this.props.familia == '' || this.props.familia==null || this.props.familia == undefined || this.props.familia == -1){
         console.log(this.props.familia);
         console.log(this.props.familiaList);
         this.state.isEmpty=true;
@@ -259,6 +259,24 @@ completeField=0;
   //   </IconButton>
   // </div>
   // }
+
+//parte victoria
+  handleFrutificacao = () =>{
+    this.setState(state => {
+      return{
+        frutificacao: !state.frutificacao
+      }
+    })
+  }
+
+  handleFloracao = () =>{
+    this.setState(state => {
+      return{
+        floracao: !state.floracao
+      }
+    })
+  }
+//-------
 
   render() {
     const { classes } = this.props;
