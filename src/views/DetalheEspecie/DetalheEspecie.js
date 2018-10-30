@@ -101,6 +101,7 @@ class DetalheEspecie extends Page {
         this.criaEspecie();
     }
     criaEspecie = async () => {
+        this.setState({especie : ""})
         var result = await read(this.props.match.params.id);
 
         this.setState({ especie: result });
