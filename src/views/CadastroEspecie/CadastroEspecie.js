@@ -13,8 +13,10 @@ import DadosBasicosForm from "components/CadastroEspecie/DadosBasicosForm.js";
 import PotenciaisForm from "components/CadastroEspecie/PotenciaisForm.js";
 import ImageForm from "components/CadastroEspecie/ImageForm.js";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { listAll } from "../../services/familia/familia";
 
 import { create } from "services/especies/especies";
 import { upload } from "services/uploadImg/uploadImagem";
@@ -60,19 +62,48 @@ class CadastroEspecie extends Page {
     super();
     this.state = {
       step: 0,
+      familias: [],
+      nome_cientifico: "",
       especie: {
-        desenho : "" ,//path do desenho
-        imagem : "",//path da imagem
+        desenho: "", //path do desenho
+        imagem: "", //path da imagem
         nomePopular: [
           {
             nome: ""
           }
-        ],
+        ]
       }
     };
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
+
+  componentDidMount() {
+    this.fillFamilias();
+  }
+
+  fillFamilias = async () => {
+    var result = await listAll();
+    result = result.data;
+    var familias = [{ value: -1, label: "Selecione a Familia *" }];
+
+    if (result && result.length > 0) {
+      result.map(e => {
+        var value = e["id_familia"];
+        var label = e["nome"];
+
+        var familia = {
+          value,
+          label
+        };
+
+        familias.push(familia);
+      });
+    }
+    //console.log(familias);
+    //console.log(this.state.familias);
+    this.setState({ familias });
+  };
 
   getStep(step) {
     switch (step) {
@@ -82,14 +113,18 @@ class CadastroEspecie extends Page {
             key="Dados"
             onSubmit={this.goToNext}
             // Begin Dados básicos
+            familiaList={this.state.familias}
+            step={this.state.step}
             nomeCientifico={this.state.especie.nome_cientifico}
             nomePopular={this.state.especie.nomePopular}
-            familia={this.state.especie.familia}
+            familia={this.state.especie.id_familia}
             origem={this.state.especie.origem}
             porte={this.state.especie.porte}
             classificacao={this.state.especie.classificacao}
             folhagem={this.state.especie.folhagem}
             tipoFruto={this.state.especie.tipoFruto}
+            diametroCopa={this.state.especie.diametroCopa}
+            alturaEspecie={this.state.especie.alturaEspecie}
             // Begin dados Floração
             floracaoOutono={this.state.especie.FloracaoOutono}
             floracaoVerao={this.state.especie.FloracaoVerao}
@@ -102,10 +137,11 @@ class CadastroEspecie extends Page {
             frutificacaoPrimavera={this.state.especie.FrutificacaoPrimavera}
             // Begin Handlers
             onChange={this.handleChange}
-            
             handleNomePopularChange={this.handleNomePopularChange}
             handleAddNomePopular={this.handleAddNomePopular}
             handleRemoveNomePopular={this.handleRemoveNomePopular}
+            handleFrutificacao={this.handleFrutificacao}
+            handleFloracao={this.handleFloracao}
           />
         );
       case 1:
@@ -130,61 +166,48 @@ class CadastroEspecie extends Page {
         );
       case 3: {
       }
+      default:
+        console.log("Step extrapolado");
     }
   }
-  notify = (n,desc) => {
-    switch(n){
-      case 1 : toast.success("Especie Cadastrada com Sucesso.");
-      break;
-      case 2 : toast.error("Um ou mais campos não estão preenchidos.");
-      break;
-      case 3 : toast.dismiss();
-      break;
-      case 4 : toast(desc);
-      break;
-      default : toast("Isso foi clicado mas não fez nada.");
+  notify = (n, desc) => {
+    switch (n) {
+      case 1:
+        toast.success("Especie Cadastrada com Sucesso.");
+        break;
+      case 2:
+        toast.error("Um ou mais campos não estão preenchidos.");
+        break;
+      case 3:
+        toast.dismiss();
+        break;
+      case 4:
+        toast(desc);
+        break;
+      default:
+        toast("Isso foi clicado mas não fez nada.");
     }
   };
 
-  async goToNext() {
+  //isEmpty = false;
+  async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
-      if(this.state.especie.nome_cientifico==null){
+      if (isEmpty) {
         this.notify(2);
+      } else {
+        this.setState({ step: step + 1 });
       }
-      else{this.setState({ step: step + 1 });}
     } else {
       var result = await create(this.state.especie);
       this.notify(1);
-      //alert("Cadastrado com Sucesso!");
     }
   }
-
-  // handleChangeFrutificacao = name => event => {
-  //   var especie = this.state.especie;
-
-  //   especie.frutificacao[name] = event.target.checked;
-
-  //   this.setState({
-  //     especie
-  //   });
-  // };
-
-  // handleChangeFloracao = name => event => {
-  //   var especie = this.state.especie;
-
-  //   especie.floracao[name] = event.target.checked;
-
-  //   this.setState({
-  //     especie
-  //   });
-  // };
 
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
-      
       this.setState({
         step: step - 1
       });
@@ -202,18 +225,17 @@ class CadastroEspecie extends Page {
   handleChangeImage = imgState => {
     var state = this.state;
 
-    if( imgState.get("tipo") == "imagem"){
-      state["imagem"] =imgState;
-    }else{
-      state["desenho"] =imgState;
+    if (imgState.get("tipo") == "imagem") {
+      state["imagem"] = imgState;
+    } else {
+      state["desenho"] = imgState;
     }
-    
-    this.setState({state});
+
+    this.setState({ state });
   };
 
   //Nomes populares
   handleNomePopularChange = idx => evt => {
-
     var especie = this.state.especie;
     const nomesPopulares = this.state.especie.nomePopular.map(
       (nomePop, sidx) => {
@@ -251,7 +273,6 @@ class CadastroEspecie extends Page {
     });
   };
 
-
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
   authenticated = () => {
     const { classes } = this.props;
@@ -271,32 +292,32 @@ class CadastroEspecie extends Page {
           </Stepper>
           {this.getStep(this.state.step)}
           <ToastContainer
-                  position="top-right"
-                  autoClose={2000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={true}
-                  pauseOnVisibilityChange
-                  draggable
-                  pauseOnHover
-                  />
-                  {/* Same as */}
-              <ToastContainer />
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={true}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
+          {/* Same as */}
+          <ToastContainer />
         </Paper>
         <ToastContainer
-                  position="top-right"
-                  autoClose={2000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={true}
-                  pauseOnVisibilityChange
-                  draggable
-                  pauseOnHover
-                  />
-                  {/* Same as */}
-              <ToastContainer />
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={true}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
       </main>
     );
   };
