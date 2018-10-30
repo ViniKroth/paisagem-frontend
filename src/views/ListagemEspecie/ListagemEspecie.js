@@ -176,7 +176,6 @@ class ListagemEspecie extends Page {
         };
         this.setState({especies: [...this.state.especies, especie]});
       });
-
     }
   };
 
