@@ -8,6 +8,8 @@ import Page from "views/Page/Page.js";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
+import ListIcon from "@material-ui/icons/List";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
@@ -243,15 +245,7 @@ class ListagemEspecie extends Page {
                       style={{ marginRight: 1 }}
                       onClick={() => this.trocaLista()}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
-                        <path d="M0 0h24v24H0z" fill="none" />
-                      </svg>
+                      {this.state.comFoto ? <ListIcon /> : <ViewModuleIcon />}
                     </IconButton>
                   </Grid>
                 </Grid>
