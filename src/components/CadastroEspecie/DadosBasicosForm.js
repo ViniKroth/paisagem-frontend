@@ -515,7 +515,9 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoOutono}
-                          onChange={this.props.onChange("FrutificacaoOutono")}
+                          onChange={() =>
+                            this.props.onChange("FrutificacaoOutono")
+                          }
                         />
                       }
                       label="Outono"
@@ -525,7 +527,9 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoVerao}
-                          onChange={this.props.onChange("FrutificacaoVerao")}
+                          onChange={() =>
+                            this.props.onChange("FrutificacaoVerao")
+                          }
                         />
                       }
                       label="Verão"
@@ -535,7 +539,9 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoInverno}
-                          onChange={this.props.onChange("FrutificacaoInverno")}
+                          onChange={() =>
+                            this.props.onChange("FrutificacaoInverno")
+                          }
                         />
                       }
                       label="Inverno"
@@ -544,9 +550,9 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.frutificacaoPrimavera}
-                          onChange={this.props.onChange(
-                            "FrutificacaoPrimavera"
-                          )}
+                          onChange={() =>
+                            this.props.onChange("FrutificacaoPrimavera")
+                          }
                           value="1"
                         />
                       }
@@ -586,7 +592,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           checked={this.props.floracaoOutono}
                           value="1"
-                          onChange={this.props.onChange("FloracaoOutono")}
+                          onChange={() => this.props.onChange("FloracaoOutono")}
                         />
                       }
                       label="Outono"
@@ -596,7 +602,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           checked={this.props.floracaoVerao}
                           value="1"
-                          onChange={this.props.onChange("FloracaoVerao")}
+                          onChange={() => this.props.onChange("FloracaoVerao")}
                         />
                       }
                       label="Verão"
@@ -605,7 +611,9 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.floracaoInverno}
-                          onChange={this.props.onChange("FloracaoInverno")}
+                          onChange={() =>
+                            this.props.onChange("FloracaoInverno")
+                          }
                           value="1"
                         />
                       }
@@ -615,7 +623,9 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.floracaoPrimavera}
-                          onChange={this.props.onChange("FloracaoPrimavera")}
+                          onChange={() =>
+                            this.props.onChange("FloracaoPrimavera")
+                          }
                           value="1"
                         />
                       }
