@@ -7,6 +7,17 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //&
 // Views
 import Page from "views/Page/Page";
+import { Menu, MenuItem, IconButton } from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const styles = theme => ({
     layout: {
@@ -104,7 +115,7 @@ const styles = theme => ({
 });
 
 
-class ListagemFamilias extends Page {
+class ListagemFamilia extends Page {
     constructor() {
         super(); 
     }
@@ -142,3 +153,4 @@ class ListagemFamilias extends Page {
     };
 
 }
+export default withStyles(styles) (ListagemFamilia)

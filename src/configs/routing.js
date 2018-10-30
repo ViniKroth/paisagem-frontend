@@ -10,6 +10,7 @@ import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
 import UserListPage from "views/UserPages/List/UserListPage";
 import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
 
+
 // Views
 // Implementado um Wrapper que substitui o import normal para adicionar loader e outras funcionalidades.
 // Ver o arquivo src/helpers/ViewWrapper.js
@@ -20,6 +21,7 @@ const BlankPage = ViewWrapper("BlankPage/BlankPage");
 const DetalheEspecie = ViewWrapper("DetalheEspecie/DetalheEspecie");
 const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
 const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
+const ListagemFamilia = ViewWrapper("ListagemFamilia/ListagemFamilia");
 const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
 const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
 
@@ -45,6 +47,7 @@ export default () => (
 
       {/* Familia Container */}
       <Route path="/familia/cadastro" component={CadastroFamilia} />
+      <Route path="/familia/listas" component={ListagemFamilia} />
       {/* End of Familia Container */}
 
       {/* Individuo Container */}
