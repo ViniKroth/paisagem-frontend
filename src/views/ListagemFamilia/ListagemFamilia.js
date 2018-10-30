@@ -18,7 +18,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-
+import { listAll } from '../../services/familia/familia';
+import TextField from "@material-ui/core/TextField";
 const styles = theme => ({
     layout: {
         width: "auto",
@@ -111,46 +112,61 @@ const styles = theme => ({
     },
     chip: {
         margin: theme.spacing.unit,
-    }, 
+    },
 });
 
 
 class ListagemFamilia extends Page {
     constructor() {
-        super(); 
+        super();
+        this.state = {
+            familias: []
+        }
     }
-    familiasLista = async () =>{
-        var result 
+
+    familiasLista = async () => {
+        var result = await listAll();
+        result = result.data;
+        var familias = [];
+        if (result && result.length > 0) {
+            result.map(e => {
+                var nome = e["nome"]
+                var descricao = e["descricao"]
+
+
+                var familia = {
+                    nome,
+                    descricao
+                }
+
+                familias.push(familia);
+            })
+
+        }
+        console.log(familias);
+        //console.log(this.state.familias);
+        this.setState({ familias });
     }
+    
     componentDidMount() {
-        //api/familias
+        this.familiasLista()
     }
 
     authenticated = () => {
-        return (
-            this.unauthenticated()
-        );
+        return this.state.familias.map(item => {
+            return (
+                <li key={item.nome}>
+                Nome: {item.nome} <p></p>
+                Descricao: {item.descricao}
+                <p></p>
+              </li>
+              
+            );
+           });
 
     }
 
     //Alterando para Authenticated pra manter o padrão do resto do sistema.
-    unauthenticated = () => {
-        const { classes } = this.props;
-
-        return (
-            <React.Fragment>
-                <main className={classes.layout}>
-                    {/* <ListItem button onClick={this.handleClick}>
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText inset primary="Inbox" />
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem> */}
-                </main>
-            </React.Fragment>
-        );
-    };
 
 }
-export default withStyles(styles) (ListagemFamilia)
+export default withStyles(styles)(ListagemFamilia)
