@@ -1,29 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Page from "views/Page/Page.js";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
-import Chip from "@material-ui/core/Chip";
-import Filter from "@material-ui/icons/Filter";
-import { Icon } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
 import { read } from "../../services/nomesPopulares/nomesPopulares";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import ListaComImagem from "../../components/ListagemEspecie/ListaComImagem";
-import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem"
+import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem";
 
 const styles = theme => ({
   layout: {
@@ -126,6 +116,7 @@ class ListagemEspecie extends Page {
   constructor() {
     super();
     this.state = {
+      filter: "",
       value: 0,
       nome_cientifico: "",
       nome_popular: [],
@@ -136,7 +127,8 @@ class ListagemEspecie extends Page {
       folhagem: "", // com icone
       cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // não sei como limitar o numero de cards por página
       especies: [],
-      comFoto: true
+      comFoto: true,
+      especiesAll: []
     };
   }
 
@@ -147,6 +139,31 @@ class ListagemEspecie extends Page {
   trocaLista = async () => {
     var estado = this.state.comFoto;
     this.setState({ comFoto: !estado });
+  };
+
+  filter = e => {
+    var nome = e.target.value;
+    if (nome) {
+      this.setState(state => {
+        return {
+          especies: state.especiesAll.filter(item => {
+            return (
+              (item.nome_cientifico && item.nome_cientifico.startsWith(nome)) ||
+              (item.nome_popular.length > 0 &&
+                item.nome_popular.some(nomePop =>
+                  nomePop.nome.startsWith(nome)
+                ))
+            );
+          })
+        };
+      });
+    } else this.resetFilter();
+  };
+
+  resetFilter = () => {
+    this.setState(state => {
+      return { especies: state.especiesAll };
+    });
   };
 
   listaEspecie = async () => {
@@ -174,7 +191,10 @@ class ListagemEspecie extends Page {
           porte: port,
           foto: fot
         };
-        this.setState({especies: [...this.state.especies, especie]});
+        this.setState({
+          especies: [...this.state.especies, especie],
+          especiesAll: [...this.state.especies, especie]
+        });
       });
     }
   };
@@ -206,7 +226,8 @@ class ListagemEspecie extends Page {
                         <SearchIcon />
                       </div>
                       <Input
-                        placeholder="Search…"
+                        onChange={this.filter}
+                        placeholder="Buscar"
                         disableUnderline
                         classes={{
                           root: classes.inputRoot,
@@ -242,8 +263,8 @@ class ListagemEspecie extends Page {
               {this.state.comFoto ? (
                 <ListaComImagem especies={this.state.especies} />
               ) : (
-                  <ListaSImagem especies={this.state.especies} />
-                )}
+                <ListaSImagem especies={this.state.especies} />
+              )}
 
               <div className={classes.heroButtons} />
             </div>
