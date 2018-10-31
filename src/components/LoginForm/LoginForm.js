@@ -46,7 +46,8 @@ const styles = theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     }
-  }
+  },
+    typography: {}
 });
 
 class LoginForm extends React.Component {
