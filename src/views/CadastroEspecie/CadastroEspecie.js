@@ -274,7 +274,7 @@ class CadastroEspecie extends Page {
   };
 
   //Alterando para Authenticated pra manter o padrão do resto do sistema.
-  authenticated = () => {
+  unauthenticated = () => {
     const { classes } = this.props;
 
     return (
