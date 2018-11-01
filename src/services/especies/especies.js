@@ -34,7 +34,34 @@ export const create = async especie => {
 };
 
 
+export const createIndividuo = async individuo => {
+  const params = {
+    ...individuo
+  };
+  
+  const response = await axios({
+    method: "post",
+    url: `${api}/especies/cadastro/individuo`,
+    data: params,
+    timeout: 5000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
 
+  if (response) {
+    const api_response = response.data;
+    if (api_response.data) {
+      return response.data;
+    } else {
+      return {
+        statusDesc: "Erro obtendo resposta do servidor.",
+        statusCode: HTTPStatusCodes.InternalServerError
+      };
+    }
+  }
+};
 
 export const read = async id => {
   const response = await axios({

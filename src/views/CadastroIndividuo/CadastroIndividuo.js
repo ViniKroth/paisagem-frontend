@@ -14,7 +14,7 @@ import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoInd
 import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
 import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.js"
 import { Grid } from "@material-ui/core";
-
+import { createIndividuo } from "services/especies/especies";
 import img from "./plantas.jpg"
 
 const styles = theme => ({
@@ -57,10 +57,9 @@ class CadastroIndividuo extends Page {
   constructor(props) {
     super(props);
     this.state = {
-      localizacao: {
+      
         lat: 0,
-        lng: 0
-      },
+        long: 0,
       isMarkerShown: false,
       imageUpload: [],
       comentario: null,
@@ -75,16 +74,14 @@ class CadastroIndividuo extends Page {
       navigator.geolocation.getCurrentPosition(
         position => {
           
-          this.setState(prevState => ({
-            localizacao: {
-              ...prevState.currentLatLng,
+          this.setState({
+            
               lat: position.coords.latitude,
-              lng: position.coords.longitude
-            },
-            isMarkerShown: true
+              long: position.coords.longitude,
+              isMarkerShown: true
 
 
-          }))
+          })
         }
       ), { maximumAge: Infinity, timeout: 5000, enableHighAccuracy: true }
     } else {
@@ -103,11 +100,11 @@ class CadastroIndividuo extends Page {
 
   onPositionChanged = () => {
     const position = refs.marker.getPosition();
-    var newcurrentLatLng= {
-        lat: position.lat(),
-        lng: position.lng()
-      }
-       this.setState({localizacao:newcurrentLatLng})
+   
+       this.setState({
+         lat:position.lat(),
+         long: position.lng()
+       })
       }
 
   getStep(step) {
@@ -118,7 +115,7 @@ class CadastroIndividuo extends Page {
 
             onSubmit={this.goToNext}
             isMarkerShown={this.state.isMarkerShown}
-            currentLocation={this.state.localizacao}
+            currentLocation={this.state}
             onPositionChanged={this.onPositionChanged}
             onMarkerMounted={this.onMarkerMounted}
             onChangeDescLocal={this.handleChange}
@@ -131,6 +128,7 @@ class CadastroIndividuo extends Page {
           <Grid container className={classes.root} spacing={24}>
             <SelecionaEspecie
               onSubmit={this.goToNext}
+              onChange={this.handleChange}
             />
             <Grid item xs={12}>
               <Grid container spacing={8}>
@@ -183,9 +181,9 @@ class CadastroIndividuo extends Page {
         //, () => this.renderAuthentication()
       );
     } else {
-      var individuo = Object.assign({}, this.state);
+      //var individuo = Object.assign({}, this.state);
 
-      //var result = await create(this.state.especie);
+      var result = await createIndividuo(this.state);
 
       //alert("Cadastrado com Sucesso!");
       if (setSnackbar)
