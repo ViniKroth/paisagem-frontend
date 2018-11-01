@@ -62,6 +62,10 @@ class CadastroIndividuo extends Page {
         long: 0,
       isMarkerShown: false,
       imageUpload: [],
+      DefaultLocation:{
+        lat: 0,
+        long: 0,
+      },
       comentario: null,
       step: 0,
     }
@@ -89,8 +93,13 @@ class CadastroIndividuo extends Page {
     }
 
   }
+
+
+
+  
   componentDidMount() {
     this.showCurrentLocation();
+    
   }
 
   onMarkerMounted = ref => {
@@ -100,10 +109,14 @@ class CadastroIndividuo extends Page {
 
   onPositionChanged = () => {
     const position = refs.marker.getPosition();
-   
+   console.log("AAAAAAAAAAA")
        this.setState({
-         lat:position.lat(),
-         long: position.lng()
+         lat: position.lat(),
+         long: position.lng(),
+         DefaultLocation:{
+          lat: position.lat(),
+          long: position.lng(),
+        }
        })
       }
 
@@ -116,6 +129,7 @@ class CadastroIndividuo extends Page {
             onSubmit={this.goToNext}
             isMarkerShown={this.state.isMarkerShown}
             currentLocation={this.state}
+            DefaultLocation={this.state.DefaultLocation}
             onPositionChanged={this.onPositionChanged}
             onMarkerMounted={this.onMarkerMounted}
             onChangeDescLocal={this.handleChange}
