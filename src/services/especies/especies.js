@@ -36,7 +36,7 @@ export const create = async especie => {
 
 
 
-export const read = async id => {
+export const readE = async id => {
   const response = await axios({
     method: "get",
     url: `${api}/especies/${id}`,

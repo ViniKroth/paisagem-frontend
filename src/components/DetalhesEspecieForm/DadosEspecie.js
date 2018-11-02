@@ -97,13 +97,14 @@ class DadosEspecie extends React.Component {
     }
  
     componentDidMount(){
+        console.log(this.props.nome_popular)
         this.setState({nomePopular: this.props.nome_popular});
     }
     render() {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
         const message = "TEste";
-
+        console.log(this.state.nomePopular)
      
         return (
             <div className={classes.root}>

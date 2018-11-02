@@ -12,13 +12,15 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import nativa from "./nativa.png";
 import exotica from "./exotica.png";
-import { read } from "services/especies/especies";
+import { readE } from "services/especies/especies";
+import { get } from "../../services/nomesPopulares/nomesPopulares";
 import Avatar from '@material-ui/core/Avatar';
 import icone from '../../components/DetalhesEspecieForm/icone.png';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { read } from '../../services/familia/familia';
 
 function TabContainer(props) {
     return (
@@ -102,14 +104,14 @@ class DetalheEspecie extends Page {
     }
     criaEspecie = async () => {
         this.setState({especie : ""})
-        var result = await read(this.props.match.params.id);
-
+        var result = await readE(this.props.match.params.id);
+        var resNomesPopulares = await get(this.props.match.params.id);
         this.setState({ especie: result });
         var especie = this.state.especie;
-
+        var idFamilia = especie["id_familia"]
+        var resFamilia = await read(1);
+        resFamilia = resFamilia.nome;
         var nomeCien = especie["nome_cientifico"]
-        var nomePop = especie["nome_popular"] ? especie["nome_popular"] : []
-        var nomeFam = especie["nome_familia"]
         var flor = especie["floracao"]
         var folha = especie["folhagem"]
         var ori = especie["origem"]
@@ -122,9 +124,10 @@ class DetalheEspecie extends Page {
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
         this.setState({
-            nome_cientifico: nomeCien, nome_popular: nomePop, nome_familia: nomeFam, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
+            nome_cientifico: nomeCien, nome_popular: resNomesPopulares, nome_familia: resFamilia, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
             potencialpaisag: pontenPaisag, porte: port, genero: gen, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
         })
+        console.log(this.state.nome_popular)
     }
     handleChange = (event, value) => {
         this.setState({ value });
