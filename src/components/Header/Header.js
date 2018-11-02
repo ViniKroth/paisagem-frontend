@@ -147,6 +147,20 @@ class Header extends React.Component {
                           Cadastrar Especie
                         </MenuItem>
                       )}
+                      {isAuthenticated() && (
+                        <MenuItem
+                          onClick={() => this.handleClose("/familia/cadastro")}
+                        >
+                          Cadastrar Família
+                        </MenuItem>
+                      )}
+                      {isAuthenticated() && (
+                        <MenuItem
+                          onClick={() => this.handleClose("/users/edit")}
+                        >
+                          Cadastrar Usuário
+                        </MenuItem>
+                      )}
                     </Menu>
                     <img
                       className={classes.menuButton + " App-logo"}
