@@ -99,7 +99,8 @@ class FaleConosco extends Page {
                   <br />
                   <br />
 
-                  <center>projetopaisagem@gmail.com</center>
+                  <center>paisagem.projeto@gmail.com</center>
+                  {/*A senha desse email é projetopaisagem123*/}
                 </Typography>
               </Grid>
             </Paper>
