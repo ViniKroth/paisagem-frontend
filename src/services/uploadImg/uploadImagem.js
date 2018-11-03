@@ -17,7 +17,8 @@ fetch(`${api}/upload`, {
     response.json().then((body) => {
     });
 });
-return(`${api}` + "/public/" + image.get("nome") + ".jpg");
+
+return(`${api}` + "/public/" + image.get("nome"));
 
 
 }
