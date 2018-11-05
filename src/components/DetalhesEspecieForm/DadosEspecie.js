@@ -12,7 +12,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
-
 const styles = theme => ({
     button: {
         marginTop: theme.spacing.unit * 5
@@ -180,7 +179,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Gênero: </b> {this.props.genero}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Diâmetro da Copa: </b> {this.props.diametrodaCopa} metros</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -200,12 +199,49 @@ class DadosEspecie extends React.Component {
                             <img
                                 className={classes.img}
                                 src={icone}
+                                alt="frutificacao"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Época de Frutificação: </b> {this.props.epocaFruta.map(fruta => ( <p>{fruta}</p> ))}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="frutificacao"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.epocaFlor.map(flor => ( <p>{flor}</p> ))}</Typography></ListItemText>
+                    </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
                                 alt="nativa"
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.floracao}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Tipo de Fruto: </b> {this.props.tipodeFruto}</Typography></ListItemText>
                     </ListItem>
+                    <Divider inset component="li" />
+                    <ListItem>
+                        <Avatar>
+                            <img
+                                className={classes.img}
+                                src={icone}
+                                alt="nativa"
+                                height="30" width="30"
+                            />
+                        </Avatar>
+                        <ListItemText ><Typography noWrap><b>Altura da Espécie: </b> {this.props.alturaEspecie} metros</Typography></ListItemText>
+                    </ListItem>
+                    
                 </List>
             </div>
         );

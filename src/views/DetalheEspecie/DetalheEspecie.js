@@ -21,6 +21,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { read } from '../../services/familia/familia';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import perene from "../../components/ListagemEspecie/perene.png";
+import caduca from "../../components/ListagemEspecie/caduca.png";
 
 function TabContainer(props) {
     return (
@@ -87,14 +91,15 @@ class DetalheEspecie extends Page {
             potencialpaisag: '',
             porte: '',
             genero: '',
+            epocaFloracao: [],
             populacao: '',
             foto: '',
             desenho: '',
             qtd_individuos: '',
-            outono: '',
-            verao: '',
-            primavera: '',
-            inverno: '',
+            diametrodaCopa: '',
+            tipodeFruto: '',
+            alturaEspecie:'',
+            epocaFrutificacao:[],
             especie: {}
         };
     }
@@ -103,8 +108,9 @@ class DetalheEspecie extends Page {
         this.criaEspecie();
     }
     criaEspecie = async () => {
-        this.setState({especie : ""})
+        this.setState({ especie: "" })
         var result = await readE(this.props.match.params.id);
+        console.log(result)
         var resNomesPopulares = await get(this.props.match.params.id);
         this.setState({ especie: result });
         var especie = this.state.especie;
@@ -118,14 +124,46 @@ class DetalheEspecie extends Page {
         var potenArq = especie["descricao"]
         var pontenPaisag = especie["potencialpaisag"]
         var port = especie["porte"]
-        var gen = especie["genero"]
-        var popu = especie["populacao"]
+        var diametro = especie["diametroCopa"]
+        var tipoFruto = especie["tipoFruto"]
+        var altura = especie["alturaEspecie"]
+        if (especie["populacao"] == null || especie["populacao"] == "") {
+            var popu = 0;
+        } else {
+            var popu = especie["populacao"]
+        }
+        var epocaFlor = [];
+        var epocaFruta = [];
+        if(especie["FloracaoOutono"]){
+            epocaFlor.push("Outono")
+        }
+        if(especie["FloracaoVerao"]){
+            epocaFlor.push("Verão")
+        }
+        if(especie["FloracaoInverno"]){
+            epocaFlor.push("Inverno")
+        }
+        if(especie["FloracaoPrimavera"]){
+            epocaFlor.push("Primavera")
+        }
+        if(especie["FrutificacaoOutono"]){
+            epocaFruta.push("Outono")
+        }
+        if(especie["FrutificacaoVerao"]){
+            epocaFruta.push("Verão")
+        }
+        if(especie["FrutificacaoPrimavera"]){
+            epocaFruta.push("Primavera")
+        }
+        if(especie["FrutificacaoInverno"]){
+            epocaFruta.push("Inverno")
+        }
         var fot = especie["foto"]
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
         this.setState({
             nome_cientifico: nomeCien, nome_popular: resNomesPopulares, nome_familia: resFamilia, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
-            potencialpaisag: pontenPaisag, porte: port, genero: gen, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
+            potencialpaisag: pontenPaisag,epocaFloracao: epocaFlor,epocaFrutificacao :epocaFruta, alturaEspecie: altura, porte: port, tipodeFruto: tipoFruto, diametrodaCopa: diametro, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
         })
         console.log(this.state.nome_popular)
     }
@@ -168,7 +206,7 @@ class DetalheEspecie extends Page {
                                 <Grid item xs={12}>
                                     <br />
                                     {
-                                        (this.state.origem === "Nativa")
+                                        (this.state.origem === "nativa")
                                             ?
                                             <img
                                                 className={classes.img}
@@ -184,8 +222,31 @@ class DetalheEspecie extends Page {
                                                 height="59" width="100"
                                             />
                                     }
+                                    {this.state.flor == "perene" ? ( // verifica se é perene ou caduca
+                                        <img
+                                            className={classes.img}
+                                            src={perene}
+                                            alt="perene"
+                                            height="59"
+                                            width="60"
+                                            title={this.state.flor}
+                                        />
+                                    ) : (
+                                            <img
+                                                className={classes.img}
+                                                src={caduca}
+                                                alt="caduca"
+                                                height="59"
+                                                width="60"
+                                                title={this.state.flor}
+                                            />
+                                        )}
                                 </Grid>
-                                <DadosEspecie nome_cientifico={this.state.nome_cientifico} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} genero={this.state.genero} populacao={this.state.populacao} />
+                                <DadosEspecie nome_cientifico={this.state.nome_cientifico} epocaFruta={this.state.epocaFrutificacao} epocaFlor = {this.state.epocaFloracao} alturaEspecie = {this.state.alturaEspecie}tipodeFruto={this.state.tipodeFruto} nome_popular={this.state.nome_popular} nome_familia={this.state.nome_familia} origem={this.state.origem} folhagem={this.state.folhagem} porte={this.state.porte} floracao={this.state.floracao} diametrodaCopa={this.state.diametrodaCopa} populacao={this.state.populacao} />
+                                <Button variant="extendedFab" aria-label="Delete" className={classes.button} color="primary">
+                                    <AddIcon className={classes.extendedIcon} />
+                                    Cadastrar Novo Indivíduo
+                                </Button>
 
                             </TabContainer>}
                             {value === 1 && <TabContainer>
