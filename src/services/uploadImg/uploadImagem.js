@@ -17,7 +17,7 @@ fetch(`${api}/upload`, {
     });
 });
 
-return(`${api}` + "/upload/" + image.get("nome") + ".jpg");
+return(`${api}` + "/public/" + image.get("nome") );
 
 
 }

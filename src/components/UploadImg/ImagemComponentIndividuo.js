@@ -52,7 +52,7 @@ class ImageComponentIndividuo extends React.Component {
            
             Image.append('imagem', this.state.file); // arquivo em si
             Image.append('nomeImagem', this.state.file.name); //nome do arquivo
-            Image.append('nome', md5(this.state.imagePreviewUrl)); //nome a ser salvo no banco
+            Image.append('nome', md5(this.state.imagePreviewUrl)+ "." + this.state.file.type.split("image/")[1]); //nome a ser salvo no banco
             imageUploadAtual.imageUpload.push(Image);
             
             this.setState({ imageUploadAtual },
