@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as crypto from "crypto-js";
-import { api } from "configs/";
+import { api , api_upload} from "configs/";
 import { HTTPStatusCodes } from "configs/constants";
 //import * as querystring from 'querystring'
 
@@ -17,7 +17,8 @@ fetch(`${api}/upload`, {
     response.json().then((body) => {
     });
 });
-return(`${api}` + "/upload/" + image.get("nome") + ".jpg");
+
+return(`${api_upload}` + "/public/" + image.get("nome"));
 
 
 }
