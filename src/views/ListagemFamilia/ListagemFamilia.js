@@ -20,6 +20,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { listAll } from '../../services/familia/familia';
 import TextField from "@material-ui/core/TextField";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+
 const styles = theme => ({
     layout: {
         width: "auto",
@@ -147,22 +151,44 @@ class ListagemFamilia extends Page {
         //console.log(this.state.familias);
         this.setState({ familias });
     }
-    
+
     componentDidMount() {
         this.familiasLista()
     }
 
     authenticated = () => {
-        return this.state.familias.map(item => {
-            return (
-                <li key={item.nome}>
-                Nome: {item.nome} <p></p>
-                Descricao: {item.descricao}
-                <p></p>
-              </li>
-              
-            );
-           });
+        const { classes } = this.props;
+        const bull = <span className={classes.bullet}>•</span>;
+
+        return (
+            <React.Fragment>
+                {this.state.familias.map(item =>
+                    <Card className={classes.card}>
+
+                    <CardContent>
+                        <Typography variant="h5" component="h2">
+                            {/* colocar o nome da espécie aqui */}
+                            Nome da Espécie: {item.nome}
+                        </Typography>
+
+                        <Typography component="p">
+                            Descição: {item.descricao}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
+                </Card>
+                )
+            }
+                </React.Fragment>
+
+        );
+
+
+        SimpleCard.propTypes = {
+            classes: PropTypes.object.isRequired,
+        };
 
     }
 
