@@ -5,10 +5,9 @@ import { Switch, Route } from "react-router-dom";
 import ViewWrapper from "../helpers/ViewWrapper";
 
 // Users
-import UserEditPage from "views/UserPages/CreateUpdate/UserEditPage";
-import UserDetailsPage from "views/UserPages/Details/UserDetailsPage";
-import UserListPage from "views/UserPages/List/UserListPage";
-import ImagemReferencia from "../components/DetalhesEspecieForm/ImagemReferencia";
+const UserEditPage = ViewWrapper("UserPages/CreateUpdate/UserEditPage");
+const UserDetailsPage = ViewWrapper("UserPages/Details/UserDetailsPage");
+const UserListPage = ViewWrapper("UserPages/List/UserListPage");
 
 
 // Views

@@ -101,6 +101,7 @@ class DetalheEspecie extends Page {
         this.criaEspecie();
     }
     criaEspecie = async () => {
+        this.setState({especie : ""})
         var result = await read(this.props.match.params.id);
 
         this.setState({ especie: result });
@@ -120,12 +121,10 @@ class DetalheEspecie extends Page {
         var fot = especie["foto"]
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
-        console.log(pontenPaisag)
         this.setState({
             nome_cientifico: nomeCien, nome_popular: nomePop, nome_familia: nomeFam, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
             potencialpaisag: pontenPaisag, porte: port, genero: gen, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
         })
-        console.log(result);
     }
     handleChange = (event, value) => {
         this.setState({ value });
