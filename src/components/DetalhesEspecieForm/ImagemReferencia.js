@@ -39,10 +39,11 @@ class ImagemReferencia extends React.Component {
 
   tutorialSteps = [
     {
-      imgPath: ara,
+      imgPath: this.props.foto,
+      
     },
     {
-      imgPath: des,
+      imgPath: this.props.desenho,
     },
 
   ];
@@ -63,7 +64,7 @@ class ImagemReferencia extends React.Component {
     const { activeStep } = this.state;
 
     const maxSteps = this.tutorialSteps.length;
-
+    console.log(this.props.foto)
     return (
         <div className={classes.root}>
           <h6></h6>

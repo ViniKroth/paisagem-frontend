@@ -159,6 +159,7 @@ class DetalheEspecie extends Page {
             epocaFruta.push("Inverno")
         }
         var fot = especie["foto"]
+        console.log(fot)
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
         this.setState({
