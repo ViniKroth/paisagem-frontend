@@ -16,6 +16,7 @@ import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.j
 import { Grid } from "@material-ui/core";
 import { createIndividuo } from "services/especies/especies";
 import img from "./plantas.jpg"
+import { upload } from "services/uploadImg/uploadImagem";
 
 const styles = theme => ({
   layout: {
@@ -60,13 +61,11 @@ class CadastroIndividuo extends Page {
       
         lat: 0,
         long: 0,
-      isMarkerShown: false,
-      imageUpload: [],
-      DefaultLocation:{
-        lat: 0,
-        long: 0,
-      },
-      comentario: null,
+        isMarkerShown: false,
+        imagensUpload: [],
+        imagens: [],
+        //id_especie : this.props.id_especie,
+        id_especie : this.props.id_especie,
       step: 0,
     }
     this.goToNext = this.goToNext.bind(this);
@@ -94,14 +93,18 @@ class CadastroIndividuo extends Page {
 
   }
 
-
-
-  
   componentDidMount() {
     this.showCurrentLocation();
     
+    
   }
 
+  handleChangeImage = imgState => {
+    var state = this.state;
+
+    state.imagensUpload.push(imgState);
+    this.setState({ state });
+  };
   onMarkerMounted = ref => {
     refs.marker = ref;
 
@@ -109,15 +112,19 @@ class CadastroIndividuo extends Page {
 
   onPositionChanged = () => {
     const position = refs.marker.getPosition();
-   console.log("AAAAAAAAAAA")
        this.setState({
          lat: position.lat(),
          long: position.lng(),
-         DefaultLocation:{
-          lat: position.lat(),
-          long: position.lng(),
-        }
        })
+      }
+
+      goToBack() {
+        const { step } = this.state;
+        if (step !== 0) {
+          this.setState({
+            step: step - 1
+          });
+        }
       }
 
   getStep(step) {
@@ -192,24 +199,40 @@ class CadastroIndividuo extends Page {
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }
-        //, () => this.renderAuthentication()
+        
       );
     } else {
-      //var individuo = Object.assign({}, this.state);
+      
+      var state = this.state;
+      var image = [];
+      for (var i = 0; i<this.state.imagensUpload.length;i++){
+          var path = await upload(this.state.imagensUpload[i])
+          image.push(path);
+          
+      }
+      state.imagens = image;
+      
+      this.setState({
+        state
+      },() => {
+        this.createIndividuo().catch(e => {
+          alert("Erro ao Salvar");
+        });
+      } 
 
-      var result = await createIndividuo(this.state);
+    );
 
-      //alert("Cadastrado com Sucesso!");
-      if (setSnackbar)
-        setSnackbar({
-          variant: "success",
-          message: "Indivíduo salvo com sucesso"
-        })
+      //var result = await createIndividuo(this.state);
+
+     
       this.setState({ step: 0 })
     }
 
   }
 
+  async createIndividuo(){
+    await createIndividuo(this.state)
+  }
 
   goToBack() {
     const { step } = this.state;
@@ -225,19 +248,19 @@ class CadastroIndividuo extends Page {
 
   handleChangeImage = imgState => {
     //console.log(1,imgState)
-    var imageUploadAtual = this.state.imageUpload;
+    var imageUploadAtual = this.state.imagens;
     imageUploadAtual.push(imgState);
-    return this.setState({ imageUpload : imageUploadAtual });
+    return this.setState({ imagensUpload : imageUploadAtual }, console.log(this.state));
   };
 
 
 
- handleSubmitImage(e) {
-  e.preventDefault();
+  async handleSubmitImage(e) {
+  e.preventDefault()
   
-  this.setState({qntImagensError : false})
-      var imageUploadAtual = this.state.imageUpload 
-      imageUploadAtual.push(this.state.file) 
+  await this.setState({qntImagensError : false})
+      var imageUploadAtual = this.state.imageUpload ;
+      imageUploadAtual.push(this.state.file) ;
       this.setState({ imageUpload: imageUploadAtual });
  
 }
