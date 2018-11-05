@@ -75,15 +75,15 @@ class HomePage extends Page {
               <Paper className={classes.paper}>
                 <Grid item xs={12}>
                   <img className={classes.logo} src={require("./logo2.PNG")} />
-                  <Typography variant="display3" align="center" color="primary">
+                  {/* <Typography variant="display3" align="center" color="grey">
                     O que é o projeto Paisagem
                   </Typography>
-                  <br />
+                  <br /> */}
 
-                  <Typography
-                    variant="Headline"
-                    align="justify"
-                    color="primary"
+                  <Typography 
+                  variant="Headline" 
+                  align="justify" 
+                  color="textSecondary" 
                   >
                     O projeto Paisagem surgiu a partir de uma demanda da
                     professora Drª.Maria Alice Medeiros Dias do curso de
