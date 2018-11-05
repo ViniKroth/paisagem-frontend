@@ -65,9 +65,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
@@ -139,6 +138,15 @@ class HomePage extends Page {
                   >
                     Cadastro de Famílias
                   </Button>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/users/edit")}
+                    className={classes.button}
+                  >
+                    Cadastro de Usuário
+                  </Button>
                 </div>
               </Paper>
             </Grid>
@@ -155,9 +163,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
@@ -210,15 +217,19 @@ class HomePage extends Page {
                     login
                   </Button>
 
+                
+
                   <Button
                     variant="contained"
                     size="large"
                     color="primary"
-                    onClick={() => this.redirect("/listagemEspecie")}
+                    onClick={() => this.redirect("/especies/listas")}
                     className={classes.button}
                   >
                     Listagem de Especie
                   </Button>
+
+                 
                 </div>
               </Paper>
             </Grid>
