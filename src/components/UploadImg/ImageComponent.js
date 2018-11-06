@@ -68,17 +68,17 @@ class ImageComponent extends React.Component {
             if(tipo == "imagem" ){ imagem = imagem +1}else{ desenho = desenho +1};
         }
            
-        if(imagem == 1 && desenho == 1){
+        if(imagem >= 1 && desenho >= 1){
             this.props.changeblocksave(false);
-            toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
+            //toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
         }else{
             this.props.changeblocksave(true);
 
-            if(imagem > 1 || desenho > 1){
-                toast.error("Adicione apenas uma imagem e um desenho.");
-            }else{
+            // if(imagem > 1 || desenho > 1){
+            //     toast.error("Adicione apenas uma imagem e um desenho.");
+            // }else{
 
-            }
+            // }
             
         }
     }
@@ -112,7 +112,6 @@ class ImageComponent extends React.Component {
                 this.setState({ imageUpload: list })
             }
         }
-
     }
 
 

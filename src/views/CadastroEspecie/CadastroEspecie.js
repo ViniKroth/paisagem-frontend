@@ -240,6 +240,7 @@ class CadastroEspecie extends Page {
     const nomesPopulares = this.state.especie.nomePopular.map(
       (nomePop, sidx) => {
         if (idx !== sidx) return nomePop;
+        else
         return {
           nome: evt.target.value
         };

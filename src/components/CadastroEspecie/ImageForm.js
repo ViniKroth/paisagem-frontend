@@ -80,7 +80,7 @@ class ImageForm extends React.Component {
             Imagens
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Selecione duas imagens para sua espécie, uma fotografia e um desenho representativo.
+            Selecione no mínimo uma fotografia e um desenho representativo da espécie.
           </Typography>
      
      

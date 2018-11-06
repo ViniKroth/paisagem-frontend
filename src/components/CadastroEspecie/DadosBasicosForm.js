@@ -291,6 +291,10 @@ class DadosBasicosForm extends React.Component {
     });
   };
   //-------
+  handleAddNomePopularOps(idx){
+    this.props.handleAddNomePopular;
+    this.props.handleRemoveNomePopular(idx);
+  }
 
   render() {
     const { classes } = this.props;
@@ -341,6 +345,38 @@ class DadosBasicosForm extends React.Component {
                 ))}
               </TextField>
             </Grid>
+
+            <Grid item xs={1} sm={6}>
+              {this.props.nomePopular.map((nomesPopulares, idx) => {
+                console.log(nomesPopulares);
+                return (
+                  <div
+                    className="nomesPopulares"
+                    key={nomesPopulares.nome + idx}
+                  >
+                    <TextField
+                      placeholder={`Nome Popular (${idx + 1}) `}
+                      value={nomesPopulares.nome}
+                      onChange={this.props.handleNomePopularChange(idx)}
+                    />
+                    <IconButton
+                      onClick={this.props.handleRemoveNomePopular(idx)}
+                      className={classes.RemoveNome}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </div>
+                );
+              })}
+              <Button
+                onClick={this.props.handleAddNomePopular}
+                variant="contained"
+                className={classes.AddNome}
+              >
+                Adicionar Nome Popular
+              </Button>
+              </Grid>
+
             <Grid item xs={6}>
               <TextField
                 id="origem"
@@ -455,36 +491,6 @@ class DadosBasicosForm extends React.Component {
               />
             </Grid>
 
-            <Grid item xs={1} sm={6}>
-              {this.props.nomePopular.map((nomesPopulares, idx) => {
-                console.log(nomesPopulares);
-                return (
-                  <div
-                    className="nomesPopulares"
-                    key={nomesPopulares.nome + idx}
-                  >
-                    <TextField
-                      placeholder={`Nome Popular (${idx + 1}) `}
-                      value={nomesPopulares.nome}
-                      onChange={this.props.handleNomePopularChange(idx)}
-                    />
-                    <IconButton
-                      onClick={this.props.handleRemoveNomePopular(idx)}
-                      className={classes.RemoveNome}
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                  </div>
-                );
-              })}
-              <Button
-                onClick={this.props.handleAddNomePopular}
-                variant="contained"
-                className={classes.AddNome}
-              >
-                Adicionar Nome Popular
-              </Button>
-            </Grid>
           </Grid>
 
           <Grid container spacing={24}>
