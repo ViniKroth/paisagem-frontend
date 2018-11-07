@@ -78,8 +78,8 @@ class DadosEspecie extends React.Component {
         super();
         this.state = {
             nomePopular: [],
-            
-        }            
+
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -94,17 +94,17 @@ class DadosEspecie extends React.Component {
         evt.preventDefault();
         this.props.onSubmit();
     }
- 
-    componentDidMount(){
+
+    componentDidMount() {
         console.log(this.props.nome_popular)
-        this.setState({nomePopular: this.props.nome_popular});
+        this.setState({ nomePopular: this.props.nome_popular });
     }
     render() {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
         const message = "TEste";
         console.log(this.state.nomePopular)
-     
+
         return (
             <div className={classes.root}>
                 <List>
@@ -117,7 +117,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.state.nomePopular.map((nome) =><Typography noWrap> nome</Typography>)} </Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.state.nomePopular.map((nome) => <Typography noWrap> nome</Typography>)} </Typography></ListItemText>
                     </ListItem>
                     <li>
                         <Divider inset />
@@ -203,7 +203,8 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Época de Frutificação: </b> {this.props.epocaFruta.map(fruta => ( <p>{fruta}</p> ))}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Época de Frutificação: </b> {this.props.epocaFruta != undefined && this.props.epocaFruta != "" ?
+                            this.props.epocaFruta.map(fruta => (<p>{fruta}</p>)) : ""}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -215,7 +216,9 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.epocaFlor.map(flor => ( <p>{flor}</p> ))}</Typography></ListItemText>
+                        
+                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.epocaFlor != undefined && this.props.epocaFlor != "" ?
+                            this.props.epocaFlor.map(flor => (<p>{flor}</p>)) : ""}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -241,11 +244,11 @@ class DadosEspecie extends React.Component {
                         </Avatar>
                         <ListItemText ><Typography noWrap><b>Altura da Espécie: </b> {this.props.alturaEspecie} metros</Typography></ListItemText>
                     </ListItem>
-                    
+
                 </List>
             </div>
         );
-       // */
+        // */
     }
 }
 

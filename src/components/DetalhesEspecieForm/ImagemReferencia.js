@@ -68,7 +68,7 @@ class ImagemReferencia extends React.Component {
     return (
         <div className={classes.root}>
           <h6></h6>
-
+            {console.log(this.tutorialSteps)}
             <img
               className={classes.img}
               src={this.tutorialSteps[activeStep].imgPath}
