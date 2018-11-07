@@ -1,28 +1,243 @@
 import React from "react";
-import Page from "views/Page/Page";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Page from "views/Page/Page.js";
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import ListIcon from "@material-ui/icons/List";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
+import Input from "@material-ui/core/Input";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import { listAll } from "services/user/user";
+import listagemUser from "components/ListagemUser/listagemUser";
+
+const styles = theme => ({
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 2 * 2)]: {
+      width: 800,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  grow: {
+    flexGrow: 1
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 0.1
+    }
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing.unit,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit",
+    width: "100%"
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: 120,
+      "&:focus": {
+        width: 200
+      }
+    }
+  },
+  cardGrid: {
+    padding: theme.spacing.unit * 1
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column"
+  },
+  cardMedia: {
+    paddingTop: "56.25%" // 16:9
+  },
+  cardContent: {
+    flexGrow: 1
+  },
+  buttonSee: {
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  img: {
+    height: "10%",
+    width: "25%",
+    align: "center"
+  },
+  chip: {
+    margin: theme.spacing.unit
+  }
+});
+
+//const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; //esse cards é temporario
 
 class UserListPage extends Page {
-  componentDidMount = () => {
-    this.setState(() => {
-      return {
-        render: this.isAuthenticated()
-          ? this.authenticated()
-          : this.unauthenticated()
-      };
+  constructor() {
+    super();
+    this.state = {
+      nome: "",
+      
+    };
+  }
+
+  componentDidMount() {
+    this.listaUsuario();
+  }
+
+  
+
+  filter = e => {
+    var nome = e.target.value;
+    if (nome) {
+      this.setState(state => {
+        return {
+          especies: state.especiesAll.filter(item => {
+            return (
+              (item.nome_cientifico && item.nome_cientifico.startsWith(nome)) ||
+              (item.nome_popular.length > 0 &&
+                item.nome_popular.some(nomePop =>
+                  nomePop.nome.startsWith(nome)
+                ))
+            );
+          })
+        };
+      });
+    } else this.resetFilter();
+  };
+
+  resetFilter = () => {
+    this.setState(state => {
+      return { especies: state.especiesAll };
     });
   };
 
-  authenticated = () => {
-    return <div>Dados dos usuários em tabela...</div>;
+  listaUsuario = async () => {
+    var result = await listAll();
+    var usuarios = [];
+    if (result && result.length > 0) {
+      result.map(async e => {
+        var nome = e["nome"];
+        var email = e["email"];
+        var cargo = e["cargo"];
+        var username = e["username"];
+
+        var usuario = {
+          nome,
+          cargo,
+          email,
+          username
+        };
+        usuarios.push(usuario)
+        
+      });
+    }
+    this.setState({
+      usuarios
+    },console.log("teste",this.state));
   };
 
+  authenticated = () => {
+    return this.unauthenticated();
+  };
+
+  //Alterando para Authenticated pra manter o padrão do resto do sistema.
   unauthenticated = () => {
+    const { classes } = this.props;
     return (
-      <div className="container">
-        <p>Você precisa estar logado para visualizar a lista de usuários!</p>
-      </div>
+      <React.Fragment>
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            {/* Hero unit */}
+            <div className={classes.heroUnit}>
+              <div className={classes.heroContent}>
+                <br />
+                <Typography variant="display1" align="center">
+                  Listagem de Espécies
+                </Typography>
+                <br />
+                <Grid container spacing={24}>
+                  <Grid item xs={12} sm={6}>
+                    <div className={classes.grow} />
+                    <div className={classes.search}>
+                      <div className={classes.searchIcon}>
+                        <SearchIcon />
+                      </div>
+                      <Input
+                        onChange={this.filter}
+                        placeholder="Buscar"
+                        disableUnderline
+                        classes={{
+                          root: classes.inputRoot,
+                          input: classes.inputInput
+                        }}
+                      />
+                    </div>
+                  </Grid>
+                 
+                </Grid>
+              </div>
+            </div>
+            <div className={classNames(classes.layout, classes.cardGrid)}>
+            
+                <listagemUser usuarios={this.state} />
+                
+              
+
+              <div className={classes.heroButtons} />
+            </div>
+            
+          </Paper> 
+          {
+          console.log("jjj",this.state)}
+        </main>
+      </React.Fragment>
     );
   };
 }
 
-export default UserListPage;
+UserListPage.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(UserListPage);

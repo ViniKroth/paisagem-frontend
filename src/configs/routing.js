@@ -22,6 +22,7 @@ const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
 const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
 const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
 
+
 export default () => (
   <main>
     <Switch>
