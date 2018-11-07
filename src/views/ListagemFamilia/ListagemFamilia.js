@@ -131,6 +131,16 @@ const styles = theme => ({
   pos: {
     marginBottom: 12,
   },
+  familyCard: {
+      margin: '20px',
+  },
+  familyTitle:{
+    margin: '20px'
+  },
+  cardTitle:{
+    fontWeight: '500',
+    marginBottom: '5px'
+  }
 });
 
 
@@ -176,26 +186,39 @@ class ListagemFamilia extends Page {
 
         return (
             <React.Fragment>
+                <Typography 
+                variant="h3"
+                align="left"
+                className={classes.familyTitle}>Familias</Typography>
                 {this.state.familias.map(item =>
-                    <Card className={classes.card}>
+                    <Card className={classes.familyCard}>
 
                     <CardContent>
-                        <Typography variant="h5" component="h2">
+                        <Typography 
+                        variant="h5" 
+                        component="h2"
+                        className={classes.cardTitle}
+                        align="left">
                             {/* colocar o nome da espécie aqui */}
-                            Nome da Espécie: {item.nome}
+                            {item.nome}
                         </Typography>
 
-                        <Typography component="p">
-                            Descição: {item.descricao}
+                        <Typography 
+                        component="p"
+                        align="left"
+                        color="textSecondary">
+                            {item.descricao}
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button 
+                        size="small"
+                        color="primary">Ver mais</Button>
                     </CardActions>
                 </Card>
                 )
             }
-                </React.Fragment>
+            </React.Fragment>
 
         );
 
