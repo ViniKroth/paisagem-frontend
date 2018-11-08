@@ -12,13 +12,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import nativa from "./nativa.png";
 import exotica from "./exotica.png";
-import { read } from "services/especies/especies";
+import { read, listIndividuosByEspecie} from "services/especies/especies";
 import Avatar from '@material-ui/core/Avatar';
 import icone from '../../components/DetalhesEspecieForm/icone.png';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListaIndividuos from "../../components/DetalhesEspecieForm/ListaIndividuos.js";
 
 function TabContainer(props) {
     return (
@@ -97,8 +98,11 @@ class DetalheEspecie extends Page {
         };
     }
 
+    
+
     componentDidMount() {
         this.criaEspecie();
+        
     }
     criaEspecie = async () => {
         this.setState({especie : ""})
@@ -106,7 +110,7 @@ class DetalheEspecie extends Page {
 
         this.setState({ especie: result });
         var especie = this.state.especie;
-
+        var individuos = await listIndividuosByEspecie(especie["id"]);
         var nomeCien = especie["nome_cientifico"]
         var nomePop = especie["nome_popular"] ? especie["nome_popular"] : []
         var nomeFam = especie["nome_familia"]
@@ -122,10 +126,16 @@ class DetalheEspecie extends Page {
         var desen = especie["desenho"]
         var qtdIndivi = especie["qtd_individuos"]
         this.setState({
-            nome_cientifico: nomeCien, nome_popular: nomePop, nome_familia: nomeFam, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
+            indiv:individuos,nome_cientifico: nomeCien, nome_popular: nomePop, nome_familia: nomeFam, floracao: flor, folhagem: folha, origem: ori, potencialarq: potenArq,
             potencialpaisag: pontenPaisag, porte: port, genero: gen, populacao: popu, foto: fot, desenho: desen, qtd_individuos: qtdIndivi
-        })
+        },console.log("individuos" + especie["id"]))
     }
+
+   
+ 
+
+
+
     handleChange = (event, value) => {
         this.setState({ value });
     };
@@ -216,6 +226,10 @@ class DetalheEspecie extends Page {
                                 </List>
                             </TabContainer>}
                             {value === 2 && <TabContainer>
+
+                                    <ListaIndividuos id={this.state.id} />
+
+
                             </TabContainer>}
 
 
