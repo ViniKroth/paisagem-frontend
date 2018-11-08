@@ -15,7 +15,7 @@ import Switch from '@material-ui/core/Switch';
 import md5 from 'md5';
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from 'react-toastify';
 
 const styles = theme => ({

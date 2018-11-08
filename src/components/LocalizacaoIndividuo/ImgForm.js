@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import "react-toastify/dist/ReactToastify.css";
 import ImagemComponentIndividuo from "components/UploadImg/ImagemComponentIndividuo.js";
 const styles = theme => ({
   layout: {

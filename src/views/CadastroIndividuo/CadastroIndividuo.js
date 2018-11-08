@@ -9,6 +9,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
+import "react-toastify/dist/ReactToastify.css";
 
 import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
 import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
@@ -17,6 +18,8 @@ import { Grid } from "@material-ui/core";
 import { createIndividuo } from "services/especies/especies";
 import img from "./plantas.jpg"
 import { upload } from "services/uploadImg/uploadImagem";
+import { listAll } from "services/especies/especies";
+import { ToastContainer, toast } from 'react-toastify';
 
 const styles = theme => ({
   layout: {
@@ -64,6 +67,7 @@ class CadastroIndividuo extends Page {
         isMarkerShown: false,
         imagensUpload: [],
         imagens: [],
+        especies:{},
         //id_especie : this.props.id_especie,
         id_especie : this.props.id_especie,
       step: 0,
@@ -93,10 +97,33 @@ class CadastroIndividuo extends Page {
 
   }
 
+  fillEspecies = async () => {
+    var result = await listAll();
+    var especies = [{ value: -1, label: "Selecione a espécie *" }];
+    
+    if (result && result.length > 0) {
+      
+      result.map(e => {
+        var value = e["id_especie"];
+        var label = e["nome_cientifico"];
+
+        var especie = {
+          value,
+          label
+        }
+
+        especies.push(especie)
+      })
+    }
+    var state = this.state;
+    state.especies = especies;
+    
+    this.setState({ state })
+  };
+
   componentDidMount() {
     this.showCurrentLocation();
-    
-    
+    this.fillEspecies();
   }
 
   handleChangeImage = imgState => {
@@ -144,41 +171,18 @@ class CadastroIndividuo extends Page {
           />
         );
       case 1:
-        const { classes } = this.props;
+       
         return (
-          <Grid container className={classes.root} spacing={24}>
+          
             <SelecionaEspecie
               onSubmit={this.goToNext}
+              onBack={this.goToBack}
               onChange={this.handleChange}
+              especiesList={this.state.especies}
+              especie={this.state.especies.id_especie}
             />
-            <Grid item xs={12}>
-              <Grid container spacing={8}>
-                <Grid item xs={6} >
-                  <Button
-                    id="back"
-                    onClick={() => this.goToBack()}
-                    variant="contained"
-
-                  //color="primary"
-                  >
-                    Voltar
-            </Button>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <Button
-                    id="next"
-                    onClick={() => this.goToNext()}
-                    variant="contained"
-
-                    color="primary"
-                  >
-                    Próximo
-            </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+          
+         
         );
 
       case 2:
@@ -218,6 +222,7 @@ class CadastroIndividuo extends Page {
         this.createIndividuo().catch(e => {
           alert("Erro ao Salvar");
         });
+        toast.success("Individuo Cadastrado")
       } 
 
     );
@@ -242,8 +247,12 @@ class CadastroIndividuo extends Page {
     }
   }
 
-  handleChange = event => {
-    return this.setState({ [event.target.name]: event.target.value });
+  handleChange = campo => event => {
+    var individuo = this.state;
+    individuo[campo] = event.target.value;
+    return this.setState({
+      individuo
+    });
   };
 
   handleChangeImage = imgState => {
@@ -297,6 +306,19 @@ authenticated = () => {
             </Stepper>
             {this.getStep(this.state.step)}
           </Paper>
+          <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
         </main>
       </div>
     );
