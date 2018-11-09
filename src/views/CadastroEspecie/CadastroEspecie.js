@@ -159,6 +159,7 @@ class CadastroEspecie extends Page {
         return (
           <ImageForm
             key="ImgUpLoad"
+            notify={this.notify}
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
@@ -170,7 +171,7 @@ class CadastroEspecie extends Page {
         console.log("Step extrapolado");
     }
   }
-  notify = (n, desc) => {
+  notify(n, desc){
     switch (n) {
       case 1:
         toast.success("Especie Cadastrada com Sucesso.");
@@ -182,7 +183,7 @@ class CadastroEspecie extends Page {
         toast.dismiss();
         break;
       case 4:
-        toast(desc);
+        toast.error(desc);
         break;
       default:
         toast("Isso foi clicado mas não fez nada.");
@@ -190,6 +191,15 @@ class CadastroEspecie extends Page {
   };
 
   //isEmpty = false;
+  componentWillMount() {
+    this.initialState = this.state;
+  }
+  clearForm(){
+    //this.componentDidMount();
+    this.setState({step: 0});
+    
+
+  }
   async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {
@@ -202,6 +212,7 @@ class CadastroEspecie extends Page {
     } else {
       var result = await create(this.state.especie);
       this.notify(1);
+      this.clearForm();
     }
   }
 
@@ -306,19 +317,6 @@ class CadastroEspecie extends Page {
           {/* Same as */}
           <ToastContainer />
         </Paper>
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={true}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
-        {/* Same as */}
-        <ToastContainer />
       </main>
     );
   };

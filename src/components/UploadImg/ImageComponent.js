@@ -42,6 +42,7 @@ class ImageComponent extends React.Component {
         this._handleSubmit = this._handleSubmit.bind(this);
     }
     
+    emptyState = this.state;
     _handleSubmit(e) {
         e.preventDefault();
        
@@ -55,10 +56,9 @@ class ImageComponent extends React.Component {
             Image.append('nome', md5(this.state.imagePreviewUrl)); //nome a ser salvo no banco
             imageUploadAtual.imageUpload.push(Image);
             
-            this.setState({ imageUploadAtual },
-                this.props.handleChangeImage(Image),
-                this.checkEnviar()  
-            );       
+            this.setState({ imageUploadAtual })
+            this.props.handleChangeImage(Image);      
+            this.checkEnviar();
     }
     checkEnviar(){
         var imagem=0;
@@ -68,18 +68,15 @@ class ImageComponent extends React.Component {
             if(tipo == "imagem" ){ imagem = imagem +1}else{ desenho = desenho +1};
         }
            
-        if(imagem >= 1 && desenho >= 1){
+        if(imagem == 1 && desenho == 1){
             this.props.changeblocksave(false);
             //toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
-        }else{
+        }else if(imagem >1 && desenho >1){
             this.props.changeblocksave(true);
-
-            // if(imagem > 1 || desenho > 1){
-            //     toast.error("Adicione apenas uma imagem e um desenho.");
-            // }else{
-
-            // }
-            
+            toast.error("Adicione apenas uma imagem e um desenho.");
+        }
+        else{
+            this.props.changeblocksave(true);
         }
     }
     _handleImageChange(e) {
@@ -112,6 +109,7 @@ class ImageComponent extends React.Component {
                 this.setState({ imageUpload: list })
             }
         }
+        this.checkEnviar();
     }
 
 
