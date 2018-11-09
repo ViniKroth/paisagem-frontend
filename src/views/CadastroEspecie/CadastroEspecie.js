@@ -200,11 +200,21 @@ class CadastroEspecie extends Page {
         this.setState({ step: step + 1 });
       }
     } else {
-      var result = await create(this.state.especie);
-      this.notify(1);
+      var especie = this.state.especie;
+      especie["foto"] = await upload(this.state.imagem);;
+      especie["desenho"] = await upload(this.state.desenho);;
+      
+      this.setState({especie}, () => {
+        this.salvaEspecie().catch(e => {
+          this.notify("Erro ao Salvar");
+        });
+      }); 
     }
   }
-
+  async salvaEspecie(){
+    await create(this.state.especie)
+    this.notify(1);
+  }
   goToBack() {
     const { step } = this.state;
     if (step !== 0) {
