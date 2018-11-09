@@ -97,13 +97,13 @@ class DadosEspecie extends React.Component {
 
     componentDidMount() {
         console.log(this.props.nome_popular)
-        this.setState({ nomePopular: this.props.nome_popular });
+
     }
     render() {
         const { classes } = this.props;
         const { outono, verao, primavera, inverno } = this.state;
         const message = "TEste";
-        console.log(this.state.nomePopular)
+        console.log(this.props.especie)
 
         return (
             <div className={classes.root}>
@@ -117,7 +117,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.state.nomePopular.map((nome) => <Typography noWrap> nome</Typography>)} </Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.props.especie.resNomesPopulares != undefined && this.props.especie.resNomesPopulares != ""?this.props.especie.resNomesPopulares.map((nome) => <Typography noWrap key={nome}> nome</Typography>):""} </Typography> </ListItemText>
                     </ListItem>
                     <li>
                         <Divider inset />
@@ -131,7 +131,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Família: </b> {this.props.nome_familia}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Família: </b> {this.props.especie.resFamilia}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -143,7 +143,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Origem: </b> {this.props.origem}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Origem: </b> {this.props.especie.ori}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -155,7 +155,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Folhagem: </b> {this.props.folhagem}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Folhagem: </b> {this.props.especie.folha}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -167,7 +167,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Porte: </b> {this.props.porte}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Porte: </b> {this.props.especie.port}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -179,7 +179,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Diâmetro da Copa: </b> {this.props.diametrodaCopa} metros</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Diâmetro da Copa: </b> {this.props.especie.diametro} metros</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -191,7 +191,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>População: </b> {this.props.populacao}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap> <b>População: </b> {this.props.especie.popu}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -203,8 +203,8 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Época de Frutificação: </b> {this.props.epocaFruta != undefined && this.props.epocaFruta != "" ?
-                            this.props.epocaFruta.map(fruta => (<p>{fruta}</p>)) : ""}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Época de Frutificação: </b> {this.props.especie.epocaFruta != undefined && this.props.especie.epocaFruta != "" ?
+                            this.props.especie.epocaFruta.map(fruta => (<p>{fruta}</p>)) : ""}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -217,8 +217,8 @@ class DadosEspecie extends React.Component {
                             />
                         </Avatar>
                         
-                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.epocaFlor != undefined && this.props.epocaFlor != "" ?
-                            this.props.epocaFlor.map(flor => (<p>{flor}</p>)) : ""}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.especie.epocaFlor != undefined && this.props.especie.epocaFlor != "" ?
+                           this.props.especie.map(flor => (<p>{flor}</p>)) : ""}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -230,7 +230,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Tipo de Fruto: </b> {this.props.tipodeFruto}</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Tipo de Fruto: </b> {this.props.especie.tipoFruto}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
@@ -242,7 +242,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap><b>Altura da Espécie: </b> {this.props.alturaEspecie} metros</Typography></ListItemText>
+                        <ListItemText ><Typography noWrap><b>Altura da Espécie: </b> {this.props.especie.altura} metros</Typography></ListItemText>
                     </ListItem>
 
                 </List>

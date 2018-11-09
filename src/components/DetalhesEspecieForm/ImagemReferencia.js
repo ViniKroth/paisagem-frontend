@@ -37,16 +37,7 @@ class ImagemReferencia extends React.Component {
     activeStep: 0,
   };
 
-  tutorialSteps = [
-    {
-      imgPath: this.props.foto,
-      
-    },
-    {
-      imgPath: this.props.desenho,
-    },
-
-  ];
+ 
   handleNext = () => {
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
@@ -63,16 +54,27 @@ class ImagemReferencia extends React.Component {
     const { classes, theme } = this.props;
     const { activeStep } = this.state;
 
-    const maxSteps = this.tutorialSteps.length;
-    console.log(this.props.foto)
+   const tutorialSteps = [
+      {
+        imgPath: this.props.especie.fot,
+        
+      },
+      {
+        imgPath: this.props.especie.desen,
+      },
+  
+    ];
+
+    const maxSteps = tutorialSteps.length;
+    console.log(this.props.especie)
     return (
         <div className={classes.root}>
           <h6></h6>
-            {console.log(this.tutorialSteps)}
+            {console.log(tutorialSteps)}
             <img
               className={classes.img}
-              src={this.tutorialSteps[activeStep].imgPath}
-              alt={this.tutorialSteps[activeStep].label}
+              src={tutorialSteps[activeStep].imgPath}
+              alt={tutorialSteps[activeStep].label}
             />
             <MobileStepper
               steps={maxSteps}
