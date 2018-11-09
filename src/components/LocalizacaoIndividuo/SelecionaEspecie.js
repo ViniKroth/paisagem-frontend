@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+
 
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
@@ -66,32 +68,7 @@ class SelecionaEspecie extends Component {
     this.props.onSubmit();
   }
 
-  selecionaEspecie = async () => {
-    var result = await listAll();
-    var especies = [];
 
-    if (result && result.length > 0) {
-      result.map(e => {
-        var id = e["id_especie"]
-        var nomeCien = e["nome_cientifico"]
-
-
-        var especie = {
-          id,
-          nome_cientifico: nomeCien
-        }
-
-        especies.push(especie)
-      })
-    }
-    this.setState({ especies })
-
-    console.log(result);
-  }
-
-  componentDidMount() {
-    this.selecionaEspecie();
-  }
 
   onBack() {
     const { step } = this.state;
@@ -105,24 +82,62 @@ class SelecionaEspecie extends Component {
     const { classes } = this.props;
 
     return (
+      <Grid container className={classes.root} spacing={24}>
       <main className={classes.layout}>
         <div style={{ justify: 'center' }}>
           <FormControl className={classes.formControl}
             margin="normal"
             fullWidth="true">
-            <InputLabel variant="standard" htmlFor="age-native-label-placeholder"
-            >
-              Selecione a Espécie
-          </InputLabel>
-            <NativeSelect
-              value={"Selecione Espécie"}
-              input={<Input name="Selecione Espécie" id="age-native-label-placeholder" />}
-            >
-              {this.selecionaEspecie}
-            </NativeSelect>
+          <Grid item xs={12}>
+              <TextField
+                id="Familia"
+                value={this.props.especie}
+                select
+                required
+                //error={this.state.familiaIsEmpty}
+                onChange={this.props.onChange("id_especie")}
+                SelectProps={{ native: true }}
+                margin="normal"
+              >
+                {this.props.especiesList.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
           </FormControl>
+          <Grid item xs={12}>
+              <Grid container spacing={8}>
+                <Grid item xs={6} >
+                  <Button
+                    id="back"
+                    onClick={() => this.props.onBack()}
+                    variant="contained"
+
+                  //color="primary"
+                  >
+                    Voltar
+            </Button>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <Button
+                    id="next"
+                    onClick={() => this.props.onSubmit()}
+                    variant="contained"
+
+                    color="primary"
+                  >
+                    Próximo
+            </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+
         </div>
       </main>
+      </Grid>
     );
   };
 }

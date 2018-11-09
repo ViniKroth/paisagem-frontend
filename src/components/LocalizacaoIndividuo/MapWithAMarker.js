@@ -14,14 +14,14 @@ const MapWithAMarker = compose(
 )((props) =>
     <GoogleMap
         defaultZoom={20}
-        center={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }}
+        center={{ lat:  props.currentLocation.lat, lng: props.currentLocation.long }}
         onClick={props.onMapClick}
     >
-        {props.isMarkerShown && <Marker position={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} draggable={true}  
-        ref={props.onMarkerMounted} onPositionChanged={props.onPositionChanged} />}
+        {props.isMarkerShown && <Marker position={{ lat: props.currentLocation.lat, lng: props.currentLocation.long }} draggable={true}  
+        ref={props.onMarkerMounted} onDragEnd={props.onPositionChanged } />}
     </GoogleMap>
     
-)
+)//
 
 
 
