@@ -9,13 +9,17 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Page from "views/Page/Page.js";
+import "react-toastify/dist/ReactToastify.css";
 
 import LocalizacaoIndividuo from "components/LocalizacaoIndividuo/LocalizacaoIndividuo.js";
 import ImgForm from "components/LocalizacaoIndividuo/ImgForm.js";
 import SelecionaEspecie from "components/LocalizacaoIndividuo/SelecionaEspecie.js"
 import { Grid } from "@material-ui/core";
-
+import { createIndividuo } from "services/especies/especies";
 import img from "./plantas.jpg"
+import { upload } from "services/uploadImg/uploadImagem";
+import { listAll } from "services/especies/especies";
+import { ToastContainer, toast } from 'react-toastify';
 
 const styles = theme => ({
   layout: {
@@ -57,13 +61,15 @@ class CadastroIndividuo extends Page {
   constructor(props) {
     super(props);
     this.state = {
-      localizacao: {
+      
         lat: 0,
-        lng: 0
-      },
-      isMarkerShown: false,
-      imageUpload: [],
-      comentario: null,
+        long: 0,
+        isMarkerShown: false,
+        imagensUpload: [],
+        imagens: [],
+        especies:{},
+        //id_especie : this.props.id_especie,
+        id_especie : this.props.id_especie,
       step: 0,
     }
     this.goToNext = this.goToNext.bind(this);
@@ -75,16 +81,14 @@ class CadastroIndividuo extends Page {
       navigator.geolocation.getCurrentPosition(
         position => {
           
-          this.setState(prevState => ({
-            localizacao: {
-              ...prevState.currentLatLng,
+          this.setState({
+            
               lat: position.coords.latitude,
-              lng: position.coords.longitude
-            },
-            isMarkerShown: true
+              long: position.coords.longitude,
+              isMarkerShown: true
 
 
-          }))
+          })
         }
       ), { maximumAge: Infinity, timeout: 5000, enableHighAccuracy: true }
     } else {
@@ -92,10 +96,42 @@ class CadastroIndividuo extends Page {
     }
 
   }
+
+  fillEspecies = async () => {
+    var result = await listAll();
+    var especies = [{ value: -1, label: "Selecione a espécie *" }];
+    
+    if (result && result.length > 0) {
+      
+      result.map(e => {
+        var value = e["id_especie"];
+        var label = e["nome_cientifico"];
+
+        var especie = {
+          value,
+          label
+        }
+
+        especies.push(especie)
+      })
+    }
+    var state = this.state;
+    state.especies = especies;
+    
+    this.setState({ state })
+  };
+
   componentDidMount() {
     this.showCurrentLocation();
+    this.fillEspecies();
   }
 
+  handleChangeImage = imgState => {
+    var state = this.state;
+
+    state.imagensUpload.push(imgState);
+    this.setState({ state });
+  };
   onMarkerMounted = ref => {
     refs.marker = ref;
 
@@ -103,11 +139,19 @@ class CadastroIndividuo extends Page {
 
   onPositionChanged = () => {
     const position = refs.marker.getPosition();
-    var newcurrentLatLng= {
-        lat: position.lat(),
-        lng: position.lng()
+       this.setState({
+         lat: position.lat(),
+         long: position.lng(),
+       })
       }
-       this.setState({localizacao:newcurrentLatLng})
+
+      goToBack() {
+        const { step } = this.state;
+        if (step !== 0) {
+          this.setState({
+            step: step - 1
+          });
+        }
       }
 
   getStep(step) {
@@ -118,7 +162,8 @@ class CadastroIndividuo extends Page {
 
             onSubmit={this.goToNext}
             isMarkerShown={this.state.isMarkerShown}
-            currentLocation={this.state.localizacao}
+            currentLocation={this.state}
+            DefaultLocation={this.state.DefaultLocation}
             onPositionChanged={this.onPositionChanged}
             onMarkerMounted={this.onMarkerMounted}
             onChangeDescLocal={this.handleChange}
@@ -126,40 +171,18 @@ class CadastroIndividuo extends Page {
           />
         );
       case 1:
-        const { classes } = this.props;
+       
         return (
-          <Grid container className={classes.root} spacing={24}>
+          
             <SelecionaEspecie
               onSubmit={this.goToNext}
+              onBack={this.goToBack}
+              onChange={this.handleChange}
+              especiesList={this.state.especies}
+              especie={this.state.especies.id_especie}
             />
-            <Grid item xs={12}>
-              <Grid container spacing={8}>
-                <Grid item xs={6} >
-                  <Button
-                    id="back"
-                    onClick={() => this.goToBack()}
-                    variant="contained"
-
-                  //color="primary"
-                  >
-                    Voltar
-            </Button>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <Button
-                    id="next"
-                    onClick={() => this.goToNext()}
-                    variant="contained"
-
-                    color="primary"
-                  >
-                    Próximo
-            </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+          
+         
         );
 
       case 2:
@@ -180,24 +203,41 @@ class CadastroIndividuo extends Page {
     if (step !== 2) {
       //Adicionou o this.renderAuthentication pq triamos probçema mudando de passo
       this.setState({ step: step + 1 }
-        //, () => this.renderAuthentication()
+        
       );
     } else {
-      var individuo = Object.assign({}, this.state);
+      
+      var state = this.state;
+      var image = [];
+      for (var i = 0; i<this.state.imagensUpload.length;i++){
+          var path = await upload(this.state.imagensUpload[i])
+          image.push(path);
+          
+      }
+      state.imagens = image;
+      
+      this.setState({
+        state
+      },() => {
+        this.createIndividuo().catch(e => {
+          alert("Erro ao Salvar");
+        });
+        toast.success("Individuo Cadastrado")
+      } 
 
-      //var result = await create(this.state.especie);
+    );
 
-      //alert("Cadastrado com Sucesso!");
-      if (setSnackbar)
-        setSnackbar({
-          variant: "success",
-          message: "Indivíduo salvo com sucesso"
-        })
+      //var result = await createIndividuo(this.state);
+
+     
       this.setState({ step: 0 })
     }
 
   }
 
+  async createIndividuo(){
+    await createIndividuo(this.state)
+  }
 
   goToBack() {
     const { step } = this.state;
@@ -207,25 +247,29 @@ class CadastroIndividuo extends Page {
     }
   }
 
-  handleChange = event => {
-    return this.setState({ [event.target.name]: event.target.value });
+  handleChange = campo => event => {
+    var individuo = this.state;
+    individuo[campo] = event.target.value;
+    return this.setState({
+      individuo
+    });
   };
 
   handleChangeImage = imgState => {
     //console.log(1,imgState)
-    var imageUploadAtual = this.state.imageUpload;
+    var imageUploadAtual = this.state.imagens;
     imageUploadAtual.push(imgState);
-    return this.setState({ imageUpload : imageUploadAtual });
+    return this.setState({ imagensUpload : imageUploadAtual }, console.log(this.state));
   };
 
 
 
- handleSubmitImage(e) {
-  e.preventDefault();
+  async handleSubmitImage(e) {
+  e.preventDefault()
   
-  this.setState({qntImagensError : false})
-      var imageUploadAtual = this.state.imageUpload 
-      imageUploadAtual.push(this.state.file) 
+  await this.setState({qntImagensError : false})
+      var imageUploadAtual = this.state.imageUpload ;
+      imageUploadAtual.push(this.state.file) ;
       this.setState({ imageUpload: imageUploadAtual });
  
 }
@@ -262,6 +306,19 @@ authenticated = () => {
             </Stepper>
             {this.getStep(this.state.step)}
           </Paper>
+          <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
         </main>
       </div>
     );
