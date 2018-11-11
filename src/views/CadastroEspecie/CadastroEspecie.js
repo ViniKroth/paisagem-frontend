@@ -74,6 +74,7 @@ class CadastroEspecie extends Page {
         ]
       }
     };
+    this.initialState = this.state;
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
@@ -85,7 +86,7 @@ class CadastroEspecie extends Page {
   fillFamilias = async () => {
     var result = await listAll();
     result = result.data;
-    var familias = [{ value: -1, label: "Selecione a Familia *" }];
+    var familias = [{ value: -1, label: "Família *" }];
 
     if (result && result.length > 0) {
       result.map(e => {
@@ -191,15 +192,12 @@ class CadastroEspecie extends Page {
   };
 
   //isEmpty = false;
-  componentWillMount() {
-    this.initialState = this.state;
-  }
-  clearForm(){
-    //this.componentDidMount();
-    this.setState({step: 0});
-    
 
+  clearForm(){
+    this.componentDidMount();
+    this.setState(this.initialState);
   }
+  
   async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {

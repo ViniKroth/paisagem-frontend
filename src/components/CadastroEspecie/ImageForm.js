@@ -141,7 +141,6 @@ class ImageForm extends React.Component {
                 onClick={e => this.handleSubmit(e)}
                 variant="contained"
                 color="primary"
-                // disabled = {this.state.blocksave}
                 className={classes.button}
               >
                 SAlVAR

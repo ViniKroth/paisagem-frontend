@@ -243,23 +243,6 @@ class DadosBasicosForm extends React.Component {
     }
   }
 
-  // nomesPopularesRender(nomesPopulares, idx){
-  //   return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
-  //   <TextField
-  //     placeholder={`Nome Popular (${idx + 1}) `}
-  //     value={nomesPopulares.nome}
-  //     onChange={this.props.handleNomePopularChange(idx)}
-  //   />
-  //   <IconButton
-
-  //     onClick={this.props.handleRemoveNomePopular(idx)}
-  //     className={classes.RemoveNome}
-  //   >
-  //     <ClearIcon />
-  //   </IconButton>
-  // </div>
-  // }
-
   //parte victoria
   handleFrutificacao = () => {
     this.setState(state => {
@@ -628,38 +611,6 @@ class DadosBasicosForm extends React.Component {
               </Grid>
             )}
           </Grid>
-
-          {/* <Grid container spacing={24}>
-            <Grid item xs={1} sm={6}>
-
-              {this.props.nomePopular.map((nomesPopulares, idx) => {
-                return <div className="nomesPopulares" key={idx}>
-                  <TextField
-                    placeholder={`Nome Popular (${idx + 1}) `}
-                    value={nomesPopulares.nome}
-                    onChange={this.props.handleNomePopularChange(idx)}
-                  />
-                  <IconButton
-
-                    onClick={this.props.handleRemoveNomePopular(idx)}
-                    className={classes.RemoveNome}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-              })}
-              <Button
-                onClick={this.props.handleAddNomePopular}
-                variant="contained"
-                className={classes.AddNome}
-
-              >
-                Adicionar Nome Popular
-              </Button>
-
-            </Grid>
-
-          </Grid> */}
 
           <Grid container spacing={24}>
             <Grid item xs={6} />
