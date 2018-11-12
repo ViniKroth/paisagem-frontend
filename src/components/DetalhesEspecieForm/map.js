@@ -22,7 +22,7 @@ const Map = compose(
             <Marker 
                 key={indiv.id_individuo}
                 position={{ lat: Number(indiv.lat), lng: Number(indiv.long) }}   
-                onClick={props.onClickIndividuo} 
+                onClick={() => props.onClickIndividuo(indiv.id_individuo)}
             />
         ))
         }

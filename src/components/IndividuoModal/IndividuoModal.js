@@ -29,10 +29,7 @@ const styles = theme => ({
 });
 
 class IndividuoModal extends React.Component {
-  state = {
-    open: false,
-  };
-
+ 
 
   render() {
     const { classes } = this.props;
@@ -51,9 +48,13 @@ class IndividuoModal extends React.Component {
               INDIVIDUO
             </Typography>
         
-            <ImageStep/>
-
-
+           
+            {this.props.open ?
+                    <ImageStep imagens={this.props.imagens}/>
+                            :
+                            ""
+                            
+            }
             <IndividuoModalWrapped />
           </div>
         </Modal>

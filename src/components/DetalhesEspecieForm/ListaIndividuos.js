@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import {geolocated} from 'react-geolocated';
 import TextField from "@material-ui/core/TextField";
 import {listIndividuosByEspecie} from "services/especies/especies";
+import {getImageByIndividuos} from "services/individuos/individuos";
 import IndividuoModalWrapped from "components/IndividuoModal/IndividuoModal"
 
 
@@ -34,6 +35,7 @@ class ListaIndividuos extends Component {
 componentDidMount() {
     this.showCurrentLocation();
     
+
 }
 
 
@@ -51,7 +53,7 @@ showCurrentLocation = async () => {
               long: position.coords.longitude,
               isMarkerShown: true
           })
-          console.log(this.state);
+         
         }
         
       ), { maximumAge: Infinity, timeout: 5000, enableHighAccuracy: true }
@@ -60,18 +62,23 @@ showCurrentLocation = async () => {
     }
 
   }
+
   onMarkerMounted = ref => {
     refs.marker = ref;
 
   }
 
 
-  onClickIndividuo = () => {
-     this.openCloseModal();
+  onClickIndividuo = async id => {
+    var state = this.state;
+    state.imagens = await getImageByIndividuos(id);
+    this.setState({
+      state
+    },console.log("clicou", this.state.imagens),
+    this.openCloseModal())
   };
 
   openCloseModal = ()=>{
-    console.log("OpenClose Modal")
     var trocaValorModal = !this.state.modalIndividuo;
     this.setState({ modalIndividuo: trocaValorModal });
   }
@@ -105,7 +112,7 @@ showCurrentLocation = async () => {
         <IndividuoModalWrapped
             clickIndividuo={this.openCloseModal}
             open={this.state.modalIndividuo}
-            individuos={this.state.indiv}
+            imagens={this.state.imagens}
         />
         
       </div>

@@ -70,8 +70,8 @@ class ImageStep extends React.Component {
 
             <img
               className={classes.img}
-              src={this.props.individuos[activeStep].imgPath}
-              alt={this.tutorialSteps[activeStep].label}
+              src={this.props.imagens[activeStep].path}
+              alt={this.props.imagens[activeStep].path}
             />
             <MobileStepper
               steps={maxSteps}
