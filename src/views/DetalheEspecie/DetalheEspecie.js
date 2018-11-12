@@ -96,6 +96,7 @@ class DetalheEspecie extends Page {
             inverno: '',
             especie: {},
             individuos:[],
+            individuoModal: true,
         };
     }
 
@@ -128,7 +129,7 @@ class DetalheEspecie extends Page {
 
    
  
-
+    
 
 
     handleChange = (event, value) => {

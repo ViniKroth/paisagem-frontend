@@ -8,20 +8,24 @@ import Button from "@material-ui/core/Button";
 import {geolocated} from 'react-geolocated';
 import TextField from "@material-ui/core/TextField";
 import {listIndividuosByEspecie} from "services/especies/especies";
+import IndividuoModalWrapped from "components/IndividuoModal/IndividuoModal"
 
 
 const refs = {};
+
+
+
 class ListaIndividuos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
         lat: 0,
         long: 0,
         isMarkerShown: false,
         imagensUpload: [],
         imagens: [],
         especies:{},
+        modalIndividuo: false,
       step: 0,
     }
   }
@@ -62,17 +66,28 @@ showCurrentLocation = async () => {
   }
 
 
+  onClickIndividuo = () => {
+     this.openCloseModal();
+  };
+
+  openCloseModal = ()=>{
+    console.log("OpenClose Modal")
+    var trocaValorModal = !this.state.modalIndividuo;
+    this.setState({ modalIndividuo: trocaValorModal });
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.onSubmit();
   }
 
   render() {
+    console.log(this.state.indiv)
     return (
       <React.Fragment>
 
-      <Typography variant="caption" gutterBottom>
-          Selecione a localização do individuo a ser cadastrado. Você pode alterar a localização como quiser!
+      <Typography variant="subheading" gutterBottom>
+          Aqui você pode ver todos indivíduos cadastrados e suas localizações
         </Typography>
         
         <div>
@@ -82,8 +97,21 @@ showCurrentLocation = async () => {
             long={this.state.long}
             onMarkerMounted={this.onMarkerMounted}
             individuos={this.state.indiv}
+            onClickIndividuo={this.onClickIndividuo}
             />
         </div>
+        <div>
+        
+        <IndividuoModalWrapped
+            clickIndividuo={this.openCloseModal}
+            open={this.state.modalIndividuo}
+            individuos={this.state.indiv}
+        />
+        
+      </div>
+
+
+
       </React.Fragment>
     );
   }
