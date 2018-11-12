@@ -13,7 +13,7 @@ import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "services/user/user";
-import listagemUser from "components/ListagemUser/listagemUser";
+import ListagemUser from "components/ListagemUser/ListagemUser";
 
 const styles = theme => ({
   layout: {
@@ -21,7 +21,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(900 + theme.spacing.unit * 2 * 2)]: {
-      width: 800,
+      width: 1000,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -33,10 +33,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 3,
-      marginBottom: theme.spacing.unit * 3,
-      padding: theme.spacing.unit * 0.1
+    [theme.breakpoints.up(600 + theme.spacing.unit * 6 * 4)]: {
+      marginTop: theme.spacing.unit * 7,
+      marginBottom: theme.spacing.unit * 7,
+      padding: theme.spacing.unit * 0.2
     }
   },
   search: {
@@ -116,8 +116,8 @@ class UserListPage extends Page {
   constructor() {
     super();
     this.state = {
-      nome: "",
-      
+     usuarios: [],
+     filter: "" 
     };
   }
 
@@ -132,14 +132,11 @@ class UserListPage extends Page {
     if (nome) {
       this.setState(state => {
         return {
-          especies: state.especiesAll.filter(item => {
+          usuarios: state.usuariosAll.filter(item => {
             return (
-              (item.nome_cientifico && item.nome_cientifico.startsWith(nome)) ||
-              (item.nome_popular.length > 0 &&
-                item.nome_popular.some(nomePop =>
-                  nomePop.nome.startsWith(nome)
-                ))
-            );
+              (item.nome.startsWith(nome)
+                ));
+            
           })
         };
       });
@@ -148,15 +145,18 @@ class UserListPage extends Page {
 
   resetFilter = () => {
     this.setState(state => {
-      return { especies: state.especiesAll };
+      return { usuarios: state.usuariosAll };
     });
   };
 
   listaUsuario = async () => {
     var result = await listAll();
+    result = result.data;
+    console.log("listausuarios");
+    console.log(result);
     var usuarios = [];
     if (result && result.length > 0) {
-      result.map(async e => {
+      result.map(e => {
         var nome = e["nome"];
         var email = e["email"];
         var cargo = e["cargo"];
@@ -174,7 +174,8 @@ class UserListPage extends Page {
     }
     this.setState({
       usuarios
-    },console.log("teste",this.state));
+    });
+    console.log("teste",this.state)
   };
 
   authenticated = () => {
@@ -192,8 +193,8 @@ class UserListPage extends Page {
             <div className={classes.heroUnit}>
               <div className={classes.heroContent}>
                 <br />
-                <Typography variant="display1" align="center">
-                  Listagem de Espécies
+                <Typography variant="display1" color="primary" align="center">
+                  Listagem de Usuários
                 </Typography>
                 <br />
                 <Grid container spacing={24}>
@@ -220,7 +221,7 @@ class UserListPage extends Page {
             </div>
             <div className={classNames(classes.layout, classes.cardGrid)}>
             
-                <listagemUser usuarios={this.state} />
+                <ListagemUser usuarios={this.state.usuarios} />  
                 
               
 
