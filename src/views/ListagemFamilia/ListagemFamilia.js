@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -223,7 +223,7 @@ class ListagemFamilia extends Page {
         );
 
 
-        SimpleCard.propTypes = {
+        ListagemFamilia.propTypes = {
             classes: PropTypes.object.isRequired,
         };
 

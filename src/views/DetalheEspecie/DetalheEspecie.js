@@ -26,6 +26,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import perene from "../../components/ListagemEspecie/perene.png";
 import caduca from "../../components/ListagemEspecie/caduca.png";
+import { Link } from "react-router-dom";
 
 function TabContainer(props) {
     return (
@@ -107,7 +108,9 @@ class DetalheEspecie extends Page {
         };
     }
 
-
+    componentDidMount(){
+            this.criaEspecie();
+    }
     criaEspecie = async () => {
         var result = await readE(this.props.match.params.id);
         var resNomesPopulares = await get(this.props.match.params.id);
@@ -250,11 +253,13 @@ class DetalheEspecie extends Page {
                                 </Grid>
 
                                 <DadosEspecie especie = {this.state.especie} />
-                                
+                                <Link to={`/individuos/cadastro/${this.props.match.params.id}`} >
                                 <Button variant="extendedFab" aria-label="Delete" className={classes.button} color="primary">
+                              
                                     <AddIcon className={classes.extendedIcon} />
                                     Cadastrar Novo Indivíduo
                                 </Button>
+                                </Link>
 
                             </TabContainer>}
                             {value === 1 && <TabContainer>

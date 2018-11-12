@@ -69,7 +69,7 @@ class CadastroIndividuo extends Page {
         imagens: [],
         especies:{},
         //id_especie : this.props.id_especie,
-        id_especie : this.props.id_especie,
+        id_especie : this.props.match.params.id,
       step: 0,
     }
     this.goToNext = this.goToNext.bind(this);
@@ -155,6 +155,7 @@ class CadastroIndividuo extends Page {
       }
 
   getStep(step) {
+
     switch (step) {
       case 0:
         return (
@@ -171,7 +172,7 @@ class CadastroIndividuo extends Page {
           />
         );
       case 1:
-       
+       console.log(this.state.especies.id_especie)
         return (
           
             <SelecionaEspecie
@@ -179,7 +180,7 @@ class CadastroIndividuo extends Page {
               onBack={this.goToBack}
               onChange={this.handleChange}
               especiesList={this.state.especies}
-              especie={this.state.especies.id_especie}
+              especie={this.props.match.params.id}
             />
           
          

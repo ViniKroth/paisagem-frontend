@@ -218,7 +218,7 @@ class DadosEspecie extends React.Component {
                         </Avatar>
                         
                         <ListItemText ><Typography noWrap><b>Época de Floração: </b> {this.props.especie.epocaFlor != undefined && this.props.especie.epocaFlor != "" ?
-                           this.props.especie.map(flor => (<p>{flor}</p>)) : ""}</Typography></ListItemText>
+                           this.props.especie.epocaFlor.map(flor => (<p>{flor}</p>)) : ""}</Typography></ListItemText>
                     </ListItem>
                     <Divider inset component="li" />
                     <ListItem>
