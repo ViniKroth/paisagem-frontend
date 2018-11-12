@@ -140,6 +140,11 @@ class Header extends React.Component {
                       >
                         Listar Especie
                       </MenuItem>
+                      <MenuItem
+                        onClick={() => this.handleClose("/faleconosco")}
+                      >
+                        Fale Conosco
+                      </MenuItem>
                       {isAuthenticated() && (
                         <MenuItem
                           onClick={() => this.handleClose("/especies/cadastro")}

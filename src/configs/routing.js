@@ -21,7 +21,7 @@ const CadastroEspecie = ViewWrapper("CadastroEspecie/CadastroEspecie");
 const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
 const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
 const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
-
+const FaleConosco = ViewWrapper("FaleConosco/FaleConosco");
 export default () => (
   <main>
     <Switch>
@@ -49,6 +49,10 @@ export default () => (
       {/* Individuo Container */}
       <Route path="/individuos/cadastro" component={CadastroIndividuo} />
       {/* End of Individuo Container */}
+
+      {/* FaleConosco Container */}
+      <Route path="/faleconosco" component={FaleConosco} />
+      {/* End of FaleConosco Container */}
 
       {/* 404 - Page not Found */}
       <Route component={BlankPage} />
