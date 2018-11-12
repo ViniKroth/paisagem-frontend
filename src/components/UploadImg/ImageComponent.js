@@ -42,6 +42,7 @@ class ImageComponent extends React.Component {
         this._handleSubmit = this._handleSubmit.bind(this);
     }
     
+    emptyState = this.state;
     _handleSubmit(e) {
         e.preventDefault();
        
@@ -52,13 +53,12 @@ class ImageComponent extends React.Component {
             Image.append('tipo', this.state.tipoImg); // tipo da imagem
             Image.append('imagem', this.state.file); // arquivo em si
             Image.append('nomeImagem', this.state.file.name); //nome do arquivo
-            Image.append('nome', md5(this.state.imagePreviewUrl)); //nome a ser salvo no banco
+            Image.append('nome', md5(this.state.imagePreviewUrl) + "." + this.state.file.type.split("image/")[1]); //nome a ser salvo no banco
             imageUploadAtual.imageUpload.push(Image);
             
-            this.setState({ imageUploadAtual },
-                this.props.handleChangeImage(Image),
-                this.checkEnviar()  
-            );       
+            this.setState({ imageUploadAtual })
+            this.props.handleChangeImage(Image);      
+            this.checkEnviar();
     }
     checkEnviar(){
         var imagem=0;
@@ -70,16 +70,13 @@ class ImageComponent extends React.Component {
            
         if(imagem == 1 && desenho == 1){
             this.props.changeblocksave(false);
-            toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
-        }else{
+            //toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
+        }else if(imagem >1 && desenho >1){
             this.props.changeblocksave(true);
-
-            if(imagem > 1 || desenho > 1){
-                toast.error("Adicione apenas uma imagem e um desenho.");
-            }else{
-
-            }
-            
+            toast.error("Adicione apenas uma imagem e um desenho.");
+        }
+        else{
+            this.props.changeblocksave(true);
         }
     }
     _handleImageChange(e) {
@@ -88,7 +85,7 @@ class ImageComponent extends React.Component {
         //leitura do arquivo (função pronta)
         let reader = new FileReader();
         let file = e.target.files[0];
-
+        console.log (file.type);
         reader.onloadend = () => {
 
             //console.log(file)
@@ -112,7 +109,7 @@ class ImageComponent extends React.Component {
                 this.setState({ imageUpload: list })
             }
         }
-
+        this.checkEnviar();
     }
 
 
