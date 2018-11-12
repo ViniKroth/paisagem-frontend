@@ -136,3 +136,28 @@ export const listAll = async () => {
     };
   }
 };
+
+
+
+export const listIndividuosByEspecie = async id =>{
+  const response = await axios({
+    method: "get",
+    url: `${api}/especies/individuo/${id}`,
+    timeout: 5000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+
+  if (response) {
+    const api_response = response.data;
+    return api_response;
+  } else {
+    return {
+      statusDesc: "Erro obtendo resposta do servidor.",
+      statusCode: HTTPStatusCodes.InternalServerError
+    };
+  }
+};
