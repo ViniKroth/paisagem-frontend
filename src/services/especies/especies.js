@@ -63,7 +63,7 @@ export const createIndividuo = async individuo => {
   }
 };
 
-export const read = async id => {
+export const readE = async id => {
   const response = await axios({
     method: "get",
     url: `${api}/especies/${id}`,

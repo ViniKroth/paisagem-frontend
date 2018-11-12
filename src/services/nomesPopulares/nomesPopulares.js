@@ -3,7 +3,7 @@ import * as crypto from "crypto-js";
 import { api } from "configs/";
 import { HTTPStatusCodes } from "configs/constants";
 
-export const read = async id => {
+export const get = async id => {
     const response = await axios({
       method: "get",
       url: `${api}/nomesPopulares/${id}`,
