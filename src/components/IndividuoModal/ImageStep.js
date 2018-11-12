@@ -13,7 +13,7 @@ const styles = theme => ({
   root: {
     maxWidth: 400,
     flexGrow: 1,
-    flexDirection:'row',
+    flexDirection: 'row',
     display: 'inline-block',
   },
   header: {
@@ -37,19 +37,12 @@ class ImageStep extends React.Component {
     activeStep: 0,
   };
 
-  tutorialSteps = [
-    {
-      imgPath: ara,
-    },
-    {
-      imgPath: des,
-    },
-
-  ];
   handleNext = () => {
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep + 1,
-    }));
+    if (this.state.activeStep + 1 <= this.props.imagens.length) {
+      this.setState(prevState => ({
+        activeStep: prevState.activeStep + 1,
+      }));
+    }
   };
 
   handleBack = () => {
@@ -62,37 +55,38 @@ class ImageStep extends React.Component {
     const { classes, theme } = this.props;
     const { activeStep } = this.state;
 
-    const maxSteps = this.tutorialSteps.length;
+    const maxSteps = this.props.imagens.length;
+
 
     return (
-        <div className={classes.root}>
-          <h6></h6>
+      <div className={classes.root}>
+        <h6></h6>
 
-            <img
-              className={classes.img}
-              src={this.props.imagens[activeStep].path}
-              alt={this.props.imagens[activeStep].path}
-            />
-            <MobileStepper
-              steps={maxSteps}
-              position="static"
-              activeStep={activeStep}
-              className={classes.mobileStepper}
-              nextButton={
-                <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
-                  Próximo
+        <img
+          className={classes.img}
+          src={this.props.imagens[activeStep].path}
+          alt={this.props.imagens[activeStep].path}
+        />
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          className={classes.mobileStepper}
+          nextButton={
+            <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+              Próximo
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                </Button>
-              }
-              backButton={
-                <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
-                  {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                  Anterior
             </Button>
-              }
-            />
-        
-        </div>
+          }
+          backButton={
+            <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Anterior
+            </Button>
+          }
+        />
+
+      </div>
 
     );
 

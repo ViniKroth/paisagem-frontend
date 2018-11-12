@@ -80,10 +80,10 @@ class HomePage extends Page {
                   </Typography>
                   <br /> */}
 
-                  <Typography 
-                  variant="Headline" 
-                  align="justify" 
-                  color="textSecondary" 
+                  <Typography
+                    variant="Headline"
+                    align="justify"
+                    color="textSecondary"
                   >
                     O projeto Paisagem surgiu a partir de uma demanda da
                     professora Drª.Maria Alice Medeiros Dias do curso de
@@ -108,17 +108,19 @@ class HomePage extends Page {
                 </Grid>
                 <br />
                 <br />
-                <div>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    color="primary"
-                    onClick={() => this.redirect("/especies/listas")}
-                    className={classes.button}
-                  >
-                    Listagem de Especie
+                <Grid container spacing={24}>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      color="primary"
+                      onClick={() => this.redirect("/especies/listas")}
+                      className={classes.button}
+                    >
+                      Listagem de Especie
                   </Button>
-
+                  </Grid>
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
                     size="large"
@@ -128,7 +130,8 @@ class HomePage extends Page {
                   >
                     Cadastro de Espécies
                   </Button>
-
+                  </Grid>
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
                     size="large"
@@ -138,6 +141,8 @@ class HomePage extends Page {
                   >
                     Cadastro de Famílias
                   </Button>
+                  </Grid>
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
                     size="large"
@@ -147,7 +152,19 @@ class HomePage extends Page {
                   >
                     Cadastro de Usuário
                   </Button>
-                </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/individuos/cadastro")}
+                    className={classes.button}
+                  >
+                    Cadastro de Indivíduo
+                  </Button>
+                  </Grid>
+                </Grid>
               </Paper>
             </Grid>
           </Grid>
@@ -217,7 +234,7 @@ class HomePage extends Page {
                     login
                   </Button>
 
-                
+
 
                   <Button
                     variant="contained"
@@ -229,7 +246,7 @@ class HomePage extends Page {
                     Listagem de Especie
                   </Button>
 
-                 
+
                 </div>
               </Paper>
             </Grid>
