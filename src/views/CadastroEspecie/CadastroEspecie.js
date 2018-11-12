@@ -74,6 +74,7 @@ class CadastroEspecie extends Page {
         ]
       }
     };
+    this.initialState = this.state;
     this.goToNext = this.goToNext.bind(this);
     this.goToBack = this.goToBack.bind(this);
   }
@@ -85,7 +86,7 @@ class CadastroEspecie extends Page {
   fillFamilias = async () => {
     var result = await listAll();
     result = result.data;
-    var familias = [{ value: -1, label: "Selecione a Familia *" }];
+    var familias = [{ value: -1, label: "Família *" }];
 
     if (result && result.length > 0) {
       result.map(e => {
@@ -159,6 +160,7 @@ class CadastroEspecie extends Page {
         return (
           <ImageForm
             key="ImgUpLoad"
+            notify={this.notify}
             onBack={this.goToBack}
             onSubmit={this.goToNext}
             handleChangeImage={this.handleChangeImage}
@@ -170,7 +172,7 @@ class CadastroEspecie extends Page {
         console.log("Step extrapolado");
     }
   }
-  notify = (n, desc) => {
+  notify(n, desc){
     switch (n) {
       case 1:
         toast.success("Especie Cadastrada com Sucesso.");
@@ -182,7 +184,7 @@ class CadastroEspecie extends Page {
         toast.dismiss();
         break;
       case 4:
-        toast(desc);
+        toast.error(desc);
         break;
       default:
         toast("Isso foi clicado mas não fez nada.");
@@ -190,6 +192,12 @@ class CadastroEspecie extends Page {
   };
 
   //isEmpty = false;
+
+  clearForm(){
+    this.componentDidMount();
+    this.setState(this.initialState);
+  }
+  
   async goToNext(isEmpty) {
     const { step } = this.state;
     if (step !== 2) {
@@ -250,6 +258,7 @@ class CadastroEspecie extends Page {
     const nomesPopulares = this.state.especie.nomePopular.map(
       (nomePop, sidx) => {
         if (idx !== sidx) return nomePop;
+        else
         return {
           nome: evt.target.value
         };
@@ -315,19 +324,6 @@ class CadastroEspecie extends Page {
           {/* Same as */}
           <ToastContainer />
         </Paper>
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={true}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
-        {/* Same as */}
-        <ToastContainer />
       </main>
     );
   };
