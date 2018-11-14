@@ -250,7 +250,6 @@ class UserForm extends React.Component {
                 type="submit"
                 disabled={isLoading}
                 onClick={this.onSubmit}
-                
               >
                 Cadastrar
               </Button>

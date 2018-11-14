@@ -117,7 +117,7 @@ class DadosEspecie extends React.Component {
                                 height="30" width="30"
                             />
                         </Avatar>
-                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.props.especie.resNomesPopulares != undefined && this.props.especie.resNomesPopulares != ""?this.props.especie.resNomesPopulares.map((nome) => <Typography noWrap key={nome}> {nome}</Typography>):""} </Typography> </ListItemText>
+                        <ListItemText ><Typography noWrap> <b>Nome Popular: </b> {this.props.especie.resNomesPopulares != undefined && this.props.especie.resNomesPopulares != ""?this.props.especie.resNomesPopulares.map((nome) => <Typography noWrap key={nome}> nome</Typography>):""} </Typography> </ListItemText>
                     </ListItem>
                     <li>
                         <Divider inset />
