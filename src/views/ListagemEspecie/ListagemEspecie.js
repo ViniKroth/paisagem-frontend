@@ -13,7 +13,7 @@ import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
-import { read } from "../../services/nomesPopulares/nomesPopulares";
+import { get } from "../../services/nomesPopulares/nomesPopulares";
 import ListaComImagem from "../../components/ListagemEspecie/ListaComImagem";
 import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem";
 
@@ -175,7 +175,7 @@ class ListagemEspecie extends Page {
       result.map(async e => {
         var id = e["id_especie"];
         var nomeCien = e["nome_cientifico"];
-        var nomesPopulares = await read(id);
+        var nomesPopulares = await get(id);
         var nomePop = nomesPopulares;
         var nomeFam = e["nome_familia"];
         var folha = e["folhagem"];

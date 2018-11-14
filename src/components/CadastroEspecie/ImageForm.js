@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import ImageComponent from "components/UploadImg/ImageComponent.js";
 const styles = theme => ({
   layout: {
@@ -51,7 +54,14 @@ class ImageForm extends React.Component {
   
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onSubmit();
+    //this.props.onSubmit();
+    if(!this.state.blocksave){
+      this.props.onSubmit();
+    }
+    else{
+      this.notify(3);
+      this.notify(4,"É preciso uma fotografia e uma imagem da espécie para concluir!");
+    }
     
   }
   changeblocksave = bool => {
@@ -70,7 +80,24 @@ class ImageForm extends React.Component {
     this.props.onBack();
   }
 
-
+  notify(n, desc){
+    switch (n) {
+      case 1:
+        toast.success("Especie Cadastrada com Sucesso.");
+        break;
+      case 2:
+        toast.error("Um ou mais campos não estão preenchidos.");
+        break;
+      case 3:
+        toast.dismiss();
+        break;
+      case 4:
+        toast.error(desc);
+        break;
+      default:
+        toast("Isso foi clicado mas não fez nada.");
+    }
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -80,7 +107,7 @@ class ImageForm extends React.Component {
             Imagens
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Selecione duas imagens para sua espécie, uma fotografia e um desenho representativo.
+            Selecione uma fotografia e um desenho representativo da espécie (Obrigatório).
           </Typography>
      
      
@@ -114,7 +141,6 @@ class ImageForm extends React.Component {
                 onClick={e => this.handleSubmit(e)}
                 variant="contained"
                 color="primary"
-                disabled = {this.state.blocksave}
                 className={classes.button}
               >
                 SAlVAR
@@ -124,6 +150,19 @@ class ImageForm extends React.Component {
             </Grid>
         </form>
         
+        <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={true}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
+          {/* Same as */}
+          <ToastContainer />
       </React.Fragment>
       
       
