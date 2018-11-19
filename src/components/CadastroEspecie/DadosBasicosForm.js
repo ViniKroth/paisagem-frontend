@@ -62,8 +62,12 @@ const porte = [
 
 const frutificacao = [
   {
-    value: "",
+    value: "n/a",
     label: "Frutificação"
+  },
+  {
+    value: "n/a",
+    label: "Não possui"
   },
   {
     value: "carnosa",
@@ -122,24 +126,6 @@ const folhagem = [
   {
     value: "perene",
     label: "Perene"
-  }
-];
-const familia = [
-  {
-    value: "",
-    label: "Família *"
-  },
-  {
-    value: "Acanthaceae‎",
-    label: "Acanthaceae‎"
-  },
-  {
-    value: "Blandfordiaceae‎",
-    label: "Blandfordiaceae‎"
-  },
-  {
-    value: "Bignoniaceae",
-    label: "Bignoniaceae"
   }
 ];
 
@@ -257,23 +243,6 @@ class DadosBasicosForm extends React.Component {
     }
   }
 
-  // nomesPopularesRender(nomesPopulares, idx){
-  //   return <div className="nomesPopulares" key={nomesPopulares.nome+idx}>
-  //   <TextField
-  //     placeholder={`Nome Popular (${idx + 1}) `}
-  //     value={nomesPopulares.nome}
-  //     onChange={this.props.handleNomePopularChange(idx)}
-  //   />
-  //   <IconButton
-
-  //     onClick={this.props.handleRemoveNomePopular(idx)}
-  //     className={classes.RemoveNome}
-  //   >
-  //     <ClearIcon />
-  //   </IconButton>
-  // </div>
-  // }
-
   //parte victoria
   handleFrutificacao = () => {
     this.setState(state => {
@@ -291,6 +260,10 @@ class DadosBasicosForm extends React.Component {
     });
   };
   //-------
+  handleAddNomePopularOps(idx){
+    this.props.handleAddNomePopular;
+    this.props.handleRemoveNomePopular(idx);
+  }
 
   render() {
     const { classes } = this.props;
@@ -341,6 +314,8 @@ class DadosBasicosForm extends React.Component {
                 ))}
               </TextField>
             </Grid>
+              
+
             <Grid item xs={6}>
               <TextField
                 id="origem"
@@ -454,38 +429,38 @@ class DadosBasicosForm extends React.Component {
                 fullWidth
               />
             </Grid>
-
+                
+                
             <Grid item xs={1} sm={6}>
+
               {this.props.nomePopular.map((nomesPopulares, idx) => {
-                console.log(nomesPopulares);
-                return (
-                  <div
-                    className="nomesPopulares"
-                    key={nomesPopulares.nome + idx}
+                return <div className="nomesPopulares" key={idx}>
+                  <TextField
+                    placeholder={`Nome Popular (${idx + 1}) `}
+                    value={nomesPopulares.nome}
+                    onChange={this.props.handleNomePopularChange(idx)}
+                  />
+                  <IconButton
+
+                    onClick={this.props.handleRemoveNomePopular(idx)}
+                    className={classes.RemoveNome}
                   >
-                    <TextField
-                      placeholder={`Nome Popular (${idx + 1}) `}
-                      value={nomesPopulares.nome}
-                      onChange={this.props.handleNomePopularChange(idx)}
-                    />
-                    <IconButton
-                      onClick={this.props.handleRemoveNomePopular(idx)}
-                      className={classes.RemoveNome}
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                  </div>
-                );
+                    <ClearIcon />
+                  </IconButton>
+                </div>
               })}
               <Button
                 onClick={this.props.handleAddNomePopular}
                 variant="contained"
                 className={classes.AddNome}
+
               >
                 Adicionar Nome Popular
               </Button>
+
             </Grid>
           </Grid>
+
 
           <Grid container spacing={24}>
             <Grid item xs={24}>
@@ -515,7 +490,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoOutono}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FrutificacaoOutono")
                           }
                         />
@@ -527,7 +502,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoVerao}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FrutificacaoVerao")
                           }
                         />
@@ -539,7 +514,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           value="1"
                           checked={this.props.frutificacaoInverno}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FrutificacaoInverno")
                           }
                         />
@@ -550,7 +525,7 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.frutificacaoPrimavera}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FrutificacaoPrimavera")
                           }
                           value="1"
@@ -592,7 +567,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           checked={this.props.floracaoOutono}
                           value="1"
-                          onChange={() => this.props.onChange("FloracaoOutono")}
+                          onChange={this.props.onChange("FloracaoOutono")}
                         />
                       }
                       label="Outono"
@@ -602,7 +577,7 @@ class DadosBasicosForm extends React.Component {
                         <Checkbox
                           checked={this.props.floracaoVerao}
                           value="1"
-                          onChange={() => this.props.onChange("FloracaoVerao")}
+                          onChange={this.props.onChange("FloracaoVerao")}
                         />
                       }
                       label="Verão"
@@ -611,7 +586,7 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.floracaoInverno}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FloracaoInverno")
                           }
                           value="1"
@@ -623,7 +598,7 @@ class DadosBasicosForm extends React.Component {
                       control={
                         <Checkbox
                           checked={this.props.floracaoPrimavera}
-                          onChange={() =>
+                          onChange={
                             this.props.onChange("FloracaoPrimavera")
                           }
                           value="1"
@@ -636,38 +611,6 @@ class DadosBasicosForm extends React.Component {
               </Grid>
             )}
           </Grid>
-
-          {/* <Grid container spacing={24}>
-            <Grid item xs={1} sm={6}>
-
-              {this.props.nomePopular.map((nomesPopulares, idx) => {
-                return <div className="nomesPopulares" key={idx}>
-                  <TextField
-                    placeholder={`Nome Popular (${idx + 1}) `}
-                    value={nomesPopulares.nome}
-                    onChange={this.props.handleNomePopularChange(idx)}
-                  />
-                  <IconButton
-
-                    onClick={this.props.handleRemoveNomePopular(idx)}
-                    className={classes.RemoveNome}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-              })}
-              <Button
-                onClick={this.props.handleAddNomePopular}
-                variant="contained"
-                className={classes.AddNome}
-
-              >
-                Adicionar Nome Popular
-              </Button>
-
-            </Grid>
-
-          </Grid> */}
 
           <Grid container spacing={24}>
             <Grid item xs={6} />
