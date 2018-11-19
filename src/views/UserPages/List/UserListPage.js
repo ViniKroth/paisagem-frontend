@@ -202,17 +202,10 @@ class UserListPage extends Page {
                     <div className={classes.grow} />
                     <div className={classes.search}>
                       <div className={classes.searchIcon}>
-                        <SearchIcon />
+                       
                       </div>
-                      <Input
-                        onChange={this.filter}
-                        placeholder="Buscar"
-                        disableUnderline
-                        classes={{
-                          root: classes.inputRoot,
-                          input: classes.inputInput
-                        }}
-                      />
+                      
+                     
                     </div>
                   </Grid>
                  
