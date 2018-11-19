@@ -148,7 +148,8 @@ class ListagemFamilia extends Page {
     constructor() {
         super();
         this.state = {
-            familias: []
+            familias: [],
+            anchorEl: null,
         }
     }
 
@@ -183,6 +184,7 @@ class ListagemFamilia extends Page {
     authenticated = () => {
         const { classes } = this.props;
         const bull = <span className={classes.bullet}>•</span>;
+        const { anchorEl } = this.state;
 
         return (
             <React.Fragment>
@@ -202,7 +204,7 @@ class ListagemFamilia extends Page {
                             {/* colocar o nome da espécie aqui */}
                             {item.nome}
                         </Typography>
-
+                        
                         <Typography 
                         component="p"
                         align="left"
@@ -213,8 +215,12 @@ class ListagemFamilia extends Page {
                     <CardActions>
                         <Button 
                         size="small"
-                        color="primary">Ver mais</Button>
+                        color="primary">Editar</Button>
+                        <Button 
+                        size="small"
+                        color="primary">Excluir</Button>
                     </CardActions>
+
                 </Card>
                 )
             }
