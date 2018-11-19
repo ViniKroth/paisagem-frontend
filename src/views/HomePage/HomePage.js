@@ -152,6 +152,19 @@ class HomePage extends Page {
                   >
                     Cadastro de Usuário
                   </Button>
+
+
+                    <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.redirect("/users/list")}
+                    className={classes.button}
+                  >
+                    Listagem de Usuário
+                  </Button>
+                
+
                   </Grid>
                   <Grid item xs={12}>
                   <Button
@@ -165,6 +178,7 @@ class HomePage extends Page {
                   </Button>
                   </Grid>
                 </Grid>
+
               </Paper>
             </Grid>
           </Grid>
