@@ -210,11 +210,6 @@ class ListagemFamilia extends Page {
                             {item.descricao}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button 
-                        size="small"
-                        color="primary">Ver mais</Button>
-                    </CardActions>
                 </Card>
                 )
             }
