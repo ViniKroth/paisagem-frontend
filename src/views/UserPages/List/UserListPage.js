@@ -13,7 +13,7 @@ import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "services/user/user";
-import ListagemUser from "components/ListagemUser/ListagemUser";
+import ListagemUser from "../../../components/ListagemUser/listagemUser";
 
 const styles = theme => ({
   layout: {
