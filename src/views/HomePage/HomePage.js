@@ -152,8 +152,9 @@ class HomePage extends Page {
                   >
                     Cadastro de Usuário
                   </Button>
+                  </Grid>
 
-
+                  <Grid item xs={6}>
                     <Button
                     variant="contained"
                     size="large"
@@ -163,10 +164,9 @@ class HomePage extends Page {
                   >
                     Listagem de Usuário
                   </Button>
-                
-
-                  </Grid>
-                  <Grid item xs={12}>
+                </Grid>
+                  
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
                     size="large"
