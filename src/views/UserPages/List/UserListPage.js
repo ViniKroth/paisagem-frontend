@@ -197,19 +197,6 @@ class UserListPage extends Page {
                   Listagem de Usuários
                 </Typography>
                 <br />
-                <Grid container spacing={24}>
-                  <Grid item xs={12} sm={6}>
-                    <div className={classes.grow} />
-                    <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                       
-                      </div>
-                      
-                     
-                    </div>
-                  </Grid>
-                 
-                </Grid>
               </div>
             </div>
             <div className={classNames(classes.layout, classes.cardGrid)}>
@@ -222,8 +209,6 @@ class UserListPage extends Page {
             </div>
             
           </Paper> 
-          {
-          console.log("jjj",this.state)}
         </main>
       </React.Fragment>
     );
