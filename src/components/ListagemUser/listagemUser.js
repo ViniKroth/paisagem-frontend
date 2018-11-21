@@ -46,59 +46,35 @@ class ListagemUser extends Page {
                             </Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <div>
-                                <Typography color="primary">
-                                    E-mail:
+                            <Grid container spacing={24}>
+                            <Grid item xs>
+                                    <Typography color="primary" className={classes.heading}>
+                                        E-mail:
                      </Typography>
-                                <Typography>
-                                    {infos.email}
-                                </Typography>
-                            </div>
+                                    <Typography>
+                                        {infos.email}
+                                    </Typography>
+                                </Grid>
 
-                            <div>
-                                <Typography color="primary">
-                                    Usuário:
+                                <Grid item xs>
+                                    <Typography color="primary"className={classes.heading}>
+                                        Usuário:
                      </Typography>
-                                <Typography>
-                                    {infos.username}
-                                </Typography>
-                            </div>
-                            <div>
-                                <Typography color="primary">
-                                    Cargo:
+                                    <Typography>
+                                        {infos.username}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs>
+                                    <Typography color="primary"className={classes.heading}>
+                                        Cargo:
                      </Typography>
-                     <Typography>
-                                    {infos.cargo}
-                                </Typography>
-                            </div>
-
+                                    <Typography>
+                                        {infos.cargo}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-                    /* <List component="nav">
-                         <Grid container spacing={64}>
-                         <Grid item xs={12} sm={20}>
-                             <ListItem>
-                             <Typography variant="h7" color="primary">
-                              Nome:
-                             </Typography>
-                                 <ListItemText primary={infos.nome}/>
-                             <Typography variant="h7" color="primary">
-                              E-mail:
-                             </Typography>
-                                 <ListItemText primary={infos.email} />
-                             <Typography variant="h7" color="primary">
-                              Usuário:
-                             </Typography>
-                                 <ListItemText primary={infos.username} />
-                             <Typography variant="h7" color="primary">
-                              Cargo:
-                             </Typography>
-                                 <ListItemText primary={infos.cargo} />
-                             </ListItem>
-                             </Grid>
-                             </Grid>
-                         <Divider />
-                     </List>*/
                 ))}
             </div>
         );
