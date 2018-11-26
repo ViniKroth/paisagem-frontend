@@ -53,12 +53,14 @@ class ImageComponent extends React.Component {
             Image.append('tipo', this.state.tipoImg); // tipo da imagem
             Image.append('imagem', this.state.file); // arquivo em si
             Image.append('nomeImagem', this.state.file.name); //nome do arquivo
+            if(this.state.file.type!=null && this.state.file.type!=undefined){
             Image.append('nome', md5(this.state.imagePreviewUrl) + "." + this.state.file.type.split("image/")[1]); //nome a ser salvo no banco
             imageUploadAtual.imageUpload.push(Image);
             
             this.setState({ imageUploadAtual })
             this.props.handleChangeImage(Image);      
             this.checkEnviar();
+            }
     }
     checkEnviar(){
         var imagem=0;

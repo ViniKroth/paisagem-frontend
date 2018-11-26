@@ -14,6 +14,7 @@ import Input from "@material-ui/core/Input";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { listAll } from "../../services/especies/especies";
 import { get } from "../../services/nomesPopulares/nomesPopulares";
+import { read } from '../../services/familia/familia';
 import ListaComImagem from "../../components/ListagemEspecie/ListaComImagem";
 import ListaSImagem from "../../components/ListagemEspecie/ListaSImagem";
 
@@ -154,7 +155,10 @@ class ListagemEspecie extends Page {
               (item.nome_popular.length > 0 &&
                 item.nome_popular.some(nomePop =>
                   nomePop.nome.startsWith(nome)
-                ))
+                )|| item.nome_familia && item.nome_familia.startsWith(nome) || 
+                item.porte && item.porte.startsWith(nome)||item.folhagem && item.folhagem.startsWith(nome) ||
+                item.origem && item.origem.startsWith(nome)
+              )
             );
           })
         };
@@ -175,24 +179,27 @@ class ListagemEspecie extends Page {
       result.map(async e => {
         var id = e["id_especie"];
         var nomeCien = e["nome_cientifico"];
+        var idFamilia = e["id_familia"];
         var nomesPopulares = await get(id);
         var nomePop = nomesPopulares;
-        var nomeFam = e["nome_familia"];
         var folha = e["folhagem"];
         var ori = e["origem"];
         var port = e["porte"];
         var fot = e["foto"];
-
+        var resFamilia = await read(idFamilia);
+        resFamilia = resFamilia.nome;
+        
         var especie = {
           id,
           nome_cientifico: nomeCien,
           nome_popular: nomePop,
-          nome_familia: nomeFam,
+          nome_familia: resFamilia,
           folhagem: folha,
           origem: ori,
           porte: port,
           foto: fot
         };
+        console.log(especie.nome_familia)
         this.setState({
           especies: [...this.state.especies, especie],
           especiesAll: [...this.state.especies, especie]

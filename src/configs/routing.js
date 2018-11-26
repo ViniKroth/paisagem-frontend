@@ -23,7 +23,12 @@ const ListagemEspecie = ViewWrapper("ListagemEspecie/ListagemEspecie");
 const ListagemFamilia = ViewWrapper("ListagemFamilia/ListagemFamilia");
 const CadastroFamilia = ViewWrapper("CadastroFamilia/CadastroFamilia");
 const CadastroIndividuo = ViewWrapper("CadastroIndividuo/CadastroIndividuo");
+
+
+
+
 const FaleConosco = ViewWrapper("FaleConosco/FaleConosco");
+
 export default () => (
   <main>
     <Switch>

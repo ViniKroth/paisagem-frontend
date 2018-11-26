@@ -112,7 +112,7 @@ class HomePage extends Page {
                   <Grid item xs={6}>
                     <Button
                       variant="contained"
-                      size="large"
+                      size="medium"
                       color="primary"
                       onClick={() => this.redirect("/especies/listas")}
                       className={classes.button}
@@ -123,7 +123,7 @@ class HomePage extends Page {
                   <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/especies/cadastro")}
                     className={classes.button}
@@ -134,7 +134,7 @@ class HomePage extends Page {
                   <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/familia/cadastro")}
                     className={classes.button}
@@ -145,7 +145,7 @@ class HomePage extends Page {
                   <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/users/edit")}
                     className={classes.button}
@@ -153,10 +153,23 @@ class HomePage extends Page {
                     Cadastro de Usuário
                   </Button>
                   </Grid>
-                  <Grid item xs={12}>
+
+                  <Grid item xs={6}>
+                    <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={() => this.redirect("/users/list")}
+                    className={classes.button}
+                  >
+                    Listagem de Usuário
+                  </Button>
+                </Grid>
+                  
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/individuos/cadastro")}
                     className={classes.button}
@@ -165,6 +178,7 @@ class HomePage extends Page {
                   </Button>
                   </Grid>
                 </Grid>
+
               </Paper>
             </Grid>
           </Grid>
@@ -226,7 +240,7 @@ class HomePage extends Page {
                 <div>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/login")}
                     className={classes.button}
@@ -238,7 +252,7 @@ class HomePage extends Page {
 
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/especies/listas")}
                     className={classes.button}
