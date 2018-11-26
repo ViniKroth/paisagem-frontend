@@ -108,14 +108,13 @@ class DetalheEspecie extends Page {
         };
     }
 
-    componentDidMount(){
-            this.criaEspecie();
+    componentDidMount= async () => {
+            await this.criaEspecie();
     }
     criaEspecie = async () => {
         var result = await readE(this.props.match.params.id);
         var resNomesPopulares = await get(this.props.match.params.id);
         var especie = result;
-        console.log(especie)
         var idFamilia = especie["id_familia"]
         var resFamilia = await read(idFamilia);
         resFamilia = resFamilia.nome;
