@@ -65,9 +65,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
@@ -76,15 +75,15 @@ class HomePage extends Page {
               <Paper className={classes.paper}>
                 <Grid item xs={12}>
                   <img className={classes.logo} src={require("./logo2.PNG")} />
-                  <Typography variant="display3" align="center" color="primary">
+                  {/* <Typography variant="display3" align="center" color="grey">
                     O que é o projeto Paisagem
                   </Typography>
-                  <br />
+                  <br /> */}
 
                   <Typography
                     variant="Headline"
                     align="justify"
-                    color="primary"
+                    color="textSecondary"
                   >
                     O projeto Paisagem surgiu a partir de uma demanda da
                     professora Drª.Maria Alice Medeiros Dias do curso de
@@ -109,39 +108,77 @@ class HomePage extends Page {
                 </Grid>
                 <br />
                 <br />
-                <div>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    color="primary"
-                    onClick={() => this.redirect("/especies/listas")}
-                    className={classes.button}
-                  >
-                    Listagem de Especie
+                <Grid container spacing={24}>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="primary"
+                      onClick={() => this.redirect("/especies/listas")}
+                      className={classes.button}
+                    >
+                      Listagem de Especie
                   </Button>
-
+                  </Grid>
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
-                    onClick={() =>
-                      this.redirect("/especies/cadastro")
-                    }
+                    onClick={() => this.redirect("/especies/cadastro")}
                     className={classes.button}
                   >
                     Cadastro de Espécies
                   </Button>
-
+                  </Grid>
+                  <Grid item xs={6}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/familia/cadastro")}
                     className={classes.button}
                   >
                     Cadastro de Famílias
                   </Button>
-                </div>
+                  </Grid>
+                  <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={() => this.redirect("/users/edit")}
+                    className={classes.button}
+                  >
+                    Cadastro de Usuário
+                  </Button>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={() => this.redirect("/users/list")}
+                    className={classes.button}
+                  >
+                    Listagem de Usuário
+                  </Button>
+                </Grid>
+                  
+                  <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={() => this.redirect("/individuos/cadastro")}
+                    className={classes.button}
+                  >
+                    Cadastro de Indivíduo
+                  </Button>
+                  </Grid>
+                </Grid>
+
               </Paper>
             </Grid>
           </Grid>
@@ -157,9 +194,8 @@ class HomePage extends Page {
     return (
       <div
         style={{
-          height: "94vh",
-          backgroundImage: `url(${img})`,
-          height: "70%"
+          height: "100%",
+          backgroundImage: `url(${img})`
         }}
       >
         <main className={classes.layout}>
@@ -204,7 +240,7 @@ class HomePage extends Page {
                 <div>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
                     onClick={() => this.redirect("/login")}
                     className={classes.button}
@@ -212,15 +248,19 @@ class HomePage extends Page {
                     login
                   </Button>
 
+
+
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     color="primary"
-                    onClick={() => this.redirect("/listagemEspecie")}
+                    onClick={() => this.redirect("/especies/listas")}
                     className={classes.button}
                   >
                     Listagem de Especie
                   </Button>
+
+
                 </div>
               </Paper>
             </Grid>

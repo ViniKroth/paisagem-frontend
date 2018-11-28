@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import ImageComponent from "components/UploadImg/ImageComponent.js";
 const styles = theme => ({
   layout: {
@@ -42,12 +45,33 @@ const styles = theme => ({
 class ImageForm extends React.Component {
   constructor() {
     super();
+    this.state = {
+      blocksave:true
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onSubmit();
+    //this.props.onSubmit();
+    if(!this.state.blocksave){
+      this.props.onSubmit();
+    }
+    else{
+      this.notify(3);
+      this.notify(4,"É preciso uma fotografia e uma imagem da espécie para concluir!");
+    }
+    
+  }
+  changeblocksave = bool => {
+    var newState = this.state;
+    newState.blocksave = bool;
+    
+    this.setState(
+      newState
+    );
+
     
   }
 
@@ -56,7 +80,24 @@ class ImageForm extends React.Component {
     this.props.onBack();
   }
 
-
+  notify(n, desc){
+    switch (n) {
+      case 1:
+        toast.success("Especie Cadastrada com Sucesso.");
+        break;
+      case 2:
+        toast.error("Um ou mais campos não estão preenchidos.");
+        break;
+      case 3:
+        toast.dismiss();
+        break;
+      case 4:
+        toast.error(desc);
+        break;
+      default:
+        toast("Isso foi clicado mas não fez nada.");
+    }
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -64,6 +105,9 @@ class ImageForm extends React.Component {
         
         <Typography variant="title" gutterBottom>
             Imagens
+          </Typography>
+          <Typography variant="caption" gutterBottom>
+            Selecione uma fotografia e um desenho representativo da espécie (Obrigatório).
           </Typography>
      
      
@@ -74,8 +118,7 @@ class ImageForm extends React.Component {
                
                   <ImageComponent 
                     handleChangeImage = {this.props.handleChangeImage}
-                    qntImagensError= {this.props.qntImagensError}
-                  
+                    changeblocksave= {this.changeblocksave}
                   />
                   
               
@@ -107,6 +150,19 @@ class ImageForm extends React.Component {
             </Grid>
         </form>
         
+        <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={true}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
+          {/* Same as */}
+          <ToastContainer />
       </React.Fragment>
       
       

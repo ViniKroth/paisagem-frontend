@@ -12,10 +12,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Switch from '@material-ui/core/Switch';
-
+import md5 from 'md5';
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import { ToastContainer, toast } from 'react-toastify';
 
 const styles = theme => ({
     buttons: {
@@ -34,39 +35,59 @@ class ImageComponent extends React.Component {
         this.state = {
             file: {},
             imagePreviewUrl: '',
-            qntImagensError: false,
+            //qntImagensError: false,
             imageUpload: [],
             tipoImg: "imagem" , //tipo da imagem atual
         };
+        this._handleSubmit = this._handleSubmit.bind(this);
     }
-    //Função acionada quando clicado no upload
+    
+    emptyState = this.state;
     _handleSubmit(e) {
         e.preventDefault();
-        //Aqui vai ser feito o upload para a api e depois inserido no banco
-        this.setState({qntImagensError : false})
-        //Tu não consegue alterar nada do state direto, tu teria que fazer diferente
-        // this.state.imageUpload.push(this.state.file); <-- Aqui, linha 21
        
-            var imageUploadAtual = this.state.imageUpload //Pega o status atual
-            this.state.file.tipo = this.state.tipoImg //pega o tipo de imagem do componente switch
-            imageUploadAtual.push(this.state.file) //Na parte do file tanto faz usar o stateAtual ou o this.state
-
-            this.setState({ imageUpload: imageUploadAtual }, () => {
-                //Passei teus console.log pra ca, pq o setState é assincrono, ele não roda exatamente em ordem, e assim tu garante que ele vai chamar o console depois que terminar o setState
-                //console.log(this.state.imageUpload)
-                console.log('UPLOAD', this.state.file);
-            });
-            this.props.handleChangeImage(this.state);
-       
+            var md5 = require('md5');
+            var imageUploadAtual = this.state; 
+           
+            var Image = new FormData();          
+            Image.append('tipo', this.state.tipoImg); // tipo da imagem
+            Image.append('imagem', this.state.file); // arquivo em si
+            Image.append('nomeImagem', this.state.file.name); //nome do arquivo
+            if(this.state.file.type!=null && this.state.file.type!=undefined){
+            Image.append('nome', md5(this.state.imagePreviewUrl) + "." + this.state.file.type.split("image/")[1]); //nome a ser salvo no banco
+            imageUploadAtual.imageUpload.push(Image);
+            
+            this.setState({ imageUploadAtual })
+            this.props.handleChangeImage(Image);      
+            this.checkEnviar();
+            }
     }
-
+    checkEnviar(){
+        var imagem=0;
+        var desenho=0;
+        for(var i=0;i< this.state.imageUpload.length; i++){
+            var tipo = this.state.imageUpload[i].get("tipo");
+            if(tipo == "imagem" ){ imagem = imagem +1}else{ desenho = desenho +1};
+        }
+           
+        if(imagem == 1 && desenho == 1){
+            this.props.changeblocksave(false);
+            //toast.success("Ok, você cadastrou uma imagem e um desenho para a espécie");
+        }else if(imagem >1 && desenho >1){
+            this.props.changeblocksave(true);
+            toast.error("Adicione apenas uma imagem e um desenho.");
+        }
+        else{
+            this.props.changeblocksave(true);
+        }
+    }
     _handleImageChange(e) {
         e.preventDefault();
 
         //leitura do arquivo (função pronta)
         let reader = new FileReader();
         let file = e.target.files[0];
-
+        console.log (file.type);
         reader.onloadend = () => {
 
             //console.log(file)
@@ -85,14 +106,15 @@ class ImageComponent extends React.Component {
         document.getElementById('imgTable').deleteRow(i);
 
         for (var j = 0; j < this.state.imageUpload.length; j++) {
-            if (this.state.imageUpload[j] === row.state.file) {
+            if (this.state.imageUpload[j].get("imagem") === row.state.file) {
                 var list = this.state.imageUpload.splice(j, 1);
                 this.setState({ imageUpload: list })
-                //console.log('AQUI', this.state.imageUpload)
             }
         }
-
+        this.checkEnviar();
     }
+
+
     handleChangeTipoImg = name => event => {
         if(event.target.checked){
             this.setState({ [name]: "desenho" });
@@ -117,10 +139,10 @@ class ImageComponent extends React.Component {
             [].concat(this.state.imageUpload).map((dado, i) => {
                 return <TableRow key={i}>
                     <TableCell>
-                        {dado.name}
+                        {dado.get("nomeImagem")}
                     </TableCell>
                     <TableCell>
-                        {dado.tipo}
+                        {dado.get("tipo")}
                     </TableCell>
                     <TableCell>
                         <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={(e) => this._handleDelete(this)}>
@@ -200,6 +222,19 @@ class ImageComponent extends React.Component {
                 }
 
             </div>
+            <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+                  />
+                  {/* Same as */}
+              <ToastContainer />
             </Grid>
             </Grid>
             

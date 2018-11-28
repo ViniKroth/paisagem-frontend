@@ -8,7 +8,7 @@ export const create = async especie => {
   const params = {
     ...especie
   };
-  console.log(params);
+  
   const response = await axios({
     method: "post",
     url: `${api}/especies`,
@@ -33,7 +33,37 @@ export const create = async especie => {
   }
 };
 
-export const read = async id => {
+
+export const createIndividuo = async individuo => {
+  const params = {
+    ...individuo
+  };
+  
+  const response = await axios({
+    method: "post",
+    url: `${api}/especies/cadastro/individuo`,
+    data: params,
+    timeout: 5000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+  if (response) {
+    const api_response = response.data;
+    if (api_response.data) {
+      return response.data;
+    } else {
+      return {
+        statusDesc: "Erro obtendo resposta do servidor.",
+        statusCode: HTTPStatusCodes.InternalServerError
+      };
+    }
+  }
+};
+
+export const readE = async id => {
   const response = await axios({
     method: "get",
     url: `${api}/especies/${id}`,
@@ -44,7 +74,6 @@ export const read = async id => {
     }
   });
 
-  console.log(response)
 
   if (response) {
     const api_response = response.data;
@@ -62,7 +91,6 @@ export const update = async especie => {
     ...especie
   };
 
-  console.log(params);
   const response = await axios({
     method: "put",
     url: `${api}/especies`,
@@ -97,11 +125,35 @@ export const listAll = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
   });
-  console.log(response)
 
   if (response) {
     const api_response = response.data;
     return api_response.data;
+  } else {
+    return {
+      statusDesc: "Erro obtendo resposta do servidor.",
+      statusCode: HTTPStatusCodes.InternalServerError
+    };
+  }
+};
+
+
+
+export const listIndividuosByEspecie = async id =>{
+  const response = await axios({
+    method: "get",
+    url: `${api}/especies/individuo/${id}`,
+    timeout: 5000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+
+  if (response) {
+    const api_response = response.data;
+    return api_response;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",

@@ -1,33 +1,43 @@
 import React from "react";
 import "./styles.css";
 
-import { validToken } from "services/auth/auth";
+import PropTypes from "prop-types";
 
 // Internal Components
 import Header from "components/Header/Header";
-import LoginContext from "../../components/Context/LoginContext/LoginContext";
-import AppContext from "../../components/Context/AppContext";
 
 class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      headerVisible: true // por padrão mostra o header nas páginas
-    };
-  }
+  static propTypes = {
+    isAuthenticated: PropTypes.func.isRequired,
+    headerVisible: PropTypes.bool.isRequired,
+    setLoaded: PropTypes.func.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
+    userData: PropTypes.any
+  };
 
   /*
-     *  Helpers
-     */
-
+   *  Helpers
+   */
   redirect = path => {
     const { history } = this.props;
     history.push(path);
   };
 
+  setLoaded = loaded => {
+    this.props.setLoaded(loaded);
+  };
+
+  setSnackbar = ({ message = "", variant = "info" }) => {
+    this.props.setSnackbar({ message, variant });
+  };
+
+  isAuthenticated = () => {
+    return this.props.isAuthenticated();
+  };
+
   /*
-     *  Views
-     */
+   *  Views
+   */
   authenticated = () => {
     return (
       <div className="container">
@@ -50,36 +60,19 @@ class Page extends React.Component {
     );
   };
 
-  loading = () => {
-    return (
-      <div className="container">
-        <p>Carregando pagina. Aguarde...</p>
-      </div>
-    );
-  };
-
+  /*
+   * Render
+   */
   render() {
+    const { headerVisible } = this.props;
+
     return (
-      <AppContext.Consumer>
-        {appValue => {
-          const { headerVisible } = appValue;
-          return (
-            <LoginContext.Consumer>
-              {loginValue => {
-                const { isAuthenticated } = loginValue;
-                return (
-                  <React.Fragment>
-                    <Header display={headerVisible} />
-                    {!isAuthenticated()
-                      ? this.unauthenticated()
-                      : this.authenticated()}
-                  </React.Fragment>
-                );
-              }}
-            </LoginContext.Consumer>
-          );
-        }}
-      </AppContext.Consumer>
+      <React.Fragment>
+        <Header display={headerVisible} />
+        {!this.isAuthenticated()
+          ? this.unauthenticated()
+          : this.authenticated()}
+      </React.Fragment>
     );
   }
 }

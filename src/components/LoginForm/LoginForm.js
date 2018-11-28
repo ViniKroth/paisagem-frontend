@@ -46,7 +46,8 @@ const styles = theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     }
-  }
+  },
+    typography: {}
 });
 
 class LoginForm extends React.Component {
@@ -55,7 +56,6 @@ class LoginForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      isLoading: false,
       errors: {}
     };
 
@@ -123,6 +123,12 @@ class LoginForm extends React.Component {
                           onChange={this.onChange}
                           error={errors.username}
                           valume={username}
+                          //Handler para logar ao apertar enter
+                          onKeyPress={e =>
+                            e.key === "Enter"
+                              ? this.onSubmit(authService.login)
+                              : null
+                          }
                         />
 
                         <br />
@@ -135,6 +141,12 @@ class LoginForm extends React.Component {
                           value={password}
                           error={errors.password}
                           type="password"
+                          //Handler para logar ao apertar enter
+                          onKeyPress={e =>
+                            e.key === "Enter"
+                              ? this.onSubmit(authService.login)
+                              : null
+                          }
                         />
                         <br />
                         <Button

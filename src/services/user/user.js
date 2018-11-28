@@ -11,7 +11,7 @@ export const create = async (user, encryptPassword) => {
       ? crypto.SHA256(user.password).toString()
       : user.password
   };
-  console.log(params);
+
   const response = await axios({
     method: "post",
     url: `${api}/users`,
@@ -66,7 +66,6 @@ export const update = async (user, encryptPassword) => {
       : user.password
   };
 
-  console.log(params);
   const response = await axios({
     method: "put",
     url: `${api}/users`,

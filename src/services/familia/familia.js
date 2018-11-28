@@ -6,7 +6,6 @@ export const create = async familia => {
   const params = {
     ...familia
   };
-  console.log(params);
   const response = await axios({
     method: "post",
     url: `${api}/familias`,
@@ -41,10 +40,11 @@ export const read = async id => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
   });
-
+  
   if (response) {
     const api_response = response.data;
-    return api_response.data;
+    console.log(api_response)
+    return api_response;
   } else {
     return {
       statusDesc: "Erro obtendo resposta do servidor.",
@@ -58,7 +58,6 @@ export const update = async familia => {
     ...familia
   };
 
-  console.log(params);
   const response = await axios({
     method: "put",
     url: `${api}/familias`,

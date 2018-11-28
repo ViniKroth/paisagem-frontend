@@ -38,6 +38,7 @@ class LocalizacaoIndividuo extends Component {
           <MapWithAMarker
             isMarkerShown={this.props.isMarkerShown}
             currentLocation={this.props.currentLocation}
+            DefaultLocation={this.props.DefaultLocation}
             onPositionChanged={this.props.onPositionChanged}
             onMarkerMounted={this.props.onMarkerMounted}
             />
@@ -63,9 +64,9 @@ class LocalizacaoIndividuo extends Component {
                 onClick={e => this.handleSubmit(e)}
                 variant="contained"
                 fullWidth
-                //color="primary"
+                color="primary"
               >
-                OK, PROXIMO
+                OK, PRÓXIMO
               </Button>
             </Grid>
           </Grid>
