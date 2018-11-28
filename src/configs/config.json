@@ -6,6 +6,6 @@
     "api_url": "http://localhost:4501/api"
   },
   "production": {
-    "api_url": "http://www.hml.ages.pucrs.br:4501/api"
+    "api_url": "https://www.hml.ages.pucrs.br:4501/api"
   }
 }
