@@ -1,9 +1,9 @@
 {
   "development": {
-    "api_url": "https://www.hml.ages.pucrs.br:4503/api"
+    "api_url": "http://localhost:4503/api"
   },
   "hml": {
-    "api_url": "http://localhost:4501/api"
+    "api_url": "https://www.hml.ages.pucrs.br:4503/api"
   },
   "production": {
     "api_url": "https://www.hml.ages.pucrs.br:4503/api"
